@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Slider;
+use App\Traits\HomeTrait;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public function index()
+    use HomeTrait;
+
+    public function index() : View
     {
-        $sliders = Slider::where(['is_on_main' => true])->get();
-        return view('frontend.index', ['sliders' => $sliders]);
+        $data = $this->dataForIndexPage();
+        return view('frontend.index', $data);
     }
 }
