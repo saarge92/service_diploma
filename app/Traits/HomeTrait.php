@@ -3,6 +3,7 @@ namespace App\Traits;
 
 use App\Slider;
 use App\About;
+use App\Service;
 
 /**
  * Трейт для работы с данными на главной странице (frontend)
@@ -27,7 +28,13 @@ trait HomeTrait
         $abouts = About::all()->first();
         $abouts ? $aboutFeatures = explode(',', $abouts->description) :
             $aboutFeatures = ['Автоматизация бизнеса', 'Интеграция торговых платформ'];
-        $data = array('sliders' => $sliders, 'about' => $abouts, 'aboutFeatures' => $aboutFeatures);
+        $services = Service::all()->take(6);
+        $data = array(
+            'sliders' => $sliders,
+            'about' => $abouts,
+            'aboutFeatures' => $aboutFeatures,
+            'services' => $services
+        );
         return $data;
     }
 }
