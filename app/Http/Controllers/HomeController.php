@@ -12,7 +12,7 @@ class HomeController extends Controller
 
     public function index() : View
     {
-        $data = $this->dataForIndexPage();
+        $data = $this->getDataForIndexPage();
         return view('frontend.index', $data);
     }
 }

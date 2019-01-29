@@ -16,7 +16,7 @@
                         <div class="services-details">
                             <div class="single-services">
                                 <a class="services-icon" href="#">
-                                <img src="{{Storage::url($service->path)}}" class="img img-responsive">
+                                <img src="{{Storage::url($service->path)}}" class="service-img">
                                 </a>
                                 <h4>{{$service->title}}</h4>
                                 <p>
