@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\HomeTrait;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
-
+use Illuminate\Support\Facades\Session;
 /**
  * Контроллер для работы с главной страницей
  * 
@@ -37,5 +37,17 @@ class HomeController extends Controller
         $cart = $this->addToCartItem($id);
         $request->session()->put('cart', $cart);
         return response()->json(['count' => $cart->totalQty]);
+    }
+
+    /**
+     * Получение списка услуг в корзине
+     */
+    public function getShoppingCart() : View
+    {
+        if (!Session::has('cart')) {
+            return view('frontend.shoppingCartView');
+        }
+        $cartInfo = $this->getCartInfo();
+        return view('frontend.shoppingCartView', $cartInfo);
     }
 }

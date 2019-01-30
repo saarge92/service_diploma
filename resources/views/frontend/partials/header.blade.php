@@ -27,7 +27,7 @@
                         <div class="collapse navbar-collapse main-menu bs-example-navbar-collapse-1" id="navbar-example">
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="active">
-                                    <a class="page-scroll" href="#home"><i class="fa fa-home"></i>Домой</a>
+                                    <a class="page-scroll" href="{{route('frontend.home').'#home'}}"><i class="fa fa-home"></i>Домой</a>
                                 </li>
                                 <li>
                                     <a class="page-scroll" href="#about"><i class="fa fa-info" aria-hidden="true"></i>О нас</a>
@@ -39,7 +39,7 @@
                                     <a class="page-scroll" href="#team">Команда</a>
                                 </li>
                                 <li>
-                                    <a class="page-scroll" href="#portfolio">
+                                    <a class="page-scroll" href="{{route('frontend.getShoppingCart')}}">
                                         <i class="fa fa-shopping-basket"></i>
                                         <span id="count_order">{{!Session::has('cart')||Session::get('cart')->totalQty==0  ? '': Session::get('cart')->totalQty}}
                                         </span>

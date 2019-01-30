@@ -20,4 +20,8 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'HomeController@addToCart',
         'as' => 'frontend.addToCart'
     ]);
+    Route::get('/get-shopping-cart/', [
+        'uses' => 'HomeController@getShoppingCart',
+        'as' => 'frontend.getShoppingCart'
+    ]);
 });

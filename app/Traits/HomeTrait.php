@@ -56,4 +56,18 @@ trait HomeTrait
         }
         return $oldCart;
     }
+
+    /**
+     * Получение информации о корзине
+     */
+    public function getCartInfo() : array
+    {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $result = array(
+            'orders' => $cart->items,
+            'totalPrice' => $cart->totalPrice
+        );
+        return $result;
+    }
 }
