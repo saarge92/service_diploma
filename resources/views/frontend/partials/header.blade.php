@@ -36,10 +36,15 @@
                                     <a class="page-scroll" href="#services"><i class="fa fa-money" aria-hidden="true"></i>Услуги</a>
                                 </li>
                                 <li>
-                                    <a class="page-scroll" href="#team">Team</a>
+                                    <a class="page-scroll" href="#team">Команда</a>
                                 </li>
                                 <li>
-                                    <a class="page-scroll" href="#portfolio">Portfolio</a>
+                                    <a class="page-scroll" href="#portfolio">
+                                        <i class="fa fa-shopping-basket"></i>
+                                        <span id="count_order">{{!Session::has('cart')||Session::get('cart')->totalQty==0  ? '': Session::get('cart')->totalQty}}
+                                        </span>
+                                        Корзина
+                                    </a>
                                 </li>
 
                                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Drop Down<span class="caret"></span></a>
@@ -47,10 +52,6 @@
                                         <li><a href=#>Drop Down 1</a></li>
                                         <li><a href=#>Drop Down 2</a></li>
                                     </ul>
-                                </li>
-
-                                <li>
-                                    <a class="page-scroll" href="#blog">Blog</a>
                                 </li>
                                 <li>
                                     <a class="page-scroll" href="#contact">Contact</a>

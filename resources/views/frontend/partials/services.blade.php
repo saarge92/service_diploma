@@ -20,99 +20,22 @@
                                 </a>
                                 <h4>{{$service->title}}</h4>
                                 <p>
-                                   {{$service->content}}
+                                    {{$service->content}}
                                 </p>
                             </div>
                         </div>
                         <!-- end about-details -->
+                    </div>
+                    <div class="text-center">
+                        <button data-service_id="{{$service->id}}" data-toggle="modal" data-target="#infoModal" 
+                            class="orderService btn btn-danger">Заказать</button>
                     </div>
                 </div>
-                @endforeach @endforeach {{--
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="about-move">
-                        <div class="services-details">
-                            <div class="single-services">
-                                <a class="services-icon" href="#">
-                                        <i class="fa fa-camera-retro"></i>
-                                    </a>
-                                <h4>Creative Designer</h4>
-                                <p>
-                                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                                </p>
-                            </div>
-                        </div>
-                        <!-- end about-details -->
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <!-- end col-md-4 -->
-                    <div class=" about-move">
-                        <div class="services-details">
-                            <div class="single-services">
-                                <a class="services-icon" href="#">
-                                        <i class="fa fa-wordpress"></i>
-                                    </a>
-                                <h4>Wordpress Developer</h4>
-                                <p>
-                                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                                </p>
-                            </div>
-                        </div>
-                        <!-- end about-details -->
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <!-- end col-md-4 -->
-                    <div class=" about-move">
-                        <div class="services-details">
-                            <div class="single-services">
-                                <a class="services-icon" href="#">
-                                        <i class="fa fa-camera-retro"></i>
-                                    </a>
-                                <h4>Social Marketer </h4>
-                                <p>
-                                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                                </p>
-                            </div>
-                        </div>
-                        <!-- end about-details -->
-                    </div>
-                </div> 
-                    <!-- end col-md-4 -->
-                    <div class=" about-move">
-                        <div class="services-details">
-                            <div class="single-services">
-                                <a class="services-icon" href="#">
-                                        <i class="fa fa-bar-chart"></i>
-                                    </a>
-                                <h4>Seo Expart</h4>
-                                <p>
-                                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                                </p>
-                            </div>
-                        </div>
-                        <!-- end about-details -->
-                    </div>
-                </div>
-                <!-- End Left services -->
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <!-- end col-md-4 -->
-                    <div class=" about-move">
-                        <div class="services-details">
-                            <div class="single-services">
-                                <a class="services-icon" href="#">
-                                        <i class="fa fa-ticket"></i>
-                                    </a>
-                                <h4>24/7 Support</h4>
-                                <p>
-                                    will have to make sure the prototype looks finished by inserting text or photo.make sure the prototype looks finished by.
-                                </p>
-                            </div>
-                        </div>
-                        <!-- end about-details -->
-                    </div>
-                </div> --}}
+                @endforeach @endforeach
             </div>
+        </div>
+        <div class="text-center">
+            <a href="#" class="btn btn-primary">Все услуги</a>
         </div>
     </div>
 </div>

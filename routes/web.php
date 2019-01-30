@@ -9,9 +9,15 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
-Route::get('/', [
-    'uses' => 'HomeController@index',
-    'as' => 'frontend.home'
-]);
+Route::group(['middleware' => 'web'], function () {
+    Route::get('/', [
+        'uses' => 'HomeController@index',
+        'as' => 'frontend.home'
+    ]);
+    Route::post('/add-to-cart', [
+        'uses' => 'HomeController@addToCart',
+        'as' => 'frontend.addToCart'
+    ]);
+});

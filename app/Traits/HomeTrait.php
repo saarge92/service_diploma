@@ -4,6 +4,8 @@ namespace App\Traits;
 use App\Slider;
 use App\About;
 use App\Service;
+use App\Cart;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Трейт для работы с данными на главной странице (frontend)
@@ -36,5 +38,22 @@ trait HomeTrait
             'services' => $services
         );
         return $data;
+    }
+
+    /**
+     * Функция для добавления услуги в корзину
+     * 
+     * @param $id - номер услуги
+     */
+    public function addToCartItem($id) : Cart
+    {
+        $service = Service::find($id);
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        if ($service) {
+            $cart = new Cart($oldCart);
+            $cart->add($service, $service->id);
+            return $cart;
+        }
+        return $oldCart;
     }
 }
