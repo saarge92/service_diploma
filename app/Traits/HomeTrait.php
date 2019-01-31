@@ -5,6 +5,7 @@ use App\Slider;
 use App\About;
 use App\Service;
 use App\Cart;
+use App\Team;
 use Illuminate\Support\Facades\Session;
 
 /**
@@ -31,11 +32,13 @@ trait HomeTrait
         $abouts ? $aboutFeatures = explode('|', $abouts->description) :
             $aboutFeatures = ['Автоматизация бизнеса', 'Интеграция торговых платформ'];
         $services = Service::all()->take(6);
+        $teams = Team::all()->take(4);
         $data = array(
             'sliders' => $sliders,
             'about' => $abouts,
             'aboutFeatures' => $aboutFeatures,
-            'services' => $services
+            'services' => $services,
+            'teams' => $teams
         );
         return $data;
     }
