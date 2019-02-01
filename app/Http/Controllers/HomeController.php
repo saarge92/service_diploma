@@ -41,6 +41,8 @@ class HomeController extends Controller
 
     /**
      * Получение списка услуг в корзине
+     * 
+     * @return View возвращает страницу со списком заказанных услуг
      */
     public function getShoppingCart() : View
     {
@@ -49,5 +51,15 @@ class HomeController extends Controller
         }
         $cartInfo = $this->getCartInfo();
         return view('frontend.shoppingCartView', $cartInfo);
+    }
+
+    /**
+     * Уменьшение на 1 позицию в корзине
+     */
+    public function reduceItemRequest(Request $request)
+    {
+        $id = $request['orderId'];
+        $results = $this->reduceItem($id);
+        return response()->json(['updated_results' => $results], 200);
     }
 }

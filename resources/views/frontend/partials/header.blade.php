@@ -17,7 +17,7 @@
                                     <span class="icon-bar"></span>
                                 </button>
                             <!-- Brand -->
-                            <a class="navbar-brand page-scroll sticky-logo" href="index.html">
+                            <a class="navbar-brand page-scroll sticky-logo" href="{{route('frontend.home')}}">
                                 <h1><span>e</span>Business</h1>
                                 <!-- Uncomment below if you prefer to use an image logo -->
                                 <!-- <img src="img/logo.png" alt="" title=""> -->

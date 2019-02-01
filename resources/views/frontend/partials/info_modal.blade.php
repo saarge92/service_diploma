@@ -14,7 +14,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Продолжить</button>
-                <a href="#" class="btn btn-danger">Список покупок</a>
+            <a href="{{route('frontend.getShoppingCart')}}" class="btn btn-danger">Список покупок</a>
             </div>
         </div>
     </div>

@@ -1,3 +1,6 @@
+/**
+ * Обработчик нажатия кнопки "Заказать на главной странице"
+ */
 $(".orderService").click(function(event) {
     const serviceId = event.target.dataset["service_id"];
     const token = $("meta[name='csrf-token']").attr("content");

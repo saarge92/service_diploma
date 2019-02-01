@@ -73,4 +73,32 @@ trait HomeTrait
         );
         return $result;
     }
+
+    /**
+     * Уменьшение 1 позиции в корзине
+     * 
+     * @param int $id Id услуги в корзине
+     * @return array $newCartResult Возвращает параметры корзины
+     */
+    public function reduceItem(int $id) : array
+    {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $newCart = new Cart($oldCart);
+        $newCart->reduceByOne($id);
+        Session::put('cart', $newCart);
+        $newCartResult = $this->getUpdatedResult($newCartб, $id);
+        return $newCartResult;
+    }
+
+    /**
+     * Возвращает параметры карты
+     */
+    private function getUpdatedResult(Cart $cart, int $id) : array
+    {
+        $updated_results['count_of_element'] = isset($cart->items[$id]['qty']) ? $cart->items[$id]['qty'] : 0;
+        $updated_results['price'] = isset($cart->items[$id]['price']) ? $cart->items[$id]['price'] : 0;
+        $updated_results['totalQty'] = $cart->totalQty;
+        $updated_results['totalPrice'] = $cart->totalPrice;
+        return $updated_results;
+    }
 }

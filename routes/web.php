@@ -24,4 +24,8 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'HomeController@getShoppingCart',
         'as' => 'frontend.getShoppingCart'
     ]);
+    Route::post('/reduceByOne', [
+        'uses' => 'HomeController@reduceItemRequest',
+        'as' => 'guest.reduceItem'
+    ]);
 });

@@ -7,8 +7,9 @@
     @include('frontend.partials.about')
     @include('frontend.partials.services')
     @include('frontend.partials.team')
+    @include('frontend.partials.contact')
 @endsection
  
 @section('scripts')
-<script src="{{URL::asset('frontend/js/cart.js')}}"></script>
+<script src="{{URL::asset('frontend/js/cartMain.js')}}"></script>
 @endsection

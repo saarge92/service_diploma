@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="#" class="btn btn-primary">Все услуги</a>
+        <a href="#" class="btn btn-primary">Все услуги</a>
         </div>
     </div>
 </div>
