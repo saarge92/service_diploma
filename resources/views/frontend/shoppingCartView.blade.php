@@ -1,24 +1,24 @@
 @extends('layouts.frontend') 
 @section('title') Список услуг
 @endsection
-
+ 
 @section('styles')
 <style>
     .ajax-loader {
-    position: fixed;
-    top: 0;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    z-index: 10000;
-    padding-top: 300px;
-    vertical-align: middle;
-    color: red;
-    display: none;
-}
+        position: fixed;
+        top: 0;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        padding-top: 300px;
+        vertical-align: middle;
+        color: red;
+        display: none;
+    }
 </style>
 @endsection
-
+ 
 @section('content')
 <div id="shopInfo">
     @if(Session::has('cart') && Session::get('cart')->totalQty>0)
@@ -33,8 +33,8 @@
                         <span class="label label-success current_price">{{$order['price']}} р</span>
                         <div class="btn btn-group">
                             <ul class="list-inline">
-                                <li class="list-inline-item reduceOne"><i data-orderId="{{$order['item']['id']}}" class="fa fa-minus"></i></li>
-                                <li class="list-inline-item increaseItem"><i class="fa fa-plus" data-orderId="{{$order['item']['id']}}"></i></li>
+                                <li class="list-inline-item reduceOne"><i class="fa fa-minus" data-order_id="{{$order['item']['id']}}"></i></li>
+                                <li class="list-inline-item increaseItem"><i class="fa fa-plus " data-order_id="{{$order['item']['id']}}"></i></li>
                                 <li class="list-inline-item deleteAll"><i class="fa fa-trash" data-orderId="{{$order['item']['id']}}"></i></li>
                             </ul>
                         </div>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col col-md-12 col-sm-12 col-xs-12">
                 <strong><span id="totalPrice">Всего : {{$totalPrice}}</span></strong><br/>
             </div>
         </div>

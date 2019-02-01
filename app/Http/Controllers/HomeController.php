@@ -56,10 +56,19 @@ class HomeController extends Controller
     /**
      * Уменьшение на 1 позицию в корзине
      */
-    public function reduceItemRequest(Request $request)
+    public function reduceItemRequest(Request $request) : JsonResponse
     {
         $id = $request['orderId'];
         $results = $this->reduceItem($id);
         return response()->json(['updated_results' => $results], 200);
+    }
+    /**
+     * Увеличение на 1 позицию в корзине
+     */
+    public function increaseItemRequest(Request $request) : JsonResponse
+    {
+        $id = $request['orderId'];
+        $updated_results = $this->increaseItem($id);
+        return response()->json(['updated_results' => $updated_results], 200);
     }
 }

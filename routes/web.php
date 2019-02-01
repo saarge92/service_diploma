@@ -26,6 +26,10 @@ Route::group(['middleware' => 'web'], function () {
     ]);
     Route::post('/reduceByOne', [
         'uses' => 'HomeController@reduceItemRequest',
-        'as' => 'guest.reduceItem'
+        'as' => 'frontend.reduceItem'
+    ]);
+    Route::post('/increaseByOne', [
+        'uses' =>'HomeController@increaseItemRequest',
+        'as' => 'frontend.increaseItem'
     ]);
 });

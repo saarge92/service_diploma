@@ -86,8 +86,22 @@ trait HomeTrait
         $newCart = new Cart($oldCart);
         $newCart->reduceByOne($id);
         Session::put('cart', $newCart);
-        $newCartResult = $this->getUpdatedResult($newCartб, $id);
+        $newCartResult = $this->getUpdatedResult($newCart, $id);
         return $newCartResult;
+    }
+
+    /**
+     * Увеличение корзины на 1 позицию
+     * @param int $id - номер услуги в корзине
+     */
+    public function increaseItem(int $id) : array
+    {
+        $oldcart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldcart);
+        $cart->increaseByOne($id);
+        Session::put('cart', $cart);
+        $updated_results = $this->getUpdatedResult($cart, $id);
+        return $updated_results;
     }
 
     /**

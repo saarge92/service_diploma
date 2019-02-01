@@ -33,7 +33,7 @@
                                     <a class="page-scroll" href="#about"><i class="fa fa-info" aria-hidden="true"></i>О нас</a>
                                 </li>
                                 <li>
-                                    <a class="page-scroll" href="#services"><i class="fa fa-money" aria-hidden="true"></i>Услуги</a>
+                                    <a class="page-scroll" href="{{route('frontend.home').'#services'}}"><i class="fa fa-money" aria-hidden="true"></i>Услуги</a>
                                 </li>
                                 <li>
                                     <a class="page-scroll" href="#team">Команда</a>
