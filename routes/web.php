@@ -32,4 +32,8 @@ Route::group(['middleware' => 'web'], function () {
         'uses' =>'HomeController@increaseItemRequest',
         'as' => 'frontend.increaseItem'
     ]);
+    Route::post('/deleteItemRequest', [
+        'uses' => 'HomeController@deleteItemRequest',
+        'as' => 'frontend.deleteItem'
+    ]);
 });

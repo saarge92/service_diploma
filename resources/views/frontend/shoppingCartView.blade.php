@@ -24,7 +24,7 @@
     @if(Session::has('cart') && Session::get('cart')->totalQty>0)
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col col-md-12 col-sm-12 col-xs-12">
                 <ul class="list-group">
                     @foreach($orders as $order)
                     <li class="list-group-item">
@@ -35,7 +35,7 @@
                             <ul class="list-inline">
                                 <li class="list-inline-item reduceOne"><i class="fa fa-minus" data-order_id="{{$order['item']['id']}}"></i></li>
                                 <li class="list-inline-item increaseItem"><i class="fa fa-plus " data-order_id="{{$order['item']['id']}}"></i></li>
-                                <li class="list-inline-item deleteAll"><i class="fa fa-trash" data-orderId="{{$order['item']['id']}}"></i></li>
+                                <li class="list-inline-item deleteAll"><i class="fa fa-trash" data-order_id="{{$order['item']['id']}}"></i></li>
                             </ul>
                         </div>
                     </li>

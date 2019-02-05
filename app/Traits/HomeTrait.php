@@ -7,6 +7,7 @@ use App\Service;
 use App\Cart;
 use App\Team;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Session\SessionUtils;
 
 /**
  * Трейт для работы с данными на главной странице (frontend)
@@ -101,6 +102,20 @@ trait HomeTrait
         $cart->increaseByOne($id);
         Session::put('cart', $cart);
         $updated_results = $this->getUpdatedResult($cart, $id);
+        return $updated_results;
+    }
+
+    /**
+     * Удаление услуги полностью
+     */
+    public function deleteItem(int $id) : array
+    {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->reduceItem($id);
+        Session::put('cart', $cart);
+        $updated_results['totalQty'] = $cart->totalQty;
+        $updated_results['totalPrice'] = $cart->totalPrice;
         return $updated_results;
     }
 

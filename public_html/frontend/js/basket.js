@@ -37,10 +37,12 @@ $(".reduceOne").click(function(event) {
                 $("#totalPrice")
                     .closest(".col")
                     .append(
-                        $('<a class="btn btn-success" href=' +
-                            '/#services' +
-                            ">Перейти к услугам</a>"
-                    ));
+                        $(
+                            '<a class="btn btn-success" href=' +
+                                "/#services" +
+                                ">Перейти к услугам</a>"
+                        )
+                    );
             } else {
                 $("#totalPrice").text("Всего : " + totalPrice);
                 $("#count_order").text(totalQty);
@@ -78,6 +80,46 @@ $(".increaseItem").click(function(event) {
                 .closest(".list-group-item")
                 .querySelector(".current_price").textContent = currentPrice;
             $("#totalPrice").text("Всего : " + totalPrice);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+/**
+ * Удаление польностью
+ */
+$(".deleteAll").on("click", function(event) {
+    var _id = event.target.dataset["order_id"];
+    console.log(_id);
+    var token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        method: "POST",
+        url: "/deleteItemRequest",
+        data: {
+            orderId: _id,
+            _token: token
+        },
+        success: function(json) {
+            event.target.closest(".list-group-item").remove();
+            var totalQty = json["updated_results"]["totalQty"];
+            var totalPrice = json["updated_results"]["totalPrice"];
+            if (totalQty <= 0) {
+                $("#count_order").text("");
+                $("#totalPrice").text("Выбранные заявки отсутствуют");
+                $("#commit_order").remove();
+                $("#totalPrice")
+                    .closest(".col")
+                    .append(
+                        '<a class="btn btn-success" href=' +
+                            '"/#services' +
+                            ">Перейти к услугам</a>"
+                    );
+            } else {
+                $("#totalPrice").text("Всего : " + totalPrice);
+                $("#count_order").text(totalQty);
+            }
         },
         error: function(error) {
             console.log(error);

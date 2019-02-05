@@ -71,4 +71,14 @@ class HomeController extends Controller
         $updated_results = $this->increaseItem($id);
         return response()->json(['updated_results' => $updated_results], 200);
     }
+
+    /**
+     * Удаление услуги полностью
+     */
+    public function deleteItemRequest(Request $request) : JsonResponse
+    {
+        $id = $request['orderId'];
+        $results = $this->deleteItem($id);
+        return response()->json(['updated_results' => $results], 200);
+    }
 }
