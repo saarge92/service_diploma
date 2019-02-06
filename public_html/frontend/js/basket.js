@@ -92,7 +92,6 @@ $(".increaseItem").click(function(event) {
  */
 $(".deleteAll").on("click", function(event) {
     var _id = event.target.dataset["order_id"];
-    console.log(_id);
     var token = $("meta[name='csrf-token']").attr("content");
     $.ajax({
         method: "POST",
@@ -112,9 +111,11 @@ $(".deleteAll").on("click", function(event) {
                 $("#totalPrice")
                     .closest(".col")
                     .append(
-                        '<a class="btn btn-success" href=' +
-                            '"/#services' +
-                            ">Перейти к услугам</a>"
+                        $(
+                            '<a class="btn btn-success" href=' +
+                                "/#services" +
+                                ">Перейти к услугам</a>"
+                        )
                     );
             } else {
                 $("#totalPrice").text("Всего : " + totalPrice);

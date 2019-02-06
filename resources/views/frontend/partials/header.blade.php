@@ -36,7 +36,7 @@
                                     <a class="page-scroll" href="{{route('frontend.home').'#services'}}"><i class="fa fa-money" aria-hidden="true"></i>Услуги</a>
                                 </li>
                                 <li>
-                                    <a class="page-scroll" href="#team">Команда</a>
+                                    <a class="page-scroll" href="#team"> <i class="fa fa-users"></i> Команда</a>
                                 </li>
                                 <li>
                                     <a class="page-scroll" href="{{route('frontend.getShoppingCart')}}">
@@ -46,15 +46,36 @@
                                         Корзина
                                     </a>
                                 </li>
-
-                                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Drop Down<span class="caret"></span></a>
+                                @if(Auth::check())
+                                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        Привет, {{Auth::user()->name}}
+                                        <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href=#>Drop Down 1</a></li>
-                                        <li><a href=#>Drop Down 2</a></li>
+                                        <li><a href=#>Профиль</a></li>
+                                        <li><a href=#>Заявки</a></li>
+                                        <li> <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                          document.getElementById('logout-form').submit();">
+                                             {{ __('Выйти') }}
+                                         </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </li>
                                     </ul>
                                 </li>
+                                @else
+                                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                       <i class="fa fa-user"></i> Пользователь
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="{{route('register')}}"> <i class="fa fa-user-plus"></i> Регистрация</a></li>
+                                        <li><a href="{{route('login')}}"> <i class="fa fa-sign-in"></i> Войти</a></li>
+                                    </ul>
+                                </li>
+                                @endif
                                 <li>
-                                    <a class="page-scroll" href="#contact">Contact</a>
+                                    <a class="page-scroll" href="#contact"> <i class="fa fa-phone"></i> Контакты</a>
                                 </li>
                             </ul>
                         </div>
