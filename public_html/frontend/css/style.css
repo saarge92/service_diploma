@@ -1105,3 +1105,19 @@ div#preloader {
 }
 
 /*End Shopping cart*/
+
+/*  Shopping cart Start
+/*----------------------------------------*/
+
+.card-header {
+    color: black;
+    font-weight: bold;
+}
+
+.reg-container {
+    margin-top: 7rem;
+    min-height: 100%;
+}
+
+
+/*-----------------------------------------*/
