@@ -1,6 +1,14 @@
 <header>
     <!-- header-area start -->
     <div id="sticker" class="header-area">
+
+        @if(Session::has('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>{{Session::get('success')}}</strong>
+        </div>
+        @endif
+
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-12">
@@ -30,13 +38,13 @@
                                     <a class="page-scroll" href="{{route('frontend.home').'#home'}}"><i class="fa fa-home"></i>Домой</a>
                                 </li>
                                 <li>
-                                    <a class="page-scroll" href="#about"><i class="fa fa-info" aria-hidden="true"></i>О нас</a>
+                                    <a class="page-scroll" href="{{route('frontend.home').'#about'}}"><i class="fa fa-info" aria-hidden="true"></i>О нас</a>
                                 </li>
                                 <li>
                                     <a class="page-scroll" href="{{route('frontend.home').'#services'}}"><i class="fa fa-money" aria-hidden="true"></i>Услуги</a>
                                 </li>
                                 <li>
-                                    <a class="page-scroll" href="#team"> <i class="fa fa-users"></i> Команда</a>
+                                    <a class="page-scroll" href="{{route('frontend.home').'#team'}}"> <i class="fa fa-users"></i> Команда</a>
                                 </li>
                                 <li>
                                     <a class="page-scroll" href="{{route('frontend.getShoppingCart')}}">

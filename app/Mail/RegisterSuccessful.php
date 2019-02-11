@@ -31,7 +31,7 @@ class RegisterSuccessful extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->view('auth.registersuccessful')->with([
-            'fio' => $this->user['fio'],
+            'fio' => $this->user['name'],
             'token' => $this->user['token']
         ]);
     }

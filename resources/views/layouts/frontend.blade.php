@@ -39,14 +39,11 @@
 </head>
 
 <body data-spy="scroll" data-target="#navbar-example">
-
     <div id="preloader"></div>
     @include('frontend.partials.header')
     @include('frontend.partials.info_modal') 
     
     @yield('content') 
-
-
 
     <!-- Start Footer bottom Area -->
     <footer>

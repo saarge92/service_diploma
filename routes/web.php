@@ -29,7 +29,7 @@ Route::group(['middleware' => 'web'], function () {
         'as' => 'frontend.reduceItem'
     ]);
     Route::post('/increaseByOne', [
-        'uses' =>'HomeController@increaseItemRequest',
+        'uses' => 'HomeController@increaseItemRequest',
         'as' => 'frontend.increaseItem'
     ]);
     Route::post('/deleteItemRequest', [
@@ -37,6 +37,14 @@ Route::group(['middleware' => 'web'], function () {
         'as' => 'frontend.deleteItem'
     ]);
 });
+
+Route::group(['middleware' => 'auth', 'prefix' => 'client'], function () {
+    Route::get('/index', [
+        'uses' => 'ClientController@index',
+        'as' => 'client.index'
+    ]);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

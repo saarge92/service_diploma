@@ -15,7 +15,8 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('ФИО') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" 
+                                name="name" value="{{ old('name') }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
@@ -70,7 +71,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="organization" class="col-md-4 col-form-label text-md-right">{{ __('Телефон') }}</label>
+                            <label for="organization" class="col-md-4 col-form-label text-md-right">{{ __('Телефон(с 8)') }}</label>
 
                             <div class="col-md-6">
                                 <input id="phone_number" type="text" class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }}" 

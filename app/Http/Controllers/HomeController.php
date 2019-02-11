@@ -74,6 +74,7 @@ class HomeController extends Controller
 
     /**
      * Удаление услуги полностью
+     * @param Request $request - post запрос на удаление услуги из списка
      */
     public function deleteItemRequest(Request $request) : JsonResponse
     {
@@ -81,4 +82,5 @@ class HomeController extends Controller
         $results = $this->deleteItem($id);
         return response()->json(['updated_results' => $results], 200);
     }
+    
 }
