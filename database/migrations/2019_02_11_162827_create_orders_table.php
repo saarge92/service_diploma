@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->text('cart');
+            //Статус заказа (по умолчанию - новая)
+            $table->integer('status_id')->nullable();
             $table->timestamps();
         });
     }
