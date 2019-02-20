@@ -22,7 +22,7 @@
 </head>
 
 <body id="page-top">
-
+  @include('client.partials.infoMessages')
   <!-- Page Wrapper -->
   <div id="wrapper">
   @include('client.partials.sidebar')
@@ -35,17 +35,16 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
+        @yield('content')
         </div>
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
-  @include('client.partials.footer') 
-  @yield('content')
+
     </div>
     <!-- End of Content Wrapper -->
-
+    @include('client.partials.footer') 
   </div>
   <!-- End of Page Wrapper -->
 

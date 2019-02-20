@@ -43,6 +43,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'client'], function () {
         'uses' => 'ClientController@index',
         'as' => 'client.index'
     ]);
+    Route::post('/postOrder', [
+        'uses' => 'ClientController@confirmOrder',
+        'as' => 'client.confirmOrder'
+    ]);
 });
 
 Auth::routes();

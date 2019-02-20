@@ -62,6 +62,7 @@ class HomeController extends Controller
         $results = $this->reduceItem($id);
         return response()->json(['updated_results' => $results], 200);
     }
+    
     /**
      * Увеличение на 1 позицию в корзине
      */

@@ -62,7 +62,9 @@ trait HomeTrait
     }
 
     /**
-     * Получение информации о корзине
+     * Получение информации о  текущей корзине
+     * 
+     * @return array $result - список
      */
     public function getCartInfo() : array
     {
@@ -107,6 +109,10 @@ trait HomeTrait
 
     /**
      * Удаление услуги полностью
+     * 
+     * @param int $id - id услуги
+     * 
+     * @return array $updated_results - измененные параметры корзины
      */
     public function deleteItem(int $id) : array
     {
@@ -120,7 +126,12 @@ trait HomeTrait
     }
 
     /**
-     * Возвращает параметры карты
+     * Возвращает измененные параметры корзины
+     * 
+     * @param Cart $cart - корзина
+     * @param int $id - id услуги
+     * 
+     * @return array $updated_results - измененные параметры корзины
      */
     private function getUpdatedResult(Cart $cart, int $id) : array
     {
