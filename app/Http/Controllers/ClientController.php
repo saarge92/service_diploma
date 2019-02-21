@@ -27,7 +27,7 @@ class ClientController extends Controller
      * 
      * @return View - возвращает страницу с данными корзины
      */
-    public function getCartInfo() : View
+    public function getCartInfo(): View
     {
         if (!Session::has('cart')) {
             return \redirect('/#services');
@@ -40,7 +40,7 @@ class ClientController extends Controller
      * 
      * @param Request $request - Get-запрос
      */
-    public function index(Request $request) : View
+    public function index(Request $request): View
     {
         $data = $this->getDataForClientIndex($request);
         return view('client.index', $data);
@@ -51,7 +51,7 @@ class ClientController extends Controller
      * 
      * @param Request $request - Post-запрос
      */
-    public function confirmOrder(Request $request) : RedirectResponse
+    public function confirmOrder(Request $request): RedirectResponse
     {
         if (!Session::has('cart')) {
             return redirect()->route('frontend.getShoppingCart');
@@ -60,8 +60,19 @@ class ClientController extends Controller
         $result = $this->confirmOrderCheck($cart, $request);
         Session::remove('cart');
         $result ? Session::flash('success-client', 'Заказ успешно зарегистрирован')
-            : Session::flash('error-client','Что-то пошло не так. Обратитесь к администратору');
+            : Session::flash('error-client', 'Что-то пошло не так. Обратитесь к администратору');
         return redirect()->route('client.index');
     }
 
+    /**
+     * Получение заказа по номеру
+     * 
+     * @param Request $request - Get-запрос
+     * @param int $id - номер заказа
+     */
+    public function getOrder(Request $request, int $id)
+    {
+        $order = $this->getOrderById($id);
+        return view('client.order', ['order' => $order]);
+    }
 }

@@ -47,6 +47,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'client'], function () {
         'uses' => 'ClientController@confirmOrder',
         'as' => 'client.confirmOrder'
     ]);
+    Route::get('/getOrder/{id}', [
+        'uses' => 'ClientController@getOrder',
+        'as' => 'client.getOrder'
+    ]);
 });
 
 Auth::routes();

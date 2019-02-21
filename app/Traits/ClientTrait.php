@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Cart;
+use App\Status;
 
 /**
  * Трэйт, содержащий методы для работы клиентской части
@@ -22,13 +23,17 @@ trait ClientTrait
      * @param Request $request - http запрос
      * @return array - массив с заказами клиента
      */
-    public function getDataForClientIndex(Request $request) : array
+    public function getDataForClientIndex(Request $request): array
     {
         $currentUserId = $request->user()->id;
-        $orders = Order::where(['status_id' => null, 'user_id' => $currentUserId])->paginate(8);
-        $parsedOrders = $this->parseOrders($orders);
+        $orders = Order::where(['status_id' => null, 'user_id' => $currentUserId])->paginate(6);
+        $parsedOrders = [];
+        foreach ($orders as $order) {
+            $parsedOrders[] = $this->parseOrder($order);
+        }
         return [
             'orders' => $parsedOrders,
+            'orderPaginate' => $orders
         ];
     }
 
@@ -40,7 +45,7 @@ trait ClientTrait
      * 
      * @return bool - Булево значение, сохранен ли заказ
      */
-    public function confirmOrderCheck(Cart $cart, Request $request) : bool
+    public function confirmOrderCheck(Cart $cart, Request $request): bool
     {
         $order = new Order();
         $order->cart = serialize($cart);
@@ -49,33 +54,47 @@ trait ClientTrait
     }
 
     /**
-     * Парсинг списка заказов от клиентов в соответствующий вид
+     * Парсинг 1 заказа от клиентов в соответствующий вид
      * 
-     * @param $orders - список заказов
+     * @param $order - заказ
      * 
-     * @return array $result - список заказов
+     * @return object $result - заказ-объект
      */
-    private function parseOrders($orders) : array
+    private function parseOrder($order): object
     {
-        $result = array();
-        foreach ($orders as $order) {
-            try {
-                $row = (object)null;
-                $row->id = $order->id;
-                $cart = new Cart(unserialize($order->cart));
-                $previewText = "";
-                foreach ($cart->items as $item) {
-                    $previewText .= $item["item"]->title .',';
-                }
-                $row->previewText = $previewText;
-                $row->created_at = $order->created_at;
-                $row->updated_at = $order->updated_at;
-                $result[] = $row;
-            } catch (\Exception $ex) {
-                //continue;
-                echo $ex->getMessage();
+        $row = (object)null;
+        try {
+            $row->id = $order->id;
+            $cart = new Cart(unserialize($order->cart));
+            $previewText = [];
+            foreach ($cart->items as $item) {
+                $previewText[] = $item["item"]->title;
             }
+            $row->previewText = $previewText;
+            $row->created_at = $order->created_at;
+            $row->updated_at = $order->updated_at;
+            $row->totalQty = $cart->totalQty;
+            $row->totalSum = $cart->totalPrice;
+            $row->status = Status::find($order->id)->name;
+            $row->cart = $cart;
+        } catch (\Exception $ex) {
+            //continue;
+            echo $ex->getMessage();
         }
-        return $result;
+        return $row;
+    }
+
+    /**
+     * Получение заказа по номеру и парсинг в 1 объект-заказ
+     * 
+     * @param int $id - номер заказа
+     * 
+     * @return object $order - объект-заказ, приведенный в соответствующий вид
+     */
+    public function getOrderById(int $id): object
+    {
+        $order = Order::find($id);
+        $order = $this->parseOrder($order);
+        return $order;
     }
 }

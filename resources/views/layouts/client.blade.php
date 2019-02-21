@@ -41,10 +41,10 @@
 
       </div>
       <!-- End of Main Content -->
-
+      @include('client.partials.footer') 
     </div>
     <!-- End of Content Wrapper -->
-    @include('client.partials.footer') 
+
   </div>
   <!-- End of Page Wrapper -->
 

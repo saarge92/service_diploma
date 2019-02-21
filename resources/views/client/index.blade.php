@@ -2,10 +2,10 @@
 @section('title') Новые заявки
 @endsection
  
-@section('content')
-<div class="container">
+@section('content') {{--
+<div class="container"> --}}
     <div class="row">
-        <div class="col-md-4">
+        <div class="">
             <table class="table table-striped">
                 <tr>
                     <th>
@@ -14,6 +14,12 @@
                     <th>
                         Краткое содержимое
                     </th>
+                    <th>
+                        Кол-во услуг
+                    </th>
+                    <th>
+                        Сумма
+                    </th>
                 </tr>
                 @foreach ($orders as $order)
                 <tr>
@@ -21,12 +27,27 @@
                         Заявка #{{$order->id}}
                     </td>
                     <td>
-                        {{$order->previewText}}
+                        @foreach($order->previewText as $prevText)
+                        <?php echo $prevText . '<br/>' ;?> @endforeach
+                    </td>
+                    <td>
+                        {{$order->totalQty}}
+                    </td>
+                    <td>
+                        {{$order->totalSum}}
+                    </td>
+                    <td>
+                        <a href="{{route('client.getOrder',['id'=>$order->id])}}" class="btn btn-danger">Посмотреть</a>
                     </td>
                 </tr>
                 @endforeach
-                <table>
+            </table>
         </div>
     </div>
-</div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            {{$orderPaginate->appends(request()->input())->links()}}
+        </div>
+    </div>
+    {{-- </div> --}}
 @endsection
