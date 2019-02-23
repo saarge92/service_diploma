@@ -7,6 +7,7 @@ use App\Traits\HomeTrait;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Session;
+
 /**
  * Контроллер для работы с главной страницей
  * 
@@ -19,10 +20,24 @@ class HomeController extends Controller
 {
     use HomeTrait;
 
-    public function index() : View
+    /**
+     * Индексная страница
+     */
+    public function index(): View
     {
         $data = $this->getDataForIndexPage();
         return view('frontend.index', $data);
+    }
+
+    /**
+     * Получает список услуг
+     * 
+     * @param Request $request - Get-запрос
+     */
+    public function getListServices(Request $request): View
+    {
+        $services = $this->getServices($request);
+        return view('client.services', $services);
     }
 
     /**
@@ -31,7 +46,7 @@ class HomeController extends Controller
      * @param Request $request - запрос
      * @return JsonResponse - возвращает JSON с общим количеством услуг в корзине
      */
-    public function addToCart(Request $request) : JsonResponse
+    public function addToCart(Request $request): JsonResponse
     {
         $id = $request['serviceId'];
         $cart = $this->addToCartItem($id);
@@ -44,7 +59,7 @@ class HomeController extends Controller
      * 
      * @return View возвращает страницу со списком заказанных услуг
      */
-    public function getShoppingCart() : View
+    public function getShoppingCart(): View
     {
         if (!Session::has('cart')) {
             return view('frontend.shoppingCartView');
@@ -56,17 +71,17 @@ class HomeController extends Controller
     /**
      * Уменьшение на 1 позицию в корзине
      */
-    public function reduceItemRequest(Request $request) : JsonResponse
+    public function reduceItemRequest(Request $request): JsonResponse
     {
         $id = $request['orderId'];
         $results = $this->reduceItem($id);
         return response()->json(['updated_results' => $results], 200);
     }
-    
+
     /**
      * Увеличение на 1 позицию в корзине
      */
-    public function increaseItemRequest(Request $request) : JsonResponse
+    public function increaseItemRequest(Request $request): JsonResponse
     {
         $id = $request['orderId'];
         $updated_results = $this->increaseItem($id);
@@ -77,11 +92,10 @@ class HomeController extends Controller
      * Удаление услуги полностью
      * @param Request $request - post запрос на удаление услуги из списка
      */
-    public function deleteItemRequest(Request $request) : JsonResponse
+    public function deleteItemRequest(Request $request): JsonResponse
     {
         $id = $request['orderId'];
         $results = $this->deleteItem($id);
         return response()->json(['updated_results' => $results], 200);
     }
-    
 }

@@ -43,15 +43,15 @@
     <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-fw fa-book"></i>
             <span>Мои заявки</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
+        <a class="nav-link" href="{{route('frontend.home')}}">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Главная страница</span></a>
     </li>
 
     <!-- Divider -->

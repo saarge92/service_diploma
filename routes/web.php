@@ -36,6 +36,11 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'HomeController@deleteItemRequest',
         'as' => 'frontend.deleteItem'
     ]);
+    Route::get('/allServices',[
+            'uses' => 'HomeController@getListServices',
+            'as' => 'frontend.services'
+        ]
+    );
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'client'], function () {

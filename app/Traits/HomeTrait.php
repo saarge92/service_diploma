@@ -8,6 +8,7 @@ use App\Cart;
 use App\Team;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Session\SessionUtils;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Трейт для работы с данными на главной странице (frontend)
@@ -26,12 +27,11 @@ trait HomeTrait
      * 
      * @return array $data - список необходимых данных для главной страницы
      */
-    public function getDataForIndexPage() : array
+    public function getDataForIndexPage(): array
     {
         $sliders = Slider::where(['is_on_main' => true])->get();
         $abouts = About::all()->first();
-        $abouts ? $aboutFeatures = explode('|', $abouts->description) :
-            $aboutFeatures = ['Автоматизация бизнеса', 'Интеграция торговых платформ'];
+        $abouts ? $aboutFeatures = explode('|', $abouts->description) : $aboutFeatures = ['Автоматизация бизнеса', 'Интеграция торговых платформ'];
         $services = Service::all()->take(6);
         $teams = Team::all()->take(4);
         $data = array(
@@ -45,11 +45,22 @@ trait HomeTrait
     }
 
     /**
+     * 
+     */
+    public function getServices(Request $request): array
+    {
+        $services = Service::paginate(3);
+        return [
+            'services' => $services
+        ];
+    }
+
+    /**
      * Функция для добавления услуги в корзину
      * 
      * @param $id - номер услуги
      */
-    public function addToCartItem($id) : Cart
+    public function addToCartItem($id): Cart
     {
         $service = Service::find($id);
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
@@ -66,7 +77,7 @@ trait HomeTrait
      * 
      * @return array $result - список
      */
-    public function getCartInfo() : array
+    public function getCartInfo(): array
     {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
@@ -83,7 +94,7 @@ trait HomeTrait
      * @param int $id Id услуги в корзине
      * @return array $newCartResult Возвращает параметры корзины
      */
-    public function reduceItem(int $id) : array
+    public function reduceItem(int $id): array
     {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $newCart = new Cart($oldCart);
@@ -97,7 +108,7 @@ trait HomeTrait
      * Увеличение корзины на 1 позицию
      * @param int $id - номер услуги в корзине
      */
-    public function increaseItem(int $id) : array
+    public function increaseItem(int $id): array
     {
         $oldcart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldcart);
@@ -114,7 +125,7 @@ trait HomeTrait
      * 
      * @return array $updated_results - измененные параметры корзины
      */
-    public function deleteItem(int $id) : array
+    public function deleteItem(int $id): array
     {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
@@ -133,7 +144,7 @@ trait HomeTrait
      * 
      * @return array $updated_results - измененные параметры корзины
      */
-    private function getUpdatedResult(Cart $cart, int $id) : array
+    private function getUpdatedResult(Cart $cart, int $id): array
     {
         $updated_results['count_of_element'] = isset($cart->items[$id]['qty']) ? $cart->items[$id]['qty'] : 0;
         $updated_results['price'] = isset($cart->items[$id]['price']) ? $cart->items[$id]['price'] : 0;

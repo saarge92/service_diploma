@@ -26,14 +26,17 @@ trait ClientTrait
     public function getDataForClientIndex(Request $request): array
     {
         $currentUserId = $request->user()->id;
-        $orders = Order::where(['status_id' => null, 'user_id' => $currentUserId])->paginate(6);
+        $orderId = $request->get('orderId');
+        $orders = Order::where(['status_id' => $orderId, 'user_id' => $currentUserId])->paginate(6);
         $parsedOrders = [];
         foreach ($orders as $order) {
             $parsedOrders[] = $this->parseOrder($order);
         }
+        $statuses = Status::all();
         return [
             'orders' => $parsedOrders,
-            'orderPaginate' => $orders
+            'orderPaginate' => $orders,
+            'statuses' => $statuses
         ];
     }
 
@@ -75,7 +78,8 @@ trait ClientTrait
             $row->updated_at = $order->updated_at;
             $row->totalQty = $cart->totalQty;
             $row->totalSum = $cart->totalPrice;
-            $row->status = Status::find($order->id)->name;
+            $status = Status::find($order->status_id);
+            $row->status = $status ? $status->name : 'Новая';
             $row->cart = $cart;
         } catch (\Exception $ex) {
             //continue;
