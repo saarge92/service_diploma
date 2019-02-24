@@ -9,6 +9,8 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
 use App\Cart;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\ChangeProfileRequest;
+use App\User;
 
 /**
  * Контроллер обработки запросов авторизованных клиентов
@@ -44,6 +46,33 @@ class ClientController extends Controller
     {
         $data = $this->getDataForClientIndex($request);
         return view('client.index', $data);
+    }
+
+    /**
+     * Генерация страницы профиля
+     * 
+     * @param Request $request - Get запрос
+     * @return View
+     */
+    public function profile(Request $request): View
+    {
+        $profile = $this->getProfileInfo($request);
+        return view('client.profile', $profile);
+    }
+
+    /**
+     * Запрос на изменение профиля
+     */
+    public function changeProfile(ChangeProfileRequest $request)
+    {
+        if ($request->validated()) {
+            $user = User::find($request->user()->id);
+            $result = $this->changeProfileUser($request, $user);
+            $result  ? Session::flash('success-client', 'Ваш профиль успешно обновлен')
+                : Session::flash('error-client', 'Профиль обновить не удалось');
+            return redirect()->route('client.profile');
+        }
+        return redirect()->back();
     }
 
     /**

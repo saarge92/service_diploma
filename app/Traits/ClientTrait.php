@@ -6,6 +6,7 @@ use App\Order;
 use Illuminate\Http\Request;
 use App\Cart;
 use App\Status;
+use App\Http\Requests\ChangeProfileRequest;
 
 /**
  * Трэйт, содержащий методы для работы клиентской части
@@ -38,6 +39,31 @@ trait ClientTrait
             'orderPaginate' => $orders,
             'statuses' => $statuses
         ];
+    }
+
+    /**
+     * Получаем данные профиля клиента
+     * 
+     * @param Request $request - Get запрос
+     */
+    public function getProfileInfo(Request $request): array
+    {
+        $user = $request->user();
+        return [
+            'user' => $user
+        ];
+    }
+
+    /**
+     * Изменение профиля клиента
+     */
+    private function changeProfileUser(ChangeProfileRequest $request, $user): bool
+    {
+        $user->name = $request->name;
+        $user->address = $request->address;
+        $user->organization = $request->organization;
+        $user->phone_number = $request->phone_number;
+        return $user->save();
     }
 
     /**

@@ -36,12 +36,11 @@
             </div>
         </div>
         <div class="text-center">
-                <strong><span id="totalPrice">Всего : {{$order->cart->totalPrice}}</span></strong><br/>
+            <strong><span id="totalPrice">Всего : {{$order->cart->totalPrice}}</span></strong><br/>
         </div>
         <div class="text-center">
-                <a href="#" class="btn btn-primary">Назад</a>
+            <a href="{{URL::previous() == URL::current() ? route('client.index') : URL::previous()}}" class="btn btn-primary">Назад</a>
         </div>
     </div>
 </div>
 @endsection
- 

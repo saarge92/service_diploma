@@ -36,7 +36,9 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'HomeController@deleteItemRequest',
         'as' => 'frontend.deleteItem'
     ]);
-    Route::get('/allServices',[
+    Route::get(
+        '/allServices',
+        [
             'uses' => 'HomeController@getListServices',
             'as' => 'frontend.services'
         ]
@@ -55,6 +57,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'client'], function () {
     Route::get('/getOrder/{id}', [
         'uses' => 'ClientController@getOrder',
         'as' => 'client.getOrder'
+    ]);
+    Route::get('/profile', [
+        'uses' => 'ClientController@profile',
+        'as' => 'client.profile'
+    ]);
+    Route::post('/changeProfile',[
+        'uses' => 'ClientController@changeProfile',
+        'as' => 'client.changeProfile'
     ]);
 });
 
