@@ -29,7 +29,7 @@ class ClientController extends Controller
      * 
      * @return View - возвращает страницу с данными корзины
      */
-    public function getCartInfo(): View
+    public function getCartInfoClient(): View
     {
         if (!Session::has('cart')) {
             return \redirect('/#services');

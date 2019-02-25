@@ -62,7 +62,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'client'], function () {
         'uses' => 'ClientController@profile',
         'as' => 'client.profile'
     ]);
-    Route::post('/changeProfile',[
+    Route::get('/getCartInfoClient', [
+        'uses' => 'ClientController@getCartInfoClient',
+        'as' => 'client.cartInfo'
+    ]);
+    Route::post('/changeProfile', [
         'uses' => 'ClientController@changeProfile',
         'as' => 'client.changeProfile'
     ]);

@@ -45,7 +45,21 @@
                     Статус заявки
                 </th>
                 <th>
-                    Дата создания
+                    Дата создания 
+                    @if(isset($_GET['orderDate'])) 
+                        @if($_GET['orderDate']=='asc')
+                            <a href="{{route(request()->route()->getName(),array_merge(request()->except(['orderDate']),['orderDate'=>'desc']))}}">
+                                <i class="fas fa-arrow-down"></i>
+                            </a>
+                            @else
+                            <a href="{{route(request()->route()->getName(),array_merge(request()->except(['orderDate']),['orderDate'=>'asc']))}}">
+                                <i class="fas fa-arrow-up"></i>
+                            </a>
+                        @endif
+                     @else
+                        <a href="{{route(request()->route()->getName(),array_merge(request()->except(['orderDate']),['orderDate'=>'asc']))}}">
+                        <i class="fas fa-arrow-up"></i></a> 
+                    @endif
                 </th>
                 <th>
                     Дата изменения
