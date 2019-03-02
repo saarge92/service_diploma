@@ -38,3 +38,7 @@
     </div>
 </div>
 @endsection
+ 
+@section('scripts')
+<script src="{{URL::asset('frontend/js/cartMain.js')}}"></script>
+@endsection
