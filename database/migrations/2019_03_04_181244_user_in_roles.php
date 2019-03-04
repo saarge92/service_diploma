@@ -13,7 +13,7 @@ class UserInRoles extends Migration
      */
     public function up()
     {
-        Schema::table('user_in_roles', function (Blueprint $table) {
+        Schema::create('user_in_roles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('role_id');
@@ -28,8 +28,6 @@ class UserInRoles extends Migration
      */
     public function down()
     {
-        Schema::table('user_in_roles', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('user_in_roles');
     }
 }

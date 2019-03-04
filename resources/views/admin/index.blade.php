@@ -6,9 +6,9 @@
             <div class="form-group">
                 <select name="roleId" class="form-control">
                     @foreach ($roles as $role)
-                        <option value="{{$role->id}}">{{$role->name}}</option>
+                        <option value="{{ $role->id}}" {{ isset($_GET['roleId']) ? ($_GET['roleId'] == $role->id ? 'selected' : '') : '' }} >{{$role->name }}</option>
                     @endforeach
-                    <option value="">Клиент</option>
+                    <option value="" {{ empty($_GET['roleId']) ? 'selected' : '' }}  >Клиент</option>
                 </select>
             </div>
             <div class="form-group">

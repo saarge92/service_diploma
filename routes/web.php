@@ -77,6 +77,10 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'AdminController@index',
         'as' => 'admin.index'
     ]);
+    Route::get('/orders',[
+        'uses' => 'AdminController@viewRequests',
+        'as' => 'admin.all-requests'
+    ]);
 });
 
 Auth::routes();

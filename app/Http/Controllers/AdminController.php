@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\AdminTrait;
+use Illuminate\View\View;
 
 /**
  * Контроллер Администратора
@@ -22,9 +23,15 @@ class AdminController extends Controller
      * 
      * @param Request $request - Get-запрос
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $data = $this->getAllUsers($request);
         return view('admin.index', $data);
+    }
+
+    public function viewRequests(Request $request): View
+    {
+        $data = $this->getAllRequests($request);
+        return view('admin.allRequests', $data);
     }
 }

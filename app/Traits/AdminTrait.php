@@ -6,6 +6,8 @@ use App\Order;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+use App\UserInRole;
+use App\Traits\ClientTrait;
 
 /**
  * Трэйт, содержащий методы для работы администраторской части
@@ -18,17 +20,20 @@ use App\Role;
 trait AdminTrait
 {
 
+    use ClientTrait;
     /**
      * Получение списка пользователей в системе
+     * 
+     * @param Request $request - Get Запрос
+     * @return array - массив параметров для отображения
      */
     private function getAllUsers(Request $request): array
     {
         $users = array();
         if ($request->has('roleId')) {
             $roleId = $request->get('roleId');
-            $roles = User::with('roles.id');
-            dd($roles->toSql());
-            $users = User::with('roles.id')->where('roles.id', $roleId)->paginate(12);
+            $user_in_roles = UserInRole::where(['role_id' => $roleId])->pluck('user_id')->toArray();
+            $users = User::whereIn('id', $user_in_roles)->paginate(12);
         } else {
             $users = User::paginate(12);
         }
@@ -36,6 +41,25 @@ trait AdminTrait
         return [
             'users' => $users,
             'roles' => $roles
+        ];
+    }
+
+    /**
+     * Получение списка заявок для администора
+     * 
+     * @param Request $request Get запрос
+     * @return array Список заказов
+     */
+    private function getAllRequests(Request $request): array
+    {
+        $orders = Order::paginate(12);
+        $parsedOrders = [];
+        foreach ($orders as $order) {
+            $parsedOrders[] = $this->parseOrder($order);
+        }
+        return [
+            'orders' => $parsedOrders,
+            'orderPaginate' => $orders
         ];
     }
 }

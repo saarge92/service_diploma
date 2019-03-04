@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Cart;
 use App\Status;
 use App\Http\Requests\ChangeProfileRequest;
+use App\UserInRole;
 
 /**
  * Трэйт, содержащий методы для работы клиентской части
