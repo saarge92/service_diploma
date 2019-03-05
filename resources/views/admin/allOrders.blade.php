@@ -33,6 +33,9 @@
                 <th>
                     Дата изменения
                 </th>
+                <th>
+                    Исполнители
+                </th>
             </tr>
             @foreach ($orders as $order)
             <tr>
@@ -44,20 +47,23 @@
                     <?php echo $prevText . '<br/>' ;?> @endforeach
                 </td>
                 <td>
-                    {{$order->totalQty}}
+                    {{ $order->totalQty }}
                 </td>
                 <td>
-                    {{$order->totalSum}}
+                    {{ $order->totalSum }}
                 </td>
-                <td>{{$order->status}}</td>
+                <td>{{ $order->status }}</td>
                 <td>
-                    {{$order->created_at}}
-                </td>
-                <td>
-                    {{$order->updated_at}}
+                    {{ $order->created_at }}
                 </td>
                 <td>
-                    <a href="{{route('client.getOrder',['id'=>$order->id])}}" class="btn btn-danger">Посмотреть</a>
+                    {{ $order->updated_at }}
+                </td>
+                <td>
+                    @foreach ($order->executors as $item) {{ $item }} @endforeach
+                </td>
+                <td>
+                    <a href="{{route('admin.viewOrder',['id'=>$order->id])}}" class="btn btn-danger">Посмотреть</a>
                 </td>
             </tr>
             @endforeach

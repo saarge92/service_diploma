@@ -62,4 +62,16 @@ trait AdminTrait
             'orderPaginate' => $orders
         ];
     }
+
+    /**
+     * Отображение информации об 1 заявке
+     */
+    private function getOrderById(int $id): array
+    {
+        $order = Order::find($id);
+        $order = $this->parseOrder($order);
+        return [
+            'order' => $order,
+        ];
+    }
 }

@@ -22,6 +22,7 @@ class AdminController extends Controller
      * Генерация индексной страницы пользователя
      * 
      * @param Request $request - Get-запрос
+     * @return View Отображает страницу со списком всех пользоватлей
      */
     public function index(Request $request): View
     {
@@ -29,9 +30,24 @@ class AdminController extends Controller
         return view('admin.index', $data);
     }
 
+    /**
+     * Отображение списка всех заявок
+     * 
+     * @param Request $request Get Запрос
+     * @return View Отображает страницу со списком всех заказов
+     */
     public function viewRequests(Request $request): View
     {
         $data = $this->getAllRequests($request);
-        return view('admin.allRequests', $data);
+        return view('admin.allOrders', $data);
+    }
+
+    /**
+     * Генерация конкретного заказа
+     */
+    public function viewOrder(int $id): View
+    {
+        $data = $this->getOrderById($id);
+        return view('admin.viewOrder', $data);
     }
 }

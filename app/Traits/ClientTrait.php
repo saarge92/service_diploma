@@ -109,6 +109,7 @@ trait ClientTrait
             $row->totalSum = $cart->totalPrice;
             $status = Status::find($order->status_id);
             $row->status = $status ? $status->name : 'Новая';
+            $row->executors =  $order->executors->pluck('name')->toArray();
             $row->cart = $cart;
         } catch (\Exception $ex) {
             //continue;

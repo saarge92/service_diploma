@@ -32,6 +32,14 @@
             <i class="fas fa-fw fa-book"></i>
             <span>Мои заявки</span></a>
     </li>
+    
+    @if( in_array('admin',Auth::user()->roles->pluck('name')->toArray()) )
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/index">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Админка</span></a>
+        </li>
+    @endif
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
