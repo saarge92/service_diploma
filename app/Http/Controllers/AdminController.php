@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Traits\AdminTrait;
 use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 
 /**
  * Контроллер Администратора
@@ -44,10 +45,24 @@ class AdminController extends Controller
 
     /**
      * Генерация конкретного заказа
+     * @param int $id Номер услуги
      */
     public function viewOrder(int $id): View
     {
         $data = $this->getOrderById($id);
         return view('admin.viewOrder', $data);
+    }
+
+    /**
+     * Назначение исполнителя
+     * 
+     * @param int $orderId Номер заявки
+     * @param int $userId Исполнитель
+     * @return JsonResponse назначен ли исполнитель
+     */
+    public function setExecutorRequest(int $orderId, int $userId): JsonResponse
+    {
+        $result = $this->assignExecutorToOrder($orderId, $userId);
+        return response()->json($result);
     }
 }

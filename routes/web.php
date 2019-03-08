@@ -85,6 +85,9 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'AdminController@viewOrder',
         'as' => 'admin.viewOrder'
     ]);
+    Route::post('/set-executor-order/{orderId}/{userId}',[
+        'uses' => 'AdminController@setExecutorRequest'
+    ]);
 });
 
 Auth::routes();
