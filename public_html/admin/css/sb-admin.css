@@ -454,3 +454,19 @@ body.sidebar-toggled footer.sticky-footer {
 .sub-menu{
     font-size: .75em;
 }
+.revokeExecutor {
+    color: red;
+}
+
+.ajax-loader {
+    position: fixed;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    padding-top: 300px;
+    vertical-align: middle;
+    color: red;
+    display: none;
+}

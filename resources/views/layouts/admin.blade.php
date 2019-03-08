@@ -19,6 +19,7 @@
 <body id="page-top">
     @include('admin.partials.messages')
     @include('admin.partials.header')
+    @include('admin.partials.loading')
     <div id="wrapper">
     @include('admin.partials.sidebar')
         <div class="content-wrapper" id="main_content">

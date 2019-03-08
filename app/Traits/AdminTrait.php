@@ -9,7 +9,6 @@ use App\Role;
 use App\UserInRole;
 use App\Traits\ClientTrait;
 use App\ExecutorInOrder;
-use Illuminate\Http\JsonResponse;
 
 /**
  * Трэйт, содержащий методы для работы администраторской части
@@ -74,6 +73,10 @@ trait AdminTrait
         $parsedOrders = $this->parseOrder($order);
         $executors = $order->executors;
         $availableExecutors = $this->getExecutors();
+        $availableExecutors = $availableExecutors->whereNotIn(
+            'id',
+            $executors->pluck('id')->toArray()
+        );
         return [
             'order' => $parsedOrders,
             'executors' => $executors,
@@ -132,5 +135,20 @@ trait AdminTrait
             ])->save();
         }
         return $response;
+    }
+
+    /**
+     * Убрать исполнителя из заявки
+     * 
+     * @param int $orderId Номер заказа
+     * @param int $userId Id пользователя
+     */
+    private function revokeUserFromOrder(int $orderId, int $userId): bool
+    {
+        $result =  ExecutorInOrder::where([
+            'order_id' => $orderId,
+            'user_id' => $userId
+        ])->delete();
+        return $result;
     }
 }

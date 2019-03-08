@@ -1,14 +1,6 @@
 @extends('layouts.admin') 
 @section('title')
 @endsection
- <style>
-     .revokeExecutor
-     {
-         color:red;
-     }
- </style>
-@section('styles')
-@endsection
  
 @section('content')
 <div id="shopInfo">
@@ -20,11 +12,8 @@
                 <div id="executors-block">
                     @foreach ($executors as $ex)
                     <div>
-                        <span class="float-left">{{$ex->name}}</span>
-                        <span class="float-right revokeExecutor"  data-order_id="{{$ex->id}}"><i class="fa fa-times"></i></span>
-                        {{-- <ul class="list-inline" id="list-executor" style="float:right;color:red">
-                        <li class="list-inline-item revokeExecutor"><i class="fa fa-times"  data-order_id="{{$ex->id}}"></i></li>
-                        </ul> --}}
+                        <span class="float-left nameExecutor">{{$ex->name}}</span>
+                        <span class="float-right revokeExecutor"><i class="fa fa-times"  data-user_id="{{$ex->id}}"></i></span>
                     </div>
                     @endforeach
                 </div>

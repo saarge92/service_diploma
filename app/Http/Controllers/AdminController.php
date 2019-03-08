@@ -65,4 +65,17 @@ class AdminController extends Controller
         $result = $this->assignExecutorToOrder($orderId, $userId);
         return response()->json($result);
     }
+
+    /**
+     * Убрать исполнителя из заявки
+     * 
+     * @param int $orderId Номер заказа
+     * @param int $userId Id юзера
+     * @return JsonResponse Json-ответ, удалена ли запись
+     */
+    public function revokeExecutorOrderRequest(int $orderId, int $userId): JsonResponse
+    {
+        $result = $this->revokeUserFromOrder($orderId, $userId);
+        return response()->json($result);
+    }
 }
