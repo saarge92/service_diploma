@@ -28,8 +28,8 @@ trait ClientTrait
     public function getDataForClientIndex(Request $request): array
     {
         $currentUserId = $request->user()->id;
-        $orderId = $request->get('orderId');
-        $orders = Order::where(['status_id' => $orderId, 'user_id' => $currentUserId])
+        $statusId = $request->get('statusId');
+        $orders = Order::where(['status_id' => $statusId, 'user_id' => $currentUserId])
             ->orderby('created_at', $request->get('orderDate'))
             ->paginate(6);
         $parsedOrders = [];

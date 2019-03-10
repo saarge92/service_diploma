@@ -2,6 +2,30 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        <div class="card-header">
+            Статусы заявок
+        </div>
+        <div class="card-body">
+            <form method="GET" action="{{route('admin.all-requests')}}">
+                <div class="form-group">
+                    <select name="statusId" id="orderSelect" class="form-control">
+                        @foreach ($statuses as $status)
+                            <option value="{{$status->id}}" 
+                                {{isset($_GET['statusId']) ?  ($_GET['statusId'] == $status->id ? 'selected' : '') : ''}}>
+                                {{$status->name}}
+                            </option>
+                        @endforeach
+                        <option value="" 
+                            {{ isset($_GET['statusId']) ? ($_GET['statusId'] == null ? 'selected' : '') : 'selected'}} >Новая</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Применить</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         <table class="table table-striped">
             <tr>
                 <th>

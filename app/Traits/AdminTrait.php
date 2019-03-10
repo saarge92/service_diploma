@@ -9,6 +9,7 @@ use App\Role;
 use App\UserInRole;
 use App\Traits\ClientTrait;
 use App\ExecutorInOrder;
+use App\Status;
 
 /**
  * Трэйт, содержащий методы для работы администраторской части
@@ -53,14 +54,17 @@ trait AdminTrait
      */
     private function getAllRequests(Request $request): array
     {
-        $orders = Order::paginate(12);
+        $statusId = $request->get('statusId');
+        $orders = Order::where(['status_id' => $statusId])->paginate(12);
+        $statuses = Status::all();
         $parsedOrders = [];
         foreach ($orders as $order) {
             $parsedOrders[] = $this->parseOrder($order);
         }
         return [
             'orders' => $parsedOrders,
-            'orderPaginate' => $orders
+            'orderPaginate' => $orders,
+            'statuses' => $statuses
         ];
     }
 

@@ -96,6 +96,13 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
     );
 });
 
+Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['executor']], function () {
+    Route::get('/index', [
+        'uses' => 'ExecutorController@index',
+        'as' => 'executor.index'
+    ]);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
