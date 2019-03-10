@@ -6,6 +6,8 @@ use App\ExecutorInOrder;
 use App\Order;
 use App\Status;
 use App\Traits\ClientTrait;
+use App\Comment;
+use App\Http\Requests\PostCommentRequest;
 
 trait ExecutorTrait
 {
@@ -52,5 +54,23 @@ trait ExecutorTrait
             'order' => $parsedOrder,
             'comments' => $comments
         ];
+    }
+
+    /**
+     * Обработка отправки комментария
+     * 
+     * @param Request $request Post-запрос
+     */
+    private function postComment(PostCommentRequest $request): bool
+    {
+        $userId = $request->user()->id;
+        $orderId = $request->get('orderId');
+        $textComment = $request->get('textComment');
+        $isCreated = Comment::create([
+            'user_id' => $userId,
+            'order_id' => $orderId,
+            'comments' => $textComment
+        ])->save();
+        return $isCreated;
     }
 }

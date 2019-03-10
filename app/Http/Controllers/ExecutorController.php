@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\ExecutorTrait;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\PostCommentRequest;
 
 /**
  * Контроллер для работы со страницей исполнителя
@@ -24,5 +26,25 @@ class ExecutorController extends Controller
     {
         $data = $this->getExecutorOrders($request);
         return view('executor.index', $data);
+    }
+
+    /**
+     * Получение информации о заявки с комментариями
+     * 
+     * @param int $id Номер услуги
+     */
+    public function getOrder(int $id)
+    {
+        $data = $this->getOrderById($id);
+        return view('executor.viewOrder', $data);
+    }
+
+    /**
+     * Отправка комментария исполнителем
+     */
+    public function submitComment(PostCommentRequest $request): JsonResponse
+    {
+        $request->validated() ?  $isCreated = $this->postComment($request) : $isCreated = false;
+        return \response()->json($isCreated);
     }
 }

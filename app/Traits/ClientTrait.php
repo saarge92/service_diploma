@@ -94,26 +94,28 @@ trait ClientTrait
      */
     private function parseOrder($order): object
     {
-        $row = (object)null;
-        try {
-            $row->id = $order->id;
-            $cart = new Cart(unserialize($order->cart));
-            $previewText = [];
-            foreach ($cart->items as $item) {
-                $previewText[] = $item["item"]->title;
+        $row = new \stdClass();
+        if (!is_null($order)) {
+            try {
+                $row->id = $order->id;
+                $cart = new Cart(unserialize($order->cart));
+                $previewText = [];
+                foreach ($cart->items as $item) {
+                    $previewText[] = $item["item"]->title;
+                }
+                $row->previewText = $previewText;
+                $row->created_at = $order->created_at;
+                $row->updated_at = $order->updated_at;
+                $row->totalQty = $cart->totalQty;
+                $row->totalSum = $cart->totalPrice;
+                $status = Status::find($order->status_id);
+                $row->status = $status ? $status->name : 'Новая';
+                $row->executors =  $order->executors->pluck('name')->toArray();
+                $row->cart = $cart;
+            } catch (\Exception $ex) {
+                //continue;
+                echo $ex->getMessage();
             }
-            $row->previewText = $previewText;
-            $row->created_at = $order->created_at;
-            $row->updated_at = $order->updated_at;
-            $row->totalQty = $cart->totalQty;
-            $row->totalSum = $cart->totalPrice;
-            $status = Status::find($order->status_id);
-            $row->status = $status ? $status->name : 'Новая';
-            $row->executors =  $order->executors->pluck('name')->toArray();
-            $row->cart = $cart;
-        } catch (\Exception $ex) {
-            //continue;
-            echo $ex->getMessage();
         }
         return $row;
     }

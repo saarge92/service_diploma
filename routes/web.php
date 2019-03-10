@@ -101,6 +101,14 @@ Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['exec
         'uses' => 'ExecutorController@index',
         'as' => 'executor.index'
     ]);
+    Route::get('/viewOrder/{id}',[
+        'uses' => 'ExecutorController@getOrder',
+        'as' => 'executor.getOrder'
+    ]);
+    Route::post('/submitComment',[
+        'uses' => 'ExecutorController@submitComment',
+        'as' => 'executor.submitComment'
+    ]);
 });
 
 Auth::routes();
