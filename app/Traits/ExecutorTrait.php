@@ -61,16 +61,26 @@ trait ExecutorTrait
      * 
      * @param Request $request Post-запрос
      */
-    private function postComment(PostCommentRequest $request): bool
+    private function postComment(PostCommentRequest $request): array
     {
         $userId = $request->user()->id;
         $orderId = $request->get('orderId');
         $textComment = $request->get('textComment');
-        $isCreated = Comment::create([
+        $newComment = Comment::create([
             'user_id' => $userId,
             'order_id' => $orderId,
             'comments' => $textComment
-        ])->save();
-        return $isCreated;
+        ]);
+        $isCreated = $newComment->save();
+        if ($isCreated) {
+            return [
+                'created' => $isCreated,
+                'author' => $request->user()->name,
+                'create_date' => $newComment->created_at->format('Y-m-d H:i:00')
+            ];
+        }
+        return [
+            'created' => false
+        ];
     }
 }

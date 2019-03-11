@@ -76,7 +76,7 @@
                 </td>
                 <td>{{ $order->status }}</td>
                 <td>
-                    <a href="{{route('admin.viewOrder',['id'=>$order->id])}}" class="btn btn-danger">Посмотреть</a>
+                    <a href="{{route('executor.viewOrder',['id'=>$order->id])}}" class="btn btn-danger">Посмотреть</a>
                 </td>
             </tr>
             @endforeach

@@ -51,7 +51,7 @@ class User extends Authenticatable
      * @param mixed $roles - список ролей
      * @return bool - имеет ли роли
      */
-    public function hasAnyRole($roles): bool
+    public function hasAnyRole($roles)
     {
         if (is_array($roles)) {
             foreach ($roles as $role) {

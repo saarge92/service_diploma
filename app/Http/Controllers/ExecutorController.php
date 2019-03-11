@@ -44,7 +44,9 @@ class ExecutorController extends Controller
      */
     public function submitComment(PostCommentRequest $request): JsonResponse
     {
-        $request->validated() ?  $isCreated = $this->postComment($request) : $isCreated = false;
-        return \response()->json($isCreated);
+        $resultCreation = $this->postComment($request);
+        return \response()->json([
+            $resultCreation
+        ]);
     }
 }
