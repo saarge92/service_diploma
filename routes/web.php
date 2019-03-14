@@ -103,11 +103,15 @@ Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['exec
     ]);
     Route::get('/viewOrder/{id}',[
         'uses' => 'ExecutorController@getOrder',
-        'as' => 'executor.getOrder'
+        'as' => 'executor.viewOrder'
     ]);
     Route::post('/submitComment',[
         'uses' => 'ExecutorController@submitComment',
         'as' => 'executor.submitComment'
+    ]);
+    Route::post('/setStatusOrder/',[
+        'uses' => 'ExecutorController@setStatusOrderRequest',
+        'as' => 'executor.setStatusOrderRequest'
     ]);
 });
 

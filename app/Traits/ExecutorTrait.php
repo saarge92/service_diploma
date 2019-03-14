@@ -47,12 +47,14 @@ trait ExecutorTrait
     {
         $order = Order::find($id);
         $parsedOrder = $this->parseOrder($order);
+        $statuses = Status::whereNotIn('name', ['Закрыта'])->get();
         $comments = Comment::where([
             'order_id' => $order != null ? $order->id : null
         ])->paginate(12);
         return [
             'order' => $parsedOrder,
-            'comments' => $comments
+            'comments' => $comments,
+            'statuses' => $statuses
         ];
     }
 
@@ -60,6 +62,7 @@ trait ExecutorTrait
      * Обработка отправки комментария
      * 
      * @param Request $request Post-запрос
+     * @return array Массив параметров с результатами операции
      */
     private function postComment(PostCommentRequest $request): array
     {
@@ -82,5 +85,22 @@ trait ExecutorTrait
         return [
             'created' => false
         ];
+    }
+
+    /**
+     * Обработка изменения статуса заявки исполнителем
+     * 
+     */
+    private function setStatusOrder($request): bool
+    {
+        $resultOperation = false;
+        $orderId = $request->get('orderId');
+        $statusId = $request->get('statusId');
+        $order = Order::find($orderId);
+        if ($order) {
+            $order->status_id = $statusId;
+            $resultOperation = $order->save();
+        }
+        return $resultOperation;
     }
 }

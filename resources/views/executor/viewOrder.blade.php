@@ -7,9 +7,29 @@
 @endsection
  
 @section('content')
+@include('executor.partials.info_modal')
 <div class="row">
     <div class="col-md-12">
+        <form id="statusForm" action="" method="POST">
+            <div class="form-group">
+                <label>Установите статус</label>
+                <select id="statusSelect" class="form-control">
+                    @foreach($statuses as $status)
+                        <option value="{{ $status->id }}" {{ $order->status_id == $status->id ? 'selected' : '' }}>
+                            {{ $status->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <button class="btn btn-danger" id="setUpStatus">Установить</button>
+        </form>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-md-12">
         <div id="comments">
+            <div>Комментарии</div>
             @foreach($comments as $comment)
             <div class="comment">
                 <label>Автор : {{$comment->user ? $comment->user->name : ''}}</label>

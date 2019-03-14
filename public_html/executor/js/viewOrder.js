@@ -1,5 +1,5 @@
 /**
- * Отправка Ajax-запроса на сервер
+ * Отправка Ajax-запроса с комментарием на сервер
  */
 $("#addButton").on("click", function() {
     const textComment = $("#textComment").val();
@@ -26,7 +26,7 @@ $("#addButton").on("click", function() {
                     </div>
                     </div>`;
                     $("#comments").prepend($(newComment.toString()));
-                    $('#textComment').val('');
+                    $("#textComment").val("");
                 }
                 console.log(result);
             },
@@ -36,3 +36,45 @@ $("#addButton").on("click", function() {
         });
     }
 });
+
+/**
+ * Отправка Ajax запроса с установка статуса заявки
+ */
+$("#setUpStatus").on("click", function(event) {
+    event.preventDefault();
+    const orderId = $("#orderId").val();
+    const statusId = $("#statusSelect").val();
+    const token = $('meta[name="csrf-token"]').attr("content");
+    console.log(statusId);
+    $.ajax({
+        type: "POST",
+        url: `/executor/setStatusOrder`,
+        data: {
+            _token: token,
+            orderId: orderId,
+            statusId: statusId
+        },
+        success: function(result) {
+            showMessage(result);
+        },
+        error: function(error) {
+            showMessage(false);
+        }
+    });
+});
+
+function showMessage(result) {
+    var headerText = null;
+    var messageBody = null;
+    if (result) {
+        headerText = "Успех!";
+        messageBody = "Статус успешно обновлен!";
+    } else {
+        headerText = "Ошибка";
+    }
+    $("#headerModal").text(headerText);
+    $("#modalBody").text(messageBody);
+    $("#statusModal").modal({
+        show: true
+    });
+}

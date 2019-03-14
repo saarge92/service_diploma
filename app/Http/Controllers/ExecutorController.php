@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\ExecutorTrait;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\PostCommentRequest;
+use App\Http\Requests\SetOrderStatusExecutor;
 
 /**
  * Контроллер для работы со страницей исполнителя
@@ -41,6 +42,9 @@ class ExecutorController extends Controller
 
     /**
      * Отправка комментария исполнителем
+     * 
+     * @param PostCommentRequest $request Post-запрос с комментарием
+     * @return JsonResponse Ответ в формате JSON с результатами операции
      */
     public function submitComment(PostCommentRequest $request): JsonResponse
     {
@@ -48,5 +52,20 @@ class ExecutorController extends Controller
         return \response()->json([
             $resultCreation
         ]);
+    }
+
+    /**
+     * Установка статуса исполнителем
+     * 
+     * @param SetOrderStatusExecutor $request Post-запрос
+     * @return JsonResponse Ответ в формате JSON с результатами операции
+     */
+    public function setStatusOrderRequest(SetOrderStatusExecutor $request): JsonResponse
+    {
+        $resultCreation = false;
+        if ($request->validated()) {
+            $resultCreation = $this->setStatusOrder($request);
+        }
+        return response()->json($resultCreation);
     }
 }

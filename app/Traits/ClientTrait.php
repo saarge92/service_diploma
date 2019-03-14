@@ -112,6 +112,7 @@ trait ClientTrait
                 $row->status = $status ? $status->name : 'Новая';
                 $row->executors =  $order->executors->pluck('name')->toArray();
                 $row->cart = $cart;
+                $row->status_id = $order->status_id;
             } catch (\Exception $ex) {
                 //continue;
                 echo $ex->getMessage();
