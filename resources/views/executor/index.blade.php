@@ -1,7 +1,7 @@
-@extends('layouts.executor')
-@section('title')
-    Мои заявки
+@extends('layouts.executor') 
+@section('title') Мои заявки
 @endsection
+ 
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -20,6 +20,9 @@
                             @endforeach
                             <option value="" 
                                 {{ isset($_GET['statusId']) ? ($_GET['statusId'] == null ? 'selected' : '') : 'selected'}} >Новая</option>
+                            <option value="all" {{ isset($_GET['statusId']) ? ($_GET['statusId'] == 'all' ? 'selected' : '') : ''}} >
+                                Все
+                            </option>
                         </select>
                 </div>
                 <button type="submit" class="btn btn-success">Применить</button>

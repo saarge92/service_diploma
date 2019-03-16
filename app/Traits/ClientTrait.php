@@ -29,7 +29,9 @@ trait ClientTrait
     {
         $currentUserId = $request->user()->id;
         $statusId = $request->get('statusId');
-        $orders = Order::where(['status_id' => $statusId, 'user_id' => $currentUserId])
+        $statusId == 'all' ?
+            $orders = Order::where(['user_id' => $currentUserId])->orderby('created_at', $request->get('orderDate'))
+            ->paginate(6) : $orders = Order::where(['status_id' => $statusId, 'user_id' => $currentUserId])
             ->orderby('created_at', $request->get('orderDate'))
             ->paginate(6);
         $parsedOrders = [];

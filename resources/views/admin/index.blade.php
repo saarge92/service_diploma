@@ -1,6 +1,16 @@
 @extends('layouts.admin') 
 @section('content')
+
 <div class="row">
+    <div class="col-md-12">
+        <a href="{{route('admin.createUser')}}" class="btn btn-success">
+            <i class="fas fa-plus"></i>
+            Добавить пользователя
+        </a>
+    </div>
+</div>
+
+<div class="row mt-2">
     <div class="col-md-12">
         <form method="GET" action="/admin/index">
             <div class="form-group">
@@ -43,6 +53,12 @@
                     @if(!$user->hasRoles()) Клиент @else @foreach ($user->roles()->get() as $role)
                     <?php echo $role->name . '<br>'; ?> @endforeach @endif
                 </td>
+                <td>
+                    <button class="btn btn-primary deleteUser" data-user_id={{$user->id}}>
+                        <i class="fas fa-times"></i>
+                        Удалить
+                    </button>
+                </td>
             </tr>
             @endforeach
         </table>
@@ -53,4 +69,8 @@
         {{$users->appends(request()->input())->links()}}
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="{{URL::asset('admin/js/deleteUser.js')}}"></script>
 @endsection

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Traits\AdminTrait;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\CreateUserRequest;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Контроллер Администратора
@@ -77,5 +79,38 @@ class AdminController extends Controller
     {
         $result = $this->revokeUserFromOrder($orderId, $userId);
         return response()->json($result);
+    }
+
+    /**
+     * Создание страницы с созданием пользователя
+     */
+    public function createUserRequest(): View
+    {
+        return view('admin.createUser');
+    }
+
+    /**
+     * POST-запрос на создание пользователя
+     * 
+     * @param CreateUserRequest $request Запрос на создание пользователя
+     */
+    public function postUserRequest(CreateUserRequest $request)
+    {
+        if ($request->validated()) {
+            $result = $this->postUser($request);
+            $result ? Session::flash('success', 'Пользователь успешно добавлен') : Session::flash('error', 'Добавить пользователя не удалось');
+            return redirect()->route('admin.index');
+        }
+        return redirect()->back();
+    }
+
+    /**
+     * Удаление пользователя
+     */
+    public function deleteUserRequest(int $id)
+    {
+        $deleteResult = $this->deleteUser($id);
+        $deleteResult ? Session::flash('success', 'Пользователь успешно удален') : Session::flash('error', 'Удалить пользователя не удалось');
+        return redirect()->route('admin.index');
     }
 }

@@ -10,6 +10,7 @@ use App\UserInRole;
 use App\Traits\ClientTrait;
 use App\ExecutorInOrder;
 use App\Status;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Трэйт, содержащий методы для работы администраторской части
@@ -55,7 +56,8 @@ trait AdminTrait
     private function getAllRequests(Request $request): array
     {
         $statusId = $request->get('statusId');
-        $orders = Order::where(['status_id' => $statusId])->paginate(12);
+        $statusId == 'all' ?
+            $orders = Order::paginate(12) : $orders = Order::where(['status_id' => $statusId])->paginate(12);
         $statuses = Status::all();
         $parsedOrders = [];
         foreach ($orders as $order) {
@@ -154,5 +156,39 @@ trait AdminTrait
             'user_id' => $userId
         ])->delete();
         return $result;
+    }
+
+    /**
+     * Создание пользователя в систем администратором
+     * 
+     * @param $request POST-запрос с параметрами пользователя
+     * @return bool Результат создания пользователя
+     */
+    private function postUser($request): bool
+    {
+        $resultCreation = false;
+        $user = User::create([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'address' => $request->get('address'),
+            'organization' => $request->get('organization'),
+            'phone_number' => $request->get('phone_number'),
+            'password' => Hash::make($request->get('password'))
+        ]);
+        $resultCreation = $user->save();
+        return $resultCreation;
+    }
+
+    /**
+     * Удаление пользователя
+     */
+    private function deleteUser(int $id): bool
+    {
+        $deleteResult = false;
+        $deleteUser = User::find($id);
+        if ($deleteUser) {
+            $deleteResult = $deleteUser->delete();
+        }
+        return $deleteResult;
     }
 }

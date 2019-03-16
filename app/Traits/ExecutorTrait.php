@@ -24,7 +24,8 @@ trait ExecutorTrait
         $userId = $request->user()->id;
         $statusId = $request->get('statusId');
         $executorOrders = ExecutorInOrder::where(['user_id' => $userId])->pluck('order_id')->toArray();
-        $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => $statusId])->paginate(12);
+        $statusId == 'all' ?
+            $orders = Order::whereIn('id', $executorOrders)->paginate(12) : $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => $statusId])->paginate(12);
         $parsedOrders = [];
         foreach ($orders as $order) {
             $parsedOrders[] = $this->parseOrder($order);

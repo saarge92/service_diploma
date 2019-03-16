@@ -85,6 +85,10 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'AdminController@viewOrder',
         'as' => 'admin.viewOrder'
     ]);
+    Route::get('/createUser', [
+        'uses' => 'AdminController@createUserRequest',
+        'as' => 'admin.createUser'
+    ]);
     Route::post('/set-executor-order/{orderId}/{userId}', [
         'uses' => 'AdminController@setExecutorRequest'
     ]);
@@ -94,6 +98,14 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
             'uses' => 'AdminController@revokeExecutorOrderRequest'
         ]
     );
+    Route::post('/postUser', [
+        'uses' => 'AdminController@postUserRequest',
+        'as' => 'admin.postUserRequest'
+    ]);
+    Route::post('/deleteUserRequest/{id}', [
+        'uses' => 'AdminController@deleteUserRequest',
+        'as' => 'admin.deleteUserRequest'
+    ]);
 });
 
 Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['executor']], function () {
@@ -101,15 +113,15 @@ Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['exec
         'uses' => 'ExecutorController@index',
         'as' => 'executor.index'
     ]);
-    Route::get('/viewOrder/{id}',[
+    Route::get('/viewOrder/{id}', [
         'uses' => 'ExecutorController@getOrder',
         'as' => 'executor.viewOrder'
     ]);
-    Route::post('/submitComment',[
+    Route::post('/submitComment', [
         'uses' => 'ExecutorController@submitComment',
         'as' => 'executor.submitComment'
     ]);
-    Route::post('/setStatusOrder/',[
+    Route::post('/setStatusOrder/', [
         'uses' => 'ExecutorController@setStatusOrderRequest',
         'as' => 'executor.setStatusOrderRequest'
     ]);
