@@ -89,6 +89,20 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label  text-md-right">Выберите роль</label>
+                        <div class="col-md-6">
+                            <select name="roleId" class="form-control">
+                                @foreach($roles as $role)
+                                    <option value="{{$role->id}}">{{$role->name}} 
+                                        {{isset($_POST['roleId']) ? ($_POST['roleId']==$role->id ? 'selected' : '') : ''}}
+                                    </option>
+                                @endforeach
+                                <option value="" {{isset($_POST['roleId']) ? '' : 'selected'}}>Клиент</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary">
@@ -101,4 +115,8 @@
         </div>
     </div>
 </div>
+@endsection
+ 
+@section('scripts')
+<script src="{{URL::asset('frontend/js/phoneValidaton.js')}}"></script>
 @endsection

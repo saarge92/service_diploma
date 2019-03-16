@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\CreateUserRequest;
 use Illuminate\Support\Facades\Session;
+use App\Role;
 
 /**
  * Контроллер Администратора
@@ -86,7 +87,8 @@ class AdminController extends Controller
      */
     public function createUserRequest(): View
     {
-        return view('admin.createUser');
+        $roles = Role::all();
+        return view('admin.createUser', compact('roles'));
     }
 
     /**
@@ -106,11 +108,12 @@ class AdminController extends Controller
 
     /**
      * Удаление пользователя
+     * 
+     * @param int $id Номер пользователя
      */
-    public function deleteUserRequest(int $id)
+    public function deleteUserRequest(int $id): JsonResponse
     {
         $deleteResult = $this->deleteUser($id);
-        $deleteResult ? Session::flash('success', 'Пользователь успешно удален') : Session::flash('error', 'Удалить пользователя не удалось');
-        return redirect()->route('admin.index');
+        return response()->json($deleteResult);
     }
 }

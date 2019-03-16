@@ -2,14 +2,15 @@
 
 namespace App\Traits;
 
-use App\Order;
-use Illuminate\Http\Request;
-use App\User;
 use App\Role;
-use App\UserInRole;
-use App\Traits\ClientTrait;
-use App\ExecutorInOrder;
+use App\User;
+use App\Order;
 use App\Status;
+use App\Comment;
+use App\UserInRole;
+use App\ExecutorInOrder;
+use App\Traits\ClientTrait;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -78,15 +79,21 @@ trait AdminTrait
         $order = Order::find($id);
         $parsedOrders = $this->parseOrder($order);
         $executors = $order->executors;
+        $comments = Comment::where([
+            'order_id' => $order != null ? $order->id : null
+        ])->paginate(12);
         $availableExecutors = $this->getExecutors();
         $availableExecutors = $availableExecutors->whereNotIn(
             'id',
             $executors->pluck('id')->toArray()
         );
+        $statuses = Status::all();
         return [
             'order' => $parsedOrders,
             'executors' => $executors,
-            'availableExecutors' => $availableExecutors
+            'availableExecutors' => $availableExecutors,
+            'comments' => $comments,
+            'statuses' => $statuses
         ];
     }
 

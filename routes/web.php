@@ -108,7 +108,7 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
     ]);
 });
 
-Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['executor']], function () {
+Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['executor', 'admin']], function () {
     Route::get('/index', [
         'uses' => 'ExecutorController@index',
         'as' => 'executor.index'
