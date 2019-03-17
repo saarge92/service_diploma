@@ -198,4 +198,17 @@ trait AdminTrait
         }
         return $deleteResult;
     }
+
+    /**
+     * Удаления комментария
+     */
+    private function deleteComment(int $commentId): bool
+    {
+        $resultOperation = false;
+        $comment = Comment::find($commentId);
+        if ($comment) {
+            $resultOperation = $comment->delete();
+        }
+        return $resultOperation;
+    }
 }

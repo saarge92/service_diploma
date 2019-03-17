@@ -116,4 +116,13 @@ class AdminController extends Controller
         $deleteResult = $this->deleteUser($id);
         return response()->json($deleteResult);
     }
+
+    /**
+     * Post-запрос на удаление комментария
+     */
+    public function deleteCommentRequest(int $commentId): JsonResponse
+    {
+        $result = $this->deleteComment($commentId);
+        return response()->json($result);
+    }
 }

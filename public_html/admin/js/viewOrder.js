@@ -53,7 +53,9 @@ $("#executors-block").on("click", ".revokeExecutor", function(event) {
         },
         success: function(result) {
             if (result == true) {
-                var nameExecutor = event.target.closest("div").querySelector('.nameExecutor').textContent;
+                var nameExecutor = event.target
+                    .closest("div")
+                    .querySelector(".nameExecutor").textContent;
                 console.log(nameExecutor);
                 var newExecutorElement = `<option value=${userId}>${nameExecutor}</option>`;
                 event.target.closest("div").remove();
@@ -65,6 +67,30 @@ $("#executors-block").on("click", ".revokeExecutor", function(event) {
         },
         error: function(error) {
             $(".ajax-loader").css("display", "none");
+            console.log(error);
+        }
+    });
+});
+
+/**
+ * Удаление комментария администратором
+ */
+$("#comments").on("click", ".deleteButton", function(event) {
+    event.preventDefault();
+    const commentId = event.target.dataset["comment_id"];
+    const token = $('meta[name="csrf-token"]').attr("content");
+    $.ajax({
+        type: "POST",
+        url: `/admin/deleteCommentRequest/${commentId}`,
+        data: {
+            _token: token
+        },
+        success: function(result) {
+            if (result == true) {
+                event.target.closest(".comment").remove();
+            }
+        },
+        error: function(error) {
             console.log(error);
         }
     });

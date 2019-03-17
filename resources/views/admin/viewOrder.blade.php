@@ -7,6 +7,7 @@
 @endsection
  
 @section('content')
+    @include('executor.partials.info_modal')
 <div id="shopInfo">
     <input type="hidden" id="orderId" value="{{ $order->id }}">
     <div class="container">
@@ -81,8 +82,8 @@
 
         <div class="row mt-2">
             <div class="col-md-12">
+                <div>Комментарии</div>
                 <div id="comments">
-                    <div>Комментарии</div>
                     @foreach($comments as $comment)
                     <div class="comment">
                         <label>Автор : {{$comment->user ? $comment->user->name : ''}}</label>
@@ -90,6 +91,7 @@
                         <div>
                             Дата {{$comment->created_at}}
                         </div>
+                        <button class="deleteButton" data-comment_id="{{$comment->id}}"> <i class="fas fa-times"></i> Удалить</button>
                     </div>
                     @endforeach
                 </div>

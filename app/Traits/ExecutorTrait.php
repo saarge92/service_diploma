@@ -70,6 +70,7 @@ trait ExecutorTrait
         $userId = $request->user()->id;
         $orderId = $request->get('orderId');
         $textComment = $request->get('textComment');
+        $isAdmin = in_array('admin', $request->user()->roles->pluck('name')->toArray());
         $newComment = Comment::create([
             'user_id' => $userId,
             'order_id' => $orderId,
@@ -80,7 +81,9 @@ trait ExecutorTrait
             return [
                 'created' => $isCreated,
                 'author' => $request->user()->name,
-                'create_date' => $newComment->created_at->format('Y-m-d H:i:00')
+                'create_date' => $newComment->created_at->format('Y-m-d H:i:00'),
+                'isAdmin' => $isAdmin,
+                'id' => $newComment->id
             ];
         }
         return [

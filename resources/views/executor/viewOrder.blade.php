@@ -7,7 +7,7 @@
 @endsection
  
 @section('content')
-@include('executor.partials.info_modal')
+    @include('executor.partials.info_modal')
 <div class="row">
     <div class="col-md-12">
         <form id="statusForm" action="" method="POST">
@@ -28,8 +28,8 @@
 
 <div class="row mt-2">
     <div class="col-md-12">
+        <div>Комментарии</div>
         <div id="comments">
-            <div>Комментарии</div>
             @foreach($comments as $comment)
             <div class="comment">
                 <label>Автор : {{$comment->user ? $comment->user->name : ''}}</label>

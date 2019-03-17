@@ -17,18 +17,34 @@ $("#addButton").on("click", function() {
             },
             success: function(result) {
                 if (result[0].created == true) {
-                    const newComment = `<div class="comment">
-                    <label>Автор : ${result[0].author}</label>
-                    <div class="comment-text">
-                    ${textComment}</div>
-                    <div>
-                        Дата ${result[0].create_date}
-                    </div>
-                    </div>`;
+                    //Если коммент оставил админ
+                    var newComment = null;
+
+                    if (result[0].isAdmin) {
+                        newComment = `<div class="comment">
+                        <label>Автор : ${result[0].author}</label>
+                        <div class="comment-text">
+                        ${textComment}</div>
+                        <div>
+                            Дата ${result[0].create_date}
+                        </div>
+                        <button class="deleteButton" data-comment_id="${
+                            result[0].id
+                        }"> <i class="fas fa-times"></i> Удалить</button>
+                        </div>`;
+                    } else {
+                        newComment = `<div class="comment">
+                        <label>Автор : ${result[0].author}</label>
+                        <div class="comment-text">
+                        ${textComment}</div>
+                        <div>
+                            Дата ${result[0].create_date}
+                        </div>
+                        </div>`;
+                    }
                     $("#comments").prepend($(newComment.toString()));
                     $("#textComment").val("");
                 }
-                console.log(result);
             },
             error: function(error) {
                 console.log(error);
@@ -45,7 +61,6 @@ $("#setUpStatus").on("click", function(event) {
     const orderId = $("#orderId").val();
     const statusId = $("#statusSelect").val();
     const token = $('meta[name="csrf-token"]').attr("content");
-    console.log(statusId);
     $.ajax({
         type: "POST",
         url: `/executor/setStatusOrder`,

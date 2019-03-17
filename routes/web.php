@@ -106,6 +106,10 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'AdminController@deleteUserRequest',
         'as' => 'admin.deleteUserRequest'
     ]);
+    Route::post('/deleteCommentRequest/{commentId}', [
+        'uses' => 'AdminController@deleteCommentRequest',
+        'as' => 'admin.deleteCommentRequest'
+    ]);
 });
 
 Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['executor', 'admin']], function () {
