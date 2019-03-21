@@ -119,10 +119,23 @@ class AdminController extends Controller
 
     /**
      * Post-запрос на удаление комментария
+     * 
+     * @param int $commentId Номер комментария
      */
     public function deleteCommentRequest(int $commentId): JsonResponse
     {
         $result = $this->deleteComment($commentId);
         return response()->json($result);
+    }
+
+    /**
+     * Получение информации и пользователе
+     * 
+     * @param $userId Id пользователя
+     */
+    public function getUserInfoRequest(int $userId)
+    {
+        $data = $this->getUserInfo($userId);
+        return view('admin.userInfo',$data);
     }
 }

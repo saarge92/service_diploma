@@ -57,8 +57,12 @@ trait AdminTrait
     private function getAllRequests(Request $request): array
     {
         $statusId = $request->get('statusId');
-        $statusId == 'all' ?
-            $orders = Order::paginate(12) : $orders = Order::where(['status_id' => $statusId])->paginate(12);
+        $orders = null;
+        if ($statusId == 'new') {
+            $orders = Order::where(['status_id' => null])->paginate(12);
+        } else {
+            $statusId == null ?  $orders = Order::paginate(12) : $orders = Order::where(['status_id' => $statusId])->paginate(12);
+        }
         $statuses = Status::all();
         $parsedOrders = [];
         foreach ($orders as $order) {
@@ -201,6 +205,9 @@ trait AdminTrait
 
     /**
      * Удаления комментария
+     * 
+     * @param int $commentId Номер комментария
+     * @return bool Удален ли комментарий
      */
     private function deleteComment(int $commentId): bool
     {
@@ -210,5 +217,19 @@ trait AdminTrait
             $resultOperation = $comment->delete();
         }
         return $resultOperation;
+    }
+
+    /**
+     * Получение информации о пользователе
+     * 
+     * @param int $userId Id пользователя
+     * 
+     */
+    private function getUserInfo(int $userId): array
+    {
+        $user = User::find($userId);
+        return [
+            'user' => $user
+        ];
     }
 }

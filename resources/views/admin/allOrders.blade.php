@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('layouts.admin')
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -10,16 +10,14 @@
                 <div class="form-group">
                     <select name="statusId" id="orderSelect" class="form-control">
                         @foreach ($statuses as $status)
-                            <option value="{{$status->id}}" 
-                                {{isset($_GET['statusId']) ?  ($_GET['statusId'] == $status->id ? 'selected' : '') : ''}}>
-                                {{$status->name}}
-                            </option>
+                        <option value="{{$status->id}}" {{isset($_GET['statusId']) ?  ($_GET['statusId'] == $status->id ? 'selected' : '') : ''}}>
+                            {{$status->name}}
+                        </option>
                         @endforeach
-                        <option value="" 
-                            {{ isset($_GET['statusId']) ? ($_GET['statusId'] == null ? 'selected' : '') : 'selected'}} >
+                        <option value="new" {{ isset($_GET['statusId']) ? ($_GET['statusId'] == 'new' ? 'selected' : '') : ''}}>
                             Новая
                         </option>
-                        <option value="all" {{ isset($_GET['statusId']) ? ($_GET['statusId'] == 'all' ? 'selected' : '') : ''}} >
+                        <option value="" {{ isset($_GET['statusId']) ? ($_GET['statusId'] == null ? 'selected' : '') : 'selected'}}>
                             Все
                         </option>
                     </select>
@@ -51,11 +49,11 @@
                 <th>
                     Дата создания @if(isset($_GET['orderDate'])) @if($_GET['orderDate']=='asc')
                     <a href="{{route(request()->route()->getName(),array_merge(request()->except(['orderDate']),['orderDate'=>'desc']))}}">
-                                <i class="fas fa-arrow-down"></i>
-                            </a> @else
+                        <i class="fas fa-arrow-down"></i>
+                    </a> @else
                     <a href="{{route(request()->route()->getName(),array_merge(request()->except(['orderDate']),['orderDate'=>'asc']))}}">
-                                <i class="fas fa-arrow-up"></i>
-                            </a> @endif @else
+                        <i class="fas fa-arrow-up"></i>
+                    </a> @endif @else
                     <a href="{{route(request()->route()->getName(),array_merge(request()->except(['orderDate']),['orderDate'=>'asc']))}}">
                         <i class="fas fa-arrow-up"></i></a> @endif
                 </th>
@@ -65,6 +63,9 @@
                 <th>
                     Исполнители
                 </th>
+                <th>
+                    Заказчик
+                </th>
             </tr>
             @foreach ($orders as $order)
             <tr>
@@ -73,7 +74,7 @@
                 </td>
                 <td>
                     @foreach($order->previewText as $prevText)
-                    <?php echo $prevText . '<br/>' ;?> @endforeach
+                    <?php echo $prevText . '<br/>'; ?> @endforeach
                 </td>
                 <td>
                     {{ $order->totalQty }}
@@ -92,6 +93,9 @@
                     @foreach ($order->executors as $item) {{ $item }} @endforeach
                 </td>
                 <td>
+                    <a href="{{ route('admin.viewUser',['userId' => $order->client->id]) }}">{{ $order->client->name }}</a>
+                </td>
+                <td>
                     <a href="{{route('admin.viewOrder',['id'=>$order->id])}}" class="btn btn-danger">Посмотреть</a>
                 </td>
             </tr>
@@ -104,4 +108,4 @@
         {{$orderPaginate->appends(request()->input())->links()}}
     </div>
 </div>
-@endsection
+@endsection 

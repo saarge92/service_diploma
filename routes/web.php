@@ -110,6 +110,10 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'AdminController@deleteCommentRequest',
         'as' => 'admin.deleteCommentRequest'
     ]);
+        Route::get('/viewUser/{userId}',[
+        'uses' => 'AdminController@getUserInfoRequest',
+        'as' => 'admin.viewUser'
+    ]);
 });
 
 Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['executor', 'admin']], function () {
