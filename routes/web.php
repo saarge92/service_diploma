@@ -110,9 +110,17 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'AdminController@deleteCommentRequest',
         'as' => 'admin.deleteCommentRequest'
     ]);
-        Route::get('/viewUser/{userId}',[
+    Route::get('/viewUser/{userId}', [
         'uses' => 'AdminController@getUserInfoRequest',
         'as' => 'admin.viewUser'
+    ]);
+    Route::post('/grantRole/{userId}/{roleId}',[
+        'uses' => 'AdminController@grantRoleToUserRequest',
+        'as' => 'admin.grantRole'
+    ]);
+    Route::post('/revokeRole/{userId}/{roleId}',[
+        'uses' => 'AdminController@revokeRoleRequest',
+        'as' => 'admin.grantRole'
     ]);
 });
 

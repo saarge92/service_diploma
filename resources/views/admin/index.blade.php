@@ -12,6 +12,7 @@
 
 <div class="row mt-2">
     <div class="col-md-12">
+        <label for="">Фильтры</label>
         <form method="GET" action="/admin/index">
             <div class="form-group">
                 <select name="roleId" class="form-control">
@@ -44,7 +45,7 @@
             @foreach ($users as $user)
             <tr>
                 <td>
-                    {{$user->name}}
+                    <a href="{{ route('admin.viewUser',['userId'=>$user->id]) }}">{{ $user->name }}</a>
                 </td>
                 <td>
                     {{$user->email}}
@@ -54,7 +55,7 @@
                     <?php echo $role->name . '<br>'; ?> @endforeach @endif
                 </td>
                 <td>
-                    <button class="btn btn-primary deleteUser" data-user_id={{$user->id}}>
+                    <button class="btn btn-danger deleteUser" data-user_id={{$user->id}}>
                         <i class="fas fa-times"></i>
                         Удалить
                     </button>
@@ -70,7 +71,7 @@
     </div>
 </div>
 @endsection
-
+ 
 @section('scripts')
 <script src="{{URL::asset('admin/js/deleteUser.js')}}"></script>
 @endsection

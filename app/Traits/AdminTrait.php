@@ -223,13 +223,45 @@ trait AdminTrait
      * Получение информации о пользователе
      * 
      * @param int $userId Id пользователя
-     * 
+     * @return array Пользователь со списком ролей в базе
      */
     private function getUserInfo(int $userId): array
     {
         $user = User::find($userId);
+        $roles = Role::all();
         return [
-            'user' => $user
+            'user' => $user,
+            'roles' => $roles
         ];
+    }
+
+    /**
+     * Реализация добавления роли для пользователя
+     * 
+     * @param int $userId Id пользователя
+     * @param int $roleId Номер роли
+     * @return string Результат добавления
+     */
+    private function grantRoleToUser(int $userId, int $roleId): string
+    {
+        $resultGrant = '';
+        $userInRole = UserInRole::where(['user_id' => $userId, 'role_id' => $roleId])->count();
+        if ($userInRole > 0) {
+            $resultGrant = 'existed';
+        } else {
+            $newUserInRole = UserInRole::create(['user_id' => $userId, 'role_id' => $roleId])->save();
+            $newUserInRole == true ? $resultGrant = 'created' : $result = 'error';
+        }
+        return $resultGrant;
+    }
+
+    private function revokeRole(int $userId, int $roleId): bool
+    {
+        $result = false;
+        $userInRole = UserInRole::where(['user_id' => $userId, 'role_id' => $roleId]);
+        if ($userInRole) {
+            $result = $userInRole->delete();
+        }
+        return $result;
     }
 }

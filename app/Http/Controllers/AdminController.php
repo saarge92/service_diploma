@@ -136,6 +136,30 @@ class AdminController extends Controller
     public function getUserInfoRequest(int $userId)
     {
         $data = $this->getUserInfo($userId);
-        return view('admin.userInfo',$data);
+        return view('admin.userInfo', $data);
+    }
+
+    /**
+     * Добавление роли для пользователя
+     * @param int $userId Id пользователя
+     * @param int $roleId Номер роли
+     * @return JsonResponse Результат дарования роли пользователю
+     */
+    public function grantRoleToUserRequest(int $userId, int $roleId): JsonResponse
+    {
+        $resultCreation = $this->grantRoleToUser($userId, $roleId);
+        return response()->json($resultCreation);
+    }
+
+    /**
+     * Удаление роли для пользователя
+     * @param int $userId Id пользователя
+     * @param int $roleId Номер роли
+     * @return JsonResponse Результат дарования роли пользователю
+     */
+    public function revokeRoleRequest(int $userId, int $roleId): JsonResponse
+    {
+        $result = $this->revokeRole($userId, $roleId);
+        return response()->json($result);
     }
 }
