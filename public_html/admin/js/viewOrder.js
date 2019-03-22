@@ -32,7 +32,6 @@ $("#assignButton").on("click", function() {
         error: function(error) {
             console.log(error);
             $(".ajax-loader").css("display", "none");
-            ы;
         }
     });
 });

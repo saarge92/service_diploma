@@ -3,6 +3,7 @@
 @endsection
  
 @section('content')
+@include('executor.partials.info_modal')
 <div class="row">
     <div class="col-md-12 text-center">
         <div>ФИО : {{ $user->name }}</div>
