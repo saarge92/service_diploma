@@ -8,6 +8,7 @@ use App\Status;
 use App\Traits\ClientTrait;
 use App\Comment;
 use App\Http\Requests\PostCommentRequest;
+use App\User;
 
 trait ExecutorTrait
 {
@@ -23,15 +24,20 @@ trait ExecutorTrait
     {
         $userId = $request->user()->id;
         $statusId = $request->get('statusId');
+        $clientId = $request->get('clientId');
+        $clientsId = Order::distinct('user_id')->pluck('user_id')->toArray();
+        $allClients = User::whereIn('id', $clientsId)->get();
         $executorOrders = ExecutorInOrder::where(['user_id' => $userId])->pluck('order_id')->toArray();
         $orders = null;
         if ($statusId == 'new') {
-            $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => null])->paginate(12);
+            $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => null]);
         } else {
-            $statusId == null ?  $orders = Order::whereIn('id', $executorOrders)->paginate(12) : $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => $statusId])->paginate(12);
+            $statusId == null ?  $orders = Order::whereIn('id', $executorOrders) : $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => $statusId]);
         }
-        // $statusId == 'all' ?
-        //     $orders = Order::whereIn('id', $executorOrders)->paginate(12) : $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => $statusId])->paginate(12);
+        if ($clientId != null) {
+            $orders = $orders->where(['user_id' => $clientId]);
+        }
+        $orders = $orders->paginate(12);
         $parsedOrders = [];
         foreach ($orders as $order) {
             $parsedOrders[] = $this->parseOrder($order);
@@ -40,7 +46,8 @@ trait ExecutorTrait
         return [
             'orders' => $parsedOrders,
             'statuses' => $statuses,
-            'orderPaginate' => $orders
+            'orderPaginate' => $orders,
+            'allClients' => $allClients
         ];
     }
 

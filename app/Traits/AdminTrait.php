@@ -72,10 +72,10 @@ trait AdminTrait
         if ($statusId == 'new') {
             $orders = Order::where(['status_id' => null]);
         } else {
-            $statusId == null ?  $orders = Order::where('status_id','!=',null) 
-            : $orders = Order::where(['status_id' => $statusId]);
+            $statusId == null ?  $orders = Order::where('status_id', '!=', null)
+                : $orders = Order::where(['status_id' => $statusId]);
         }
-        
+
         if ($clientId != null) {
             $orders = $orders->where(['user_id' => $clientId]);
         }
@@ -293,5 +293,21 @@ trait AdminTrait
             $result = $userInRole->delete();
         }
         return $result;
+    }
+
+    /**
+     * Удаление заявки
+     * 
+     * @param int $id Номер заявки
+     * @return bool Результат удаления
+     */
+    private function deleteRequestById(int $id): bool
+    {
+        $resultOperation = false;
+        $order = Order::find($id);
+        if ($order) {
+            $resultOperation = $order->delete();
+        }
+        return $resultOperation;
     }
 }

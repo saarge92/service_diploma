@@ -122,6 +122,10 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'AdminController@revokeRoleRequest',
         'as' => 'admin.grantRole'
     ]);
+    Route::post('/deleteRequest/{id}',[
+        'uses' => 'AdminController@deleteRequest',
+        'as' => 'admin.deleteRequest'
+    ]);
 });
 
 Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['executor', 'admin']], function () {

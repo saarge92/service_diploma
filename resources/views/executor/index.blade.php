@@ -25,6 +25,23 @@
                             </option>
                         </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="">Клиенты</label>
+                    <select name="clientId" class="form-control">
+                            @foreach($allClients as $client)
+                                <option value="{{ $client->id }}"
+                                {{isset($_GET['clientId']) ?  ($_GET['clientId'] == $client->id ? 'selected' : '') : ''}} >
+                                {{ $client->name }}
+                                </option>
+                            @endforeach
+                            <option value="" 
+                            {{ isset($_GET['clientId']) ? ($_GET['clientId'] == null ? 'selected' : '') : 'selected'}}>
+                                Все
+                            </option>
+                        </select>
+                </div>
+
                 <button type="submit" class="btn btn-success">Применить</button>
             </form>
         </div>
@@ -49,18 +66,9 @@
                 <th>
                     Статус заявки
                 </th>
-                {{--
                 <th>
-                    Дата создания @if(isset($_GET['orderDate'])) @if($_GET['orderDate']=='asc')
-                    <a href="{{route(request()->route()->getName(),array_merge(request()->except(['orderDate']),['orderDate'=>'desc']))}}">
-                                <i class="fas fa-arrow-down"></i>
-                            </a> @else
-                    <a href="{{route(request()->route()->getName(),array_merge(request()->except(['orderDate']),['orderDate'=>'asc']))}}">
-                                <i class="fas fa-arrow-up"></i>
-                            </a> @endif @else
-                    <a href="{{route(request()->route()->getName(),array_merge(request()->except(['orderDate']),['orderDate'=>'asc']))}}">
-                        <i class="fas fa-arrow-up"></i></a> @endif
-                </th> --}}
+                    Заказчик
+                </th>
             </tr>
             @foreach ($orders as $order)
             <tr>
@@ -78,6 +86,7 @@
                     {{ $order->totalSum }}
                 </td>
                 <td>{{ $order->status }}</td>
+                <td>{{ $order->client->name }}</td>
                 <td>
                     <a href="{{route('executor.viewOrder',['id'=>$order->id])}}" class="btn btn-danger">Посмотреть</a>
                 </td>

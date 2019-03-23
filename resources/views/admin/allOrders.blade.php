@@ -131,6 +131,12 @@
                 <td>
                     <a href="{{route('admin.viewOrder',['id'=>$order->id])}}" class="btn btn-danger">Посмотреть</a>
                 </td>
+                <td>
+                    <button class="btn btn-default deleteRequest" data-request_id={{$order->id}}>
+                    <i class="fas fa-times"></i>
+                        Удалить
+                    </button>
+                </td>
             </tr>
             @endforeach
         </table>
@@ -141,4 +147,8 @@
         {{$orderPaginate->appends(request()->input())->links()}}
     </div>
 </div>
+@endsection
+ 
+@section('scripts')
+<script src="{{ URL::asset('admin/js/allOrders.js') }}"></script>
 @endsection

@@ -162,4 +162,13 @@ class AdminController extends Controller
         $result = $this->revokeRole($userId, $roleId);
         return response()->json($result);
     }
+
+    /**
+     * Удаление заявки по его id
+     */
+    public function deleteRequest(int $id): JsonResponse
+    {
+        $result = $this->deleteRequestById($id);
+        return response()->json($result);
+    }
 }
