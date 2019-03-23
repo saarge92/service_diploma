@@ -1,13 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.admin') 
 @section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="card-header">
-            Статусы заявок
+            Фильтры заявок
         </div>
         <div class="card-body">
             <form method="GET" action="{{route('admin.all-requests')}}">
                 <div class="form-group">
+                    <label for="">Статусы заявок</label>
                     <select name="statusId" id="orderSelect" class="form-control">
                         @foreach ($statuses as $status)
                         <option value="{{$status->id}}" {{isset($_GET['statusId']) ?  ($_GET['statusId'] == $status->id ? 'selected' : '') : ''}}>
@@ -22,6 +23,38 @@
                         </option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="">Клиенты</label>
+                    <select name="clientId" class="form-control">
+                        @foreach($allClients as $client)
+                            <option value="{{ $client->id }}"
+                            {{isset($_GET['clientId']) ?  ($_GET['clientId'] == $client->id ? 'selected' : '') : ''}} >
+                            {{ $client->name }}
+                            </option>
+                        @endforeach
+                        <option value="" 
+                        {{ isset($_GET['clientId']) ? ($_GET['clientId'] == null ? 'selected' : '') : 'selected'}}>
+                            Все
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Исполнители</label>
+                    <select name="executorId" class="form-control">
+                        @foreach($allExecutors as $executor)
+                            <option value="{{ $executor->id }}" {{isset($_GET['executorId']) ?  ($_GET['executorId'] == $executor->id ? 'selected' : '') : ''}}>
+                                {{ $executor->name }}
+                            </option>
+                        @endforeach
+                        <option value="" 
+                        {{ isset($_GET['executorId']) ? ($_GET['executorId'] == null ? 'selected' : '') : 'selected'}}>
+                            Все
+                        </option>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-success">Применить</button>
             </form>
         </div>
@@ -108,4 +141,4 @@
         {{$orderPaginate->appends(request()->input())->links()}}
     </div>
 </div>
-@endsection 
+@endsection

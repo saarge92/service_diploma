@@ -57,12 +57,34 @@ trait AdminTrait
     private function getAllRequests(Request $request): array
     {
         $statusId = $request->get('statusId');
+        $clientId = $request->get('clientId');
+        $executorId = $request->get('executorId');
+
+        //Получение списка клиентов
+        $clientsId = Order::distinct('user_id')->pluck('user_id')->toArray();
+        $allClients = User::whereIn('id', $clientsId)->get();
+
+        //Получение списка заказов
+        $executorsId = ExecutorInOrder::distinct('user_id')->pluck('user_id')->toArray();
+        $allExecutors = User::whereIn('id', $executorsId)->get();
+
         $orders = null;
         if ($statusId == 'new') {
-            $orders = Order::where(['status_id' => null])->paginate(12);
+            $orders = Order::where(['status_id' => null]);
         } else {
-            $statusId == null ?  $orders = Order::paginate(12) : $orders = Order::where(['status_id' => $statusId])->paginate(12);
+            $statusId == null ?  $orders = Order::where('status_id','!=',null) 
+            : $orders = Order::where(['status_id' => $statusId]);
         }
+        
+        if ($clientId != null) {
+            $orders = $orders->where(['user_id' => $clientId]);
+        }
+        if ($executorId != null) {
+            $executorOrders = ExecutorInOrder::where(['user_id' => $executorId])->pluck('order_id');
+            $orders = $orders->whereIn('id', $executorOrders);
+        }
+        $orders = $orders->paginate(12);
+
         $statuses = Status::all();
         $parsedOrders = [];
         foreach ($orders as $order) {
@@ -71,7 +93,9 @@ trait AdminTrait
         return [
             'orders' => $parsedOrders,
             'orderPaginate' => $orders,
-            'statuses' => $statuses
+            'statuses' => $statuses,
+            'allClients' => $allClients,
+            'allExecutors' => $allExecutors
         ];
     }
 
@@ -255,6 +279,12 @@ trait AdminTrait
         return $resultGrant;
     }
 
+    /**
+     * Удаление пользователя из роли
+     * @param int $userId Id пользователя
+     * @param int $roleId Номер роли
+     * @return bool Результат операции
+     */
     private function revokeRole(int $userId, int $roleId): bool
     {
         $result = false;
