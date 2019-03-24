@@ -19,7 +19,7 @@ $("#assignButton").on("click", function() {
                 try {
                     var newComponent =
                         "<div>" +
-                        `<span class='float-left nameExecutor'>${executorName}</span>` +
+                        `<span class='nameExecutor'>${executorName}</span>` +
                         `<span class='float-right revokeExecutor'><i class='fa fa-times' data-user_id=${userId}></i></span>`;
                     $("#executors-block").prepend($(newComponent.toString()));
                     $(`#executors option[value='${userId}']`).remove();

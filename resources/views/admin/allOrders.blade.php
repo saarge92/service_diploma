@@ -2,6 +2,14 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        <a href="{{ route('frontend.services') }}" class="btn btn-success">
+            <i class="fas fa-plus"></i>
+            Добавить Заявку
+        </a>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-12">
         <div class="card-header">
             Фильтры заявок
         </div>
@@ -34,7 +42,9 @@
                             </option>
                         @endforeach
                         <option value="" 
-                        {{ isset($_GET['clientId']) ? ($_GET['clientId'] == null ? 'selected' : '') : 'selected'}}>
+                        {{ isset($_GET['clientId']) ? ($_GET['clientId'] == null || 
+                            !in_array($_GET['clientId'],$allClients->pluck('id')->toArray())
+                         ? 'selected' : '') : 'selected'}}>
                             Все
                         </option>
                     </select>
@@ -44,12 +54,15 @@
                     <label for="">Исполнители</label>
                     <select name="executorId" class="form-control">
                         @foreach($allExecutors as $executor)
-                            <option value="{{ $executor->id }}" {{isset($_GET['executorId']) ?  ($_GET['executorId'] == $executor->id ? 'selected' : '') : ''}}>
+                            <option value="{{ $executor->id }}" {{isset($_GET['executorId']) ?  
+                            ($_GET['executorId'] == $executor->id ? 'selected' : '') : ''}}>
                                 {{ $executor->name }}
                             </option>
                         @endforeach
                         <option value="" 
-                        {{ isset($_GET['executorId']) ? ($_GET['executorId'] == null ? 'selected' : '') : 'selected'}}>
+                        {{ isset($_GET['executorId']) ? ($_GET['executorId'] == null 
+                        ||  !in_array($_GET['executorId'],$allExecutors->pluck('id')->toArray())
+                        ? 'selected' : '') : 'selected'}}>
                             Все
                         </option>
                     </select>

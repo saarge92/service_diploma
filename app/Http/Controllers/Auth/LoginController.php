@@ -36,4 +36,20 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * Перенаправление в случае, если пользователь имеет определенные роли
+     */
+    protected function authenticated(\Illuminate\Http\Request $request, $user)
+    {
+        $rolesUser = $user->roles->pluck('name')->toArray();
+        if (in_array('admin', $rolesUser)) {
+            $this->redirectTo = '/admin/index';
+            return;
+        }
+        if (in_array('executor', $rolesUser)) {
+            $this->redirectTo = '/executor/index';
+            return;
+        }
+    }
 }

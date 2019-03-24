@@ -20,7 +20,7 @@
                             @endforeach
                             <option value="" 
                                 {{ isset($_GET['statusId']) ? ($_GET['statusId'] == 'new' ? 'selected' : '') : ''}} >Новая</option>
-                            <option value="all" {{ isset($_GET['statusId']) ? ($_GET['statusId'] == null ? 'selected' : '') : 'selected'}} >
+                            <option value="" {{ isset($_GET['statusId']) ? ($_GET['statusId'] == null ? 'selected' : '') : 'selected'}} >
                                 Все
                             </option>
                         </select>

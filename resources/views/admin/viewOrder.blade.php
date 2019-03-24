@@ -17,7 +17,7 @@
                 <div id="executors-block">
                     @foreach ($executors as $ex)
                     <div>
-                        <span class="float-left nameExecutor">{{$ex->name}}</span>
+                        <span class="nameExecutor">{{$ex->name}}</span>
                         <span class="float-right revokeExecutor"><i class="fa fa-times"  data-user_id="{{$ex->id}}"></i></span>
                     </div>
                     @endforeach

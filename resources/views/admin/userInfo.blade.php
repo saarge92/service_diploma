@@ -11,6 +11,14 @@
         <div>Телефон : {{ $user->phone_number }}</div>
         <div>Email: {{ $user->email }}</div>
         <div>Адрес {{ $user->address }}</div>
+        <div class="text-center">
+            <a href="{{ route('admin.all-requests') }}?executorId={{ $user->id }}" class="btn btn-warning">
+                Исполняющий заявки
+            </a>
+            <a href="{{ route('admin.all-requests') }}?clientId={{ $user->id }}" class="btn btn-primary">
+                Созданные заявки
+            </a>
+        </div>
     </div>
 </div>
 

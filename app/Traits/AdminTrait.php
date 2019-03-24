@@ -59,7 +59,6 @@ trait AdminTrait
         $statusId = $request->get('statusId');
         $clientId = $request->get('clientId');
         $executorId = $request->get('executorId');
-
         //Получение списка клиентов
         $clientsId = Order::distinct('user_id')->pluck('user_id')->toArray();
         $allClients = User::whereIn('id', $clientsId)->get();
@@ -72,7 +71,7 @@ trait AdminTrait
         if ($statusId == 'new') {
             $orders = Order::where(['status_id' => null]);
         } else {
-            $statusId == null ?  $orders = Order::where('status_id', '!=', null)
+            $statusId == null ?  $orders = Order::where('id', '!=', null)
                 : $orders = Order::where(['status_id' => $statusId]);
         }
 
