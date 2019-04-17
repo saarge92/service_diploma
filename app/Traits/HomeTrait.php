@@ -8,6 +8,8 @@ use App\Cart;
 use App\Team;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Http\Requests\ContactRequest;
+use App\ContactRequestTable;
 
 /**
  * Трейт для работы с данными на главной странице (frontend)
@@ -151,5 +153,21 @@ trait HomeTrait
         $updated_results['totalQty'] = $cart->totalQty;
         $updated_results['totalPrice'] = $cart->totalPrice;
         return $updated_results;
+    }
+
+    /**
+     * Добавление заявки "Связаться со мной"
+     * @param ContactRequest $request - POST-запрос с просьбой связаться
+     */
+    private function addContactMe(ContactRequest $request): bool
+    {
+        $result = false;
+        $newRecord = ContactRequestTable::create([
+            'name' => $request->get('name'),
+            'phone' => $request->get('phone'),
+            'comments' => $request->get('comments')
+        ]);
+        $result = $newRecord->save();
+        return $result;
     }
 }

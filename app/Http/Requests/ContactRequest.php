@@ -24,7 +24,21 @@ class ContactRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'digits:11'],
+            'comments' => ['string', 'max:255']
+        ];
+    }
+    /**
+     * Метод, возвращающий сообщения валидации
+     * 
+     * @return array - массив параметров
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'ФИО обязательно для заполнения',
+            'phone.digits' => 'Номер должен быть в формате 8 XXX XXX XX XX (без пробелов)',
         ];
     }
 }

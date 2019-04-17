@@ -112,9 +112,7 @@ class HomeController extends Controller
     {
         $result = false;
         if ($request->validated()) {
-            ContactRequestTable::create([
-
-            ]);
+            $result = $this->addContactMe($request);
         }
         return response()->json($result);
     }
