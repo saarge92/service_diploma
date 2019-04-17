@@ -7,10 +7,11 @@ use App\Traits\ExecutorTrait;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\PostCommentRequest;
 use App\Http\Requests\SetOrderStatusExecutor;
+use Illuminate\View\View;
 
 /**
  * Контроллер для работы со страницей исполнителя
- * 
+ *
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */
@@ -20,10 +21,11 @@ class ExecutorController extends Controller
 
     /**
      * Генерация индексной страницы исполнителя
-     * 
+     *
      * @param Request $request Get-запрос
+     * @return View Индексная страница исполнителя заявок
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $data = $this->getExecutorOrders($request);
         return view('executor.index', $data);
@@ -31,10 +33,11 @@ class ExecutorController extends Controller
 
     /**
      * Получение информации о заявки с комментариями
-     * 
+     *
      * @param int $id Номер услуги
+     * @return  View Страница с заказом
      */
-    public function getOrder(int $id)
+    public function getOrder(int $id): View
     {
         $data = $this->getOrderById($id);
         return view('executor.viewOrder', $data);
@@ -42,7 +45,7 @@ class ExecutorController extends Controller
 
     /**
      * Отправка комментария исполнителем
-     * 
+     *
      * @param PostCommentRequest $request Post-запрос с комментарием
      * @return JsonResponse Ответ в формате JSON с результатами операции
      */
@@ -56,7 +59,7 @@ class ExecutorController extends Controller
 
     /**
      * Установка статуса исполнителем
-     * 
+     *
      * @param SetOrderStatusExecutor $request Post-запрос
      * @return JsonResponse Ответ в формате JSON с результатами операции
      */

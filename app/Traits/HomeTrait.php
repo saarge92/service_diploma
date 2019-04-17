@@ -7,8 +7,7 @@ use App\Service;
 use App\Cart;
 use App\Team;
 use Illuminate\Support\Facades\Session;
-use Symfony\Component\HttpFoundation\Session\SessionUtils;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 
 /**
  * Трейт для работы с данными на главной странице (frontend)
@@ -45,7 +44,8 @@ trait HomeTrait
     }
 
     /**
-     * 
+     * Получение списка услуг
+     * @param Request $request - GET-запрос
      */
     public function getServices(Request $request): array
     {

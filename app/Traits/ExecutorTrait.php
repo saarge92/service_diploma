@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Traits;
 
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ trait ExecutorTrait
 
     /**
      * Получение заявок исполнителя
-     * 
+     *
      * @param Request $request Get-запрос
      * @return array Список заказов и статусов
      */
@@ -32,7 +33,7 @@ trait ExecutorTrait
         if ($statusId == 'new') {
             $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => null]);
         } else {
-            $statusId == null ?  $orders = Order::whereIn('id', $executorOrders) : $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => $statusId]);
+            $statusId == null ? $orders = Order::whereIn('id', $executorOrders) : $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => $statusId]);
         }
         if ($clientId != null) {
             $orders = $orders->where(['user_id' => $clientId]);
@@ -53,7 +54,7 @@ trait ExecutorTrait
 
     /**
      * Получение информации о заказе
-     * 
+     *
      * @param int $id Номер заказа
      * @return array Параметры заказа
      */
@@ -74,7 +75,7 @@ trait ExecutorTrait
 
     /**
      * Обработка отправки комментария
-     * 
+     *
      * @param Request $request Post-запрос
      * @return array Массив параметров с результатами операции
      */
@@ -106,7 +107,7 @@ trait ExecutorTrait
 
     /**
      * Обработка изменения статуса заявки исполнителем
-     * 
+     *
      */
     private function setStatusOrder($request): bool
     {

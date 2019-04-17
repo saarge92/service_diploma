@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\ContactRequestTable;
+use App\Http\Requests\ContactRequest;
 use Illuminate\Http\Request;
 use App\Traits\HomeTrait;
 use Illuminate\View\View;
@@ -10,9 +12,9 @@ use Illuminate\Support\Facades\Session;
 
 /**
  * Контроллер для работы с главной страницей
- * 
+ *
  * Содержит методы для генерации страниц
- * 
+ *
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */
@@ -31,8 +33,9 @@ class HomeController extends Controller
 
     /**
      * Получает список услуг
-     * 
+     *
      * @param Request $request - Get-запрос
+     * @return View
      */
     public function getListServices(Request $request): View
     {
@@ -42,7 +45,7 @@ class HomeController extends Controller
 
     /**
      * Метод для добавления услуги в корзину
-     * 
+     *
      * @param Request $request - запрос
      * @return JsonResponse - возвращает JSON с общим количеством услуг в корзине
      */
@@ -56,7 +59,7 @@ class HomeController extends Controller
 
     /**
      * Получение списка услуг в корзине
-     * 
+     *
      * @return View возвращает страницу со списком заказанных услуг
      */
     public function getShoppingCart(): View
@@ -90,12 +93,29 @@ class HomeController extends Controller
 
     /**
      * Удаление услуги полностью
+     *
      * @param Request $request - post запрос на удаление услуги из списка
+     * @return  JsonResponse Ответ об удалении в JSON-формате
      */
     public function deleteItemRequest(Request $request): JsonResponse
     {
         $id = $request['orderId'];
         $results = $this->deleteItem($id);
         return response()->json(['updated_results' => $results], 200);
+    }
+
+    /***
+     * @param ContactRequest $request
+     * @return JsonResponse
+     */
+    public function contactRequest(ContactRequest $request): JsonResponse
+    {
+        $result = false;
+        if ($request->validated()) {
+            ContactRequestTable::create([
+
+            ]);
+        }
+        return response()->json($result);
     }
 }

@@ -14,9 +14,9 @@ use App\User;
 
 /**
  * Контроллер обработки запросов авторизованных клиентов
- * 
+ *
  * Содержит методы для генерации страниц в личном кабинете клиента
- * 
+ *
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */
@@ -24,9 +24,10 @@ class ClientController extends Controller
 {
     use HomeTrait;
     use ClientTrait;
+
     /**
      * Получение данных корзины
-     * 
+     *
      * @return View - возвращает страницу с данными корзины
      */
     public function getCartInfoClient(): View
@@ -37,10 +38,12 @@ class ClientController extends Controller
         $cartInfo = $this->getCartInfo();
         return view('client.shoppingCartView', $cartInfo);
     }
+
     /**
      * Генерация индексной страницы клиента
-     * 
+     *
      * @param Request $request - Get-запрос
+     * @return View Возвращает индексную страницу
      */
     public function index(Request $request): View
     {
@@ -50,9 +53,9 @@ class ClientController extends Controller
 
     /**
      * Генерация страницы профиля
-     * 
+     *
      * @param Request $request - Get запрос
-     * @return View
+     * @return View Страница с информацией о профиле
      */
     public function profile(Request $request): View
     {
@@ -68,7 +71,7 @@ class ClientController extends Controller
         if ($request->validated()) {
             $user = User::find($request->user()->id);
             $result = $this->changeProfileUser($request, $user);
-            $result  ? Session::flash('success-client', 'Ваш профиль успешно обновлен')
+            $result ? Session::flash('success-client', 'Ваш профиль успешно обновлен')
                 : Session::flash('error-client', 'Профиль обновить не удалось');
             return redirect()->route('client.profile');
         }
@@ -77,7 +80,7 @@ class ClientController extends Controller
 
     /**
      * Подтверждение заказа
-     * 
+     *
      * @param Request $request - Post-запрос
      */
     public function confirmOrder(Request $request): RedirectResponse
@@ -95,7 +98,7 @@ class ClientController extends Controller
 
     /**
      * Получение заказа по номеру
-     * 
+     *
      * @param Request $request - Get-запрос
      * @param int $id - номер заказа
      */
