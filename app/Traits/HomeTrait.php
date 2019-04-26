@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Traits;
 
 use App\Slider;
@@ -13,9 +14,9 @@ use App\ContactRequestTable;
 
 /**
  * Трейт для работы с данными на главной странице (frontend)
- * 
+ *
  * Содержит методы, возвращающие необходимые данные для работы главной страницы
- * 
+ *
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */
@@ -23,9 +24,9 @@ trait HomeTrait
 {
     /**
      * Данные, необходимые для главной страницы
-     * 
+     *
      * Возвращает список слайдеров, данные о компании и прочее
-     * 
+     *
      * @return array $data - список необходимых данных для главной страницы
      */
     public function getDataForIndexPage(): array
@@ -59,7 +60,7 @@ trait HomeTrait
 
     /**
      * Функция для добавления услуги в корзину
-     * 
+     *
      * @param $id - номер услуги
      */
     public function addToCartItem($id): Cart
@@ -76,7 +77,7 @@ trait HomeTrait
 
     /**
      * Получение информации о  текущей корзине
-     * 
+     *
      * @return array $result - список
      */
     public function getCartInfo(): array
@@ -92,7 +93,7 @@ trait HomeTrait
 
     /**
      * Уменьшение 1 позиции в корзине
-     * 
+     *
      * @param int $id Id услуги в корзине
      * @return array $newCartResult Возвращает параметры корзины
      */
@@ -122,9 +123,9 @@ trait HomeTrait
 
     /**
      * Удаление услуги полностью
-     * 
+     *
      * @param int $id - id услуги
-     * 
+     *
      * @return array $updated_results - измененные параметры корзины
      */
     public function deleteItem(int $id): array
@@ -140,10 +141,10 @@ trait HomeTrait
 
     /**
      * Возвращает измененные параметры корзины
-     * 
+     *
      * @param Cart $cart - корзина
      * @param int $id - id услуги
-     * 
+     *
      * @return array $updated_results - измененные параметры корзины
      */
     private function getUpdatedResult(Cart $cart, int $id): array
@@ -158,6 +159,7 @@ trait HomeTrait
     /**
      * Добавление заявки "Связаться со мной"
      * @param ContactRequest $request - POST-запрос с просьбой связаться
+     * @return bool Добавлена ли заявка о регистрации
      */
     private function addContactMe(ContactRequest $request): bool
     {
