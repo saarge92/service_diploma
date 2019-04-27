@@ -104,9 +104,9 @@ class HomeController extends Controller
         return response()->json(['updated_results' => $results], 200);
     }
 
-    /***
-     * @param ContactRequest $request
-     * @return JsonResponse
+    /**
+     * @param ContactRequest $request Запрос с параметрами для связи 
+     * @return JsonResponse Добавлена ли запись или нет
      */
     public function contactRequest(ContactRequest $request): JsonResponse
     {

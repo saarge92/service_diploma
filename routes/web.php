@@ -43,6 +43,10 @@ Route::group(['middleware' => 'web'], function () {
             'as' => 'frontend.services'
         ]
     );
+    Route::post('/contactRequest',[
+        'uses' => 'HomeController@contactRequest',
+        'as' => 'frontend.contactRequest'
+    ]);
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'client'], function () {

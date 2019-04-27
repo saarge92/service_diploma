@@ -12,4 +12,5 @@
  
 @section('scripts')
 <script src="{{URL::asset('frontend/js/cartMain.js')}}"></script>
+<script src="{{ URL::asset('frontend/contactform/contactform.js') }}"></script>
 @endsection

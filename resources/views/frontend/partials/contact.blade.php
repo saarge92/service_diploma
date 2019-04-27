@@ -64,26 +64,26 @@
                     <div class="form contact-form">
                         <div id="sendmessage">Your message has been sent. Thank you!</div>
                         <div id="errormessage"></div>
-                        <form action="" method="post" role="form"  id="contactForm" class="contactForm">
+                        <form method="post" role="form"  id="contactForm">
                             <div class="form-group">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Ваше ФИО"
+                                <input type="text" name="name" class="form-control" id="nameContact" placeholder="Ваше ФИО"
                                        data-rule="minlen:4" data-msg="Пожалуйста, хотя бы 4 символа"
                                 />
                                 <div class="validation"></div>
                             </div>
                             <div class="form-group">
-                                <input type="phone" class="form-control" name="phone" id="phone"
-                                       placeholder="Ваша Email-почта" data-rule="email" data-msg="Please enter a valid email"
+                                <input type="phone" class="form-control" name="phone" id="phoneContact"
+                                       placeholder="Ваш номер телефона" data-rule="phone"
                                 />
                                 <div class="validation"></div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" name="comments" rows="5" data-rule="required"
+                                <textarea class="form-control" id="commentsContact" name="comments" rows="5" data-rule="required"
                                           data-msg="Пожалуйста, заполните поле" placeholder="Комментарий"></textarea>
                                 <div class="validation"></div>
                             </div>
                             <div class="text-center">
-                                <button type="submit">Send Message</button>
+                                <button type="submit">Отправить запрос</button>
                             </div>
                         </form>
                     </div>
