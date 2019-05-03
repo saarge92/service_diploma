@@ -9,11 +9,23 @@
                 <th>
                     ФИО Клиента
                 </th>
+                <th>
+                    Телефон
+                </th>
+                <th>
+                    Комментарии
+                </th>
             </tr>
             @foreach($contactRecords as $record)
             <tr>
                 <td>
                     {{ $record->name }}
+                </td>
+                <td>
+                    {{ $record->phone }}
+                </td>
+                <td>
+                    {{ $record->comments }}
                 </td>
                 <td>
                     <button class="btn btn-danger deleteUser" data-record_id={{$record->id}}>
