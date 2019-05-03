@@ -1,4 +1,4 @@
-$("#contactForm").on("submit", function(event) {
+$("#contactForm").submit(function(event) {
     event.preventDefault();
     let token = $("meta[name='csrf-token']").attr("content");
     let url = "/contactRequest";
@@ -15,10 +15,18 @@ $("#contactForm").on("submit", function(event) {
             comments: comments
         },
         success: function(result) {
+            $("#infoMessageModal").text("Ваша заявка принята");
+            $("#contactInfoModal").modal({
+                show: true
+            });
+            $("#nameContact").val("");
+            $("#phoneContact").val("");
+            $("#commentsContact").val("");
             console.log(result);
         },
         error: function(error) {
             console.log(error);
+            alert("Произошла ошибка!Проверьте правильность ввода данных!");
         }
     });
 });

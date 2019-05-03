@@ -8,6 +8,7 @@
     @include('frontend.partials.services')
     @include('frontend.partials.team')
     @include('frontend.partials.contact')
+    @include('frontend.partials.infoSuccess')
 @endsection
  
 @section('scripts')
