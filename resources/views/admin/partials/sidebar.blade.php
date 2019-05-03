@@ -12,4 +12,10 @@
             <span>Заявки</span>
         </a>
     </li>
+    <li class="nav-item active">
+            <a class="nav-link" href="/admin/contact-requests">
+                <i class="fas fa-phone"></i>
+                <span>Обратный звонок</span>
+            </a>
+        </li>
 </ul>

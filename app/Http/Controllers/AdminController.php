@@ -171,4 +171,26 @@ class AdminController extends Controller
         $result = $this->deleteRequestById($id);
         return response()->json($result);
     }
+
+    /**
+     * GET-запрос на отоборажение списка
+     * @param Request $request - GET-запрос
+     * @return View - Страница со списком
+     */
+    public function displayContacts(Request $request): View
+    {
+        $contactRecords = $this->getRecordsOfContacts($request);
+        return view('admin.contacts', $contactRecords);
+    }
+
+    /**
+     * POST-запрос на удаление записи об обратном звонке
+     * @param int $id Id записи
+     * @return bool Удалена ли запись
+     */
+    public function deleteContactInfo(int $id): JsonResponse
+    {
+        $resultOperation = $this->deleteRecordContactInfo($id);
+        return response()->json($resultOperation);
+    }
 }

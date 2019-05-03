@@ -43,7 +43,7 @@ Route::group(['middleware' => 'web'], function () {
             'as' => 'frontend.services'
         ]
     );
-    Route::post('/contactRequest',[
+    Route::post('/contactRequest', [
         'uses' => 'HomeController@contactRequest',
         'as' => 'frontend.contactRequest'
     ]);
@@ -118,17 +118,25 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'AdminController@getUserInfoRequest',
         'as' => 'admin.viewUser'
     ]);
-    Route::post('/grantRole/{userId}/{roleId}',[
+    Route::post('/grantRole/{userId}/{roleId}', [
         'uses' => 'AdminController@grantRoleToUserRequest',
         'as' => 'admin.grantRole'
     ]);
-    Route::post('/revokeRole/{userId}/{roleId}',[
+    Route::post('/revokeRole/{userId}/{roleId}', [
         'uses' => 'AdminController@revokeRoleRequest',
         'as' => 'admin.grantRole'
     ]);
-    Route::post('/deleteRequest/{id}',[
+    Route::post('/deleteRequest/{id}', [
         'uses' => 'AdminController@deleteRequest',
         'as' => 'admin.deleteRequest'
+    ]);
+    Route::get('/contact-requests', [
+        'uses' => 'AdminController@displayContacts',
+        'as' => 'admin.contact-requests'
+    ]);
+    Route::post('/delete-contact-info/{id}', [
+        'uses' => 'AdminController@deleteContactInfo',
+        'as' => 'admin.deleteContactInfo'
     ]);
 });
 

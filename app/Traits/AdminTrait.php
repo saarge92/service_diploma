@@ -12,6 +12,7 @@ use App\ExecutorInOrder;
 use App\Traits\ClientTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\ContactRequestTable;
 
 /**
  * Трэйт, содержащий методы для работы администраторской части
@@ -308,5 +309,31 @@ trait AdminTrait
             $resultOperation = $order->delete();
         }
         return $resultOperation;
+    }
+
+    /**
+     * Получение списка с записями звонков обратного вызова
+     * @param Request $request - GET-запрос
+     * @return array - Список записей обратного вызова
+     */
+    private function getRecordsOfContacts(Request $request): array
+    {
+        $contactRecords = ContactRequestTable::paginate(6);
+        return [
+            'contactRecords' => $contactRecords
+        ];
+    }
+
+    /**
+     * Удаление записи об обратном звонке
+     */
+    private function deleteRecordContactInfo(int $id): bool
+    {
+        $result = false;
+        $record = ContactRequestTable::find($id);
+        if ($record) {
+            $result = $record->delete();
+        }
+        return $result;
     }
 }
