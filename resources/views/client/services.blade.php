@@ -1,7 +1,7 @@
-@extends('layouts.frontend') 
+@extends('layouts.frontend')
 @section('title') Все услуги
 @endsection
- 
+
 @section('content')
 <div class="container" id="servicesPage">
     @foreach ($services->chunk(3) as $chunkedServices)
@@ -13,18 +13,19 @@
                     <div class="services-details">
                         <div class="single-services">
                             <a class="services-icon" href="#">
-                                    <img src="{{Storage::url($service->path)}}" class="service-img">
-                                    </a>
+                                <img src="{{Storage::url($service->path)}}" class="service-img">
+                            </a>
                             <h4>{{$service->title}}</h4>
-                            <p>
+                            <div class="text-justify" style="height:8.5em;">
                                 {{$service->content}}
-                            </p>
+                            </div>
+                        </div>
+                        <div class="text-center" style="padding-bottom:1.2rem;">
+                            <button data-service_id="{{$service->id}}" data-toggle="modal" data-target="#infoModal"
+                                class="orderService btn btn-danger">Заказать</button>
                         </div>
                     </div>
                     <!-- end about-details -->
-                </div>
-                <div class="text-center">
-                    <button data-service_id="{{$service->id}}" data-toggle="modal" data-target="#infoModal" class="orderService btn btn-danger">Заказать</button>
                 </div>
             </div>
             @endforeach
@@ -38,7 +39,7 @@
     </div>
 </div>
 @endsection
- 
+
 @section('scripts')
 <script src="{{URL::asset('frontend/js/cartMain.js')}}"></script>
 @endsection

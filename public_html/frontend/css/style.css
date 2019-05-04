@@ -207,7 +207,7 @@ div#preloader {
     display: inline-block;
     font-size: 40px;
     font-weight: 600;
-    margin-bottom: 70px;
+    margin-bottom: 5rem;
     position: relative;
     text-transform: capitalize;
 }
@@ -524,7 +524,7 @@ div#preloader {
 }
 
 #servicesPage {
-    margin-top: 4em;
+    margin-top: 8rem;
 }
 
 .row.second-row {
@@ -967,7 +967,7 @@ div#preloader {
 }
 
 .footer-logo h2 span {
-    color: #3ec1d5;
+    color: #b36500;
 }
 
 .footer-icons ul li {

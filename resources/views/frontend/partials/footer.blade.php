@@ -6,11 +6,10 @@
                     <div class="footer-content">
                         <div class="footer-head">
                             <div class="footer-logo">
-                                <h2><span>e</span>Business</h2>
+                                <h2><span>1С</span>Бизнес</h2>
                             </div>
 
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                                totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
+                            <p>Предлагаем лучшие автоматизированные решения в сфере бизнеса</p>
                             <div class="footer-icons">
                                 <ul>
                                     <li>
@@ -34,14 +33,14 @@
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="footer-content">
                         <div class="footer-head">
-                            <h4>information</h4>
+                            <h4>Информация</h4>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                                Наши контактные данные
                             </p>
                             <div class="footer-contacts">
-                                <p><span>Tel:</span> +123 456 789</p>
-                                <p><span>Email:</span> contact@example.com</p>
-                                <p><span>Working Hours:</span> 9am-5pm</p>
+                                <p><span>Телефон:</span> +123 456 789</p>
+                                <p><span>Email почта:</span> contact@example.com</p>
+                                <p><span>Рабочие часы:</span> 09:00-18:00</p>
                             </div>
                         </div>
                     </div>
