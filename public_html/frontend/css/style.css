@@ -396,9 +396,11 @@ div#preloader {
     font-weight: bold;
     line-height: 1;
 }
-
+.card-information {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 .sticky-logo h1 span {
-    color: #3ec1d5;
+    color: #ffec0a;
 }
 .stick .main-menu ul.navbar-nav li.active > a::after {
     border: 1px solid #fff;
@@ -466,7 +468,9 @@ div#preloader {
 .about-area {
     background-color: #f9f9f9;
 }
-
+.about-move{
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+}
 .single-well > a {
     display: block;
 }
@@ -519,7 +523,7 @@ div#preloader {
     color: #3ec1d5;
 }
 
-#servicesPage{
+#servicesPage {
     margin-top: 4em;
 }
 
