@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Services\ServiceImpl;
+use App\Interfaces\IService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        //Binding Inversion of Control
+        $this->app->bind(IService::class, ServiceImpl::class);
         $this->app->bind('path.public', function () {
             return base_path() . '/public_html';
         });

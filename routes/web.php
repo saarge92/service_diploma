@@ -138,6 +138,18 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'AdminController@deleteContactInfo',
         'as' => 'admin.deleteContactInfo'
     ]);
+    Route::get('/getCreateService', [
+        'uses' => 'ServiceController@getCreateService',
+        'as' => 'admin.getCreateService'
+    ]);
+    Route::post('/postCreateService', [
+        'uses' => 'ServiceController@postCreateService',
+        'as' => 'admin.postCreateService'
+    ]);
+    Route::get('/services', [
+        'uses' => 'ServiceController@getServices',
+        'as' => 'admin.services'
+    ]);
 });
 
 Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['executor', 'admin']], function () {
