@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\AdminTrait;
-use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\CreateUserRequest;
 use Illuminate\Support\Facades\Session;
@@ -28,7 +27,7 @@ class AdminController extends Controller
      * @param Request $request - Get-запрос
      * @return View Отображает страницу со списком всех пользоватлей
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         $data = $this->getAllUsers($request);
         return view('admin.index', $data);
@@ -40,7 +39,7 @@ class AdminController extends Controller
      * @param Request $request Get Запрос
      * @return View Отображает страницу со списком всех заказов
      */
-    public function viewRequests(Request $request): View
+    public function viewRequests(Request $request)
     {
         $data = $this->getAllRequests($request);
         return view('admin.allOrders', $data);
@@ -50,7 +49,7 @@ class AdminController extends Controller
      * Генерация конкретного заказа
      * @param int $id Номер услуги
      */
-    public function viewOrder(int $id): View
+    public function viewOrder(int $id)
     {
         $data = $this->getOrderById($id);
         return view('admin.viewOrder', $data);
@@ -85,7 +84,7 @@ class AdminController extends Controller
     /**
      * Создание страницы с созданием пользователя
      */
-    public function createUserRequest(): View
+    public function createUserRequest()
     {
         $roles = Role::all();
         return view('admin.createUser', compact('roles'));
@@ -177,7 +176,7 @@ class AdminController extends Controller
      * @param Request $request - GET-запрос
      * @return View - Страница со списком
      */
-    public function displayContacts(Request $request): View
+    public function displayContacts(Request $request)
     {
         $contactRecords = $this->getRecordsOfContacts($request);
         return view('admin.contacts', $contactRecords);
