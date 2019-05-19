@@ -26,7 +26,7 @@
                                 </button>
                             <!-- Brand -->
                             <a class="navbar-brand page-scroll sticky-logo" href="{{route('frontend.home')}}">
-                                <h1><span>1C</span>Бизнес</h1>
+                                <h1>DosLab</h1>
                                 <!-- Uncomment below if you prefer to use an image logo -->
                                 <!-- <img src="img/logo.png" alt="" title=""> -->
                             </a>

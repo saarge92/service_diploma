@@ -1840,10 +1840,13 @@ div#preloader {
 --------------------------------*/
 
 .about-area {
-    background-color: #f9f9f9;
+    background-color: white;
 }
 .about-move{
     box-shadow: 0 0 10px rgba(0,0,0,.5);
+}
+.single-well{
+    margin-left: 4rem;
 }
 .single-well > a {
     display: block;

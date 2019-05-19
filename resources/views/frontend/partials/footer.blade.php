@@ -6,23 +6,20 @@
                     <div class="footer-content">
                         <div class="footer-head">
                             <div class="footer-logo">
-                                <h2><span>1С</span>Бизнес</h2>
+                                <h2>DosLab</h2>
                             </div>
 
                             <p>Предлагаем лучшие автоматизированные решения в сфере бизнеса</p>
                             <div class="footer-icons">
                                 <ul>
                                     <li>
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="https://www.facebook.com/doslabspellc"><i class="fa fa-facebook"></i></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="https://twitter.com/DosLabSPELLC"><i class="fa fa-twitter"></i></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="fa fa-google"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                                        <a href="https://vk.com/doslab"><i class="fa fa-vk"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -38,8 +35,8 @@
                                 Наши контактные данные
                             </p>
                             <div class="footer-contacts">
-                                <p><span>Телефон:</span> +123 456 789</p>
-                                <p><span>Email почта:</span> contact@example.com</p>
+                                <p><span>Телефон:</span> +79678207489</p>
+                                <p><span>Email почта:</span> i.durdieva@doslab.ru</p>
                                 <p><span>Рабочие часы:</span> 09:00-18:00</p>
                             </div>
                         </div>
@@ -55,7 +52,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="copyright text-center">
                         <p>
-                            &copy; Copyright <strong>1С Бизнес</strong>. Все права защищены
+                            &copy; Copyright <strong>DosLab</strong>. Все права защищены
                         </p>
                     </div>
                 </div>
