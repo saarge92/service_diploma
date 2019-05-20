@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <span class="navbar-brand mr-1">eBussiness</span><i class="fas fa-bars"></i>
+        <span class="navbar-brand mr-1">DosLab</span><i class="fas fa-bars"></i>
     </button>
     <ul class="navbar-nav ml-auto mr-md-0">
         <li class="nav-item dropdown no-arrow">
