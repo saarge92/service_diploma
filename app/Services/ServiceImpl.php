@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Interfaces\IService;
 use App\Http\Requests\CreateServiceRequest;
 use App\Service;
+use Illuminate\Http\Request;
 
 /**
  * Класс, реализующий работу интерфейса Iservice
@@ -36,5 +37,14 @@ class ServiceImpl implements IService
         ]);
         $result = $newService->save();
         return $result;
+    }
+
+    /**
+     * Получение списка сервисов в панель-админке
+     */
+    public function getServices(Request $request)
+    {
+        $services = Service::paginate(6);
+        return $services;
     }
 }

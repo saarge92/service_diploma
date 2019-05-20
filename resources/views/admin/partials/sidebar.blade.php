@@ -13,9 +13,15 @@
         </a>
     </li>
     <li class="nav-item active">
-            <a class="nav-link" href="/admin/contact-requests">
-                <i class="fas fa-phone"></i>
-                <span>Обратный звонок</span>
-            </a>
-        </li>
+        <a class="nav-link" href="/admin/contact-requests">
+            <i class="fas fa-phone"></i>
+            <span>Обратный звонок</span>
+        </a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="/admin/services">
+            <i class="fas fa-clipboard"></i>
+            <span>Сервисы</span>
+        </a>
+    </li>
 </ul>

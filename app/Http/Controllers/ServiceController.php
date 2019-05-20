@@ -24,9 +24,15 @@ class ServiceController extends Controller
         $this->serviceRepository = $serviceRepository;
     }
 
+    /**
+     * Get-запрос на получение списка услуг
+     * с постраничным отображением
+     * @param Request $request - Http-запрос
+     */
     public function getServices(Request $request)
     {
-        
+       $services = $this->serviceRepository->getServices($request);
+       return view('admin.service.index',compact('services')); 
     }
 
     /**
