@@ -12,8 +12,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     background-color: white;
 }
-.red_item{
-    color:red !important;
+.red_item {
+    color: red !important;
 }
 .param-holder {
     cursor: pointer;
@@ -41,7 +41,7 @@ body {
     width: 92% !important;
     margin-left: 4%;
 }
-.filter_count{
+.filter_count {
     text-align: center;
     border: 1px solid #dadada;
 }
@@ -102,7 +102,8 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     }
 }
 
-.scroll-to-top:focus, .scroll-to-top:hover {
+.scroll-to-top:focus,
+.scroll-to-top:hover {
     color: white;
 }
 
@@ -145,12 +146,12 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     vertical-align: 0;
     border: 0;
     font-weight: 900;
-    content: '\f105';
-    font-family: 'Font Awesome 5 Free';
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
 }
 
 .navbar-nav .nav-item.dropdown.show .dropdown-toggle::after {
-    content: '\f107';
+    content: "\f107";
 }
 
 .navbar-nav .nav-item.dropdown.no-arrow .dropdown-toggle::after {
@@ -217,7 +218,9 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     color: rgba(255, 255, 255, 0.5);
 }
 
-.sidebar .nav-item .nav-link:active, .sidebar .nav-item .nav-link:focus, .sidebar .nav-item .nav-link:hover {
+.sidebar .nav-item .nav-link:active,
+.sidebar .nav-item .nav-link:focus,
+.sidebar .nav-item .nav-link:hover {
     color: rgba(255, 255, 255, 0.75);
 }
 
@@ -347,13 +350,13 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     position: relative;
 }
 
-.form-label-group>input,
-.form-label-group>label {
+.form-label-group > input,
+.form-label-group > label {
     padding: var(--input-padding-y) var(--input-padding-x);
     height: auto;
 }
 
-.form-label-group>label {
+.form-label-group > label {
     position: absolute;
     top: 0;
     left: 0;
@@ -386,11 +389,13 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 }
 
 .form-label-group input:not(:placeholder-shown) {
-    padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+    padding-top: calc(
+        var(--input-padding-y) + var(--input-padding-y) * (2 / 3)
+    );
     padding-bottom: calc(var(--input-padding-y) / 3);
 }
 
-.form-label-group input:not(:placeholder-shown)~label {
+.form-label-group input:not(:placeholder-shown) ~ label {
     padding-top: calc(var(--input-padding-y) / 3);
     padding-bottom: calc(var(--input-padding-y) / 3);
     font-size: 12px;
@@ -418,7 +423,7 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 #main_content {
-    width: 100%
+    width: 100%;
 }
 
 .image-holder {
@@ -448,11 +453,11 @@ body.sidebar-toggled footer.sticky-footer {
     text-align: center;
     padding: 0.5rem;
 }
-.filter-groups{
+.filter-groups {
     font-size: 1.25em;
 }
-.sub-menu{
-    font-size: .75em;
+.sub-menu {
+    font-size: 0.75em;
 }
 .revokeExecutor {
     color: red;
@@ -469,4 +474,29 @@ body.sidebar-toggled footer.sticky-footer {
     vertical-align: middle;
     color: red;
     display: none;
+}
+
+.about-move {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.single-services > h4 {
+    color: #444;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.single-services > p {
+    color: #333;
+    font-size: 14px;
+    text-align: justify;
+}
+.service-img {
+    height: 18rem;
+    vertical-align: middle;
+    max-width: inherit;
+}
+.services-icon {
+    color: #444;
+    display: inline-block;
+    max-width: 100%;
 }
