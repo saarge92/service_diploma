@@ -1877,6 +1877,7 @@ div#preloader {
     color: #444;
     display: inline-block;
     max-width: 100%;
+    padding: 3%;
     /* font-size: 36px;
   line-height: 36px;
   margin-bottom: 20px; */
@@ -2518,7 +2519,9 @@ div#preloader {
     color: red;
 }
 /*-----------------------------------------*/
-
+.description-service{
+    padding: 1rem;
+}
 @media (min-width: 1920px) {
   .work-right-text {
     padding: 150px 150px;

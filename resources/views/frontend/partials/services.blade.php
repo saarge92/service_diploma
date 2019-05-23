@@ -20,7 +20,7 @@
                                     <img src="{{Storage::url($service->path)}}" class="service-img">
                                 </a>
                                 <h4>{{$service->title}}</h4>
-                                <div class="text-justify" style="height:8.5em;">
+                                <div class="text-justify description-service" style="height:8.5em;">
                                     {{$service->content}}
                                 </div>
                             </div>
