@@ -150,6 +150,14 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'ServiceController@getServices',
         'as' => 'admin.services'
     ]);
+    Route::get('/editService/{id}',[
+        'uses' => 'ServiceController@getEditService',
+        'as' => 'admin.service.editService'
+    ]);
+    Route::post('/postEditService',[
+        'uses' => 'ServiceController@postEditService',
+        'as' => 'admin.service.postEditService'
+    ]);
 });
 
 Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['executor', 'admin']], function () {

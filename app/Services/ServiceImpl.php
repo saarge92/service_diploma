@@ -6,6 +6,7 @@ use App\Interfaces\IService;
 use App\Http\Requests\CreateServiceRequest;
 use App\Service;
 use Illuminate\Http\Request;
+use App\Http\Requests\EditServiceRequest;
 
 /**
  * Класс, реализующий работу интерфейса Iservice
@@ -46,5 +47,38 @@ class ServiceImpl implements IService
     {
         $services = Service::paginate(6);
         return $services;
+    }
+
+    /**
+     * Редактировние сервиса
+     * @param EditServiceRequest $request Запрос с изменяемыми параметрами для сервиса
+     * @return bool Возвращает результат успешного обновления
+     */
+    public function editService(EditServiceRequest $request): bool
+    {
+        $resultOperation = true;
+        try {
+            $id = $request->get('id');
+            $serviceForEdit = Service::find($id);
+            $newFileImage = $request->file('path');
+            if (isset($newFileImage)) {
+                if ($serviceForEdit->path != null) {
+                    $delete_path = public_path() . '/storage/' . $serviceForEdit->path;
+                    if (file_exists($delete_path)) {
+                        unlink($delete_path);
+                    }
+                }
+                $filename = $request->get('title') . '_' . date('Y_m_d H_i_s') . '.' . $newFileImage->getClientOriginalExtension();
+                $destination = public_path() . '/storage/services/';
+                $newFileImage->move($destination, $filename);
+                $serviceForEdit->path = 'services/' . $filename;
+            }
+            $serviceForEdit->title = $request->get('title');
+            $serviceForEdit->content = $request->get('content');
+            $resultOperation = $serviceForEdit->save();
+        } catch (\Exception $ex) {
+            $resultOperation = false;
+        }
+        return $resultOperation;
     }
 }

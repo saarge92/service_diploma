@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Interfaces\IService;
 use App\Http\Requests\CreateServiceRequest;
+use App\Service;
+use App\Http\Requests\EditServiceRequest;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Контроллер для обработки запросов при работе с таблицей "Услуги"
@@ -31,8 +34,8 @@ class ServiceController extends Controller
      */
     public function getServices(Request $request)
     {
-       $services = $this->serviceRepository->getServices($request);
-       return view('admin.service.index',compact('services')); 
+        $services = $this->serviceRepository->getServices($request);
+        return view('admin.service.index', compact('services'));
     }
 
     /**
@@ -57,5 +60,27 @@ class ServiceController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Get-запрос на редактирование сервиса
+     * @param int $id Номер сервиса
+     */
+    public function getEditService(int $id)
+    {
+        $service = Service::find($id);
+        return view('admin.service.editService', compact('service'));
+    }
 
+    /**
+     * POST-запрос на редактирование сервиса
+     * @param EditServiceRequest $request Post-запрос с параметрами
+     */
+    public function postEditService(EditServiceRequest $request)
+    {
+        if ($request->validated()) {
+            $resultUpdate = $this->serviceRepository->editService($request);
+            $resultUpdate ? Session::flash('success', 'Успешное обновление сервиса') : Session::flash('error', 'Ошибка обновления');
+            return redirect()->route('admin.services');
+        }
+        return redirect()->back();
+    }
 }

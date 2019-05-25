@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="text-center" style="padding-bottom:1.2rem;">
-                            <button data-service_id="{{ $service->id }}" data-toggle="modal" data-target="#infoModal" class="orderService btn btn-danger">Редактировать</button>
+                            <a href="{{ route('admin.service.editService', ['id' => $service->id] ) }}" class="btn btn-danger">Редактировать</a>
                         </div>
                     </div>
                 </div>
