@@ -15,11 +15,12 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable()->unsigned();
             $table->text('cart');
             //Статус заказа (по умолчанию - новая)
-            $table->integer('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('statuses');
+            $table->integer('status_id')->unsigned()->nullable();
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
         });
     }
