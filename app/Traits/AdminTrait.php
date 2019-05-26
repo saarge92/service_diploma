@@ -210,6 +210,9 @@ trait AdminTrait
             'phone_number' => $request->get('phone_number'),
             'password' => Hash::make($request->get('password'))
         ]);
+        if ($request->get('roleId') != null) {
+            $this->grantRoleToUser($user->id, $request->get('roleId'));
+        }
         $resultCreation = $user->save();
         return $resultCreation;
     }

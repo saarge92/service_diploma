@@ -140,7 +140,12 @@
                             @foreach ($order->executors as $item) {{ $item }} @endforeach
                         </td>
                         <td>
-                            <a href="{{ route('admin.viewUser',['userId' => $order->client->id]) }}">{{ $order->client->name }}</a>
+                            @if($order->client !=null)
+                                <a href="{{ route('admin.viewUser',['userId' =>$order->client->id]) }}">
+                                {{ $order->client->name }}
+                            @else
+                                <p>Клиент удален</p>
+                            @endif
                         </td>
                         <td>
                             <a href="{{route('admin.viewOrder',['id'=>$order->id])}}"
