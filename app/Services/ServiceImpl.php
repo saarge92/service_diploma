@@ -81,4 +81,18 @@ class ServiceImpl implements IService
         }
         return $resultOperation;
     }
+
+    /**
+     * Удаление услуг по Id
+     * @param int $id Id услуги
+     */
+    public function deleteService(int $id):bool
+    {
+        $resultDelete = false;
+        $service = Service::find($id);
+        if ($service) {
+            $resultDelete = $service->delete();
+        }
+        return $resultDelete;
+    }
 }

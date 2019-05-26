@@ -83,4 +83,14 @@ class ServiceController extends Controller
         }
         return redirect()->back();
     }
+
+    /**
+     * POST-запрос на удаление сервиса
+     */
+    public function deleteService(int $id)
+    {
+        $result = $this->serviceRepository->deleteService($id);
+        $result ? Session::flash('success', 'Успешное удаления сервиса') : Session::flash('error', 'Ошибка удаления');
+        return redirect()->route('admin.services');
+    }
 }

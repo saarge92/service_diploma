@@ -158,6 +158,10 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'ServiceController@postEditService',
         'as' => 'admin.service.postEditService'
     ]);
+    Route::post('/service/delete/{id}',[
+        'uses' => 'ServiceController@deleteService',
+        'as' => 'admin.service.delete'
+    ]);
 });
 
 Route::group(['middleware' => 'roles', 'prefix' => 'executor', 'roles' => ['executor', 'admin']], function () {

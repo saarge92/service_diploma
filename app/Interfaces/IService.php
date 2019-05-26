@@ -13,4 +13,5 @@ interface IService
     public function createService(CreateServiceRequest $request): bool;
     public function getServices(Request $request);
     public function editService(EditServiceRequest $request);
+    public function deleteService(int $id):bool;
 }

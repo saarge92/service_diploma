@@ -25,6 +25,10 @@
                         </div>
                         <div class="text-center" style="padding-bottom:1.2rem;">
                             <a href="{{ route('admin.service.editService', ['id' => $service->id] ) }}" class="btn btn-danger">Редактировать</a>
+                            <button class="btn btn-default service-delete" data-service_id={{$service->id}}>
+                                <i class="fas fa-trash"></i>
+                                Удалить
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -40,4 +44,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ URL::asset('admin/js/allServices.js') }}"></script>
 @endsection
