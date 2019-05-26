@@ -1,6 +1,12 @@
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
     <li class="nav-item active">
+        <a class="nav-link" href="/">
+            <i class="fas fa-home"></i>
+            <span>Главная страница</span>
+        </a>
+    </li>
+    <li class="nav-item active">
         <a class="nav-link" href="/admin/index">
             <i class="fas fa-users"></i>
             <span>Пользователи</span>
