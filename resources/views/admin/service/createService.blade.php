@@ -12,14 +12,27 @@
             <div class="form-group">
                 <label>Название услуги</label>
                 <input type="text" name="title" class="form-control">
+                @if ($errors->has('title'))
+                    @if ($errors->has('title'))
+                        <div class="error">{{ $errors->first('title') }}</div>
+                    @endif
+                @endif
             </div>
             <div class="form-group">
                 <label>Описание</label>
                 <textarea name="content" class="form-control" rows="5"></textarea>
+                @if ($errors->has('title'))
+                    <div class="error">{{ $errors->first('content') }}</div>
+                @endif
             </div>
             <div class="form-group">
                 <label>Цена</label>
                 <input type="number" name="price" class="form-control">
+                @if ($errors->has('price'))
+                    @foreach($errors->get('price') as $error)
+                        <div class="error">{{ $error }}</div>
+                    @endforeach
+                @endif
             </div>
             <div class="form-group">
                 <label>Изображение</label>

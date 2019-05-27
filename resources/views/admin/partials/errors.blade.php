@@ -1,4 +1,4 @@
-@if(count($errors) > 0)
+{{-- @if(count($errors) > 0)
     <div class="row">
         <div class="error ml-3">
             <ul style="list-style:none;">
@@ -8,4 +8,4 @@
             </ul>
         </div>
     </div>
-@endif
+@endif --}}
