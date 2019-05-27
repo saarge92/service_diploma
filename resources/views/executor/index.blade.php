@@ -86,7 +86,7 @@
                     {{ $order->totalSum }}
                 </td>
                 <td>{{ $order->status }}</td>
-                <td>{{ $order->client->name }}</td>
+                <td>{{ $order->client ? $order->client->name : 'Клиент удален'}}</td>
                 <td>
                     <a href="{{route('executor.viewOrder',['id'=>$order->id])}}" class="btn btn-danger">Посмотреть</a>
                 </td>
