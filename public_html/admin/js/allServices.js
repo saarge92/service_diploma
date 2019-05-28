@@ -14,8 +14,9 @@ $(".service-delete").on("click", function(event) {
                 _token: token
             },
             success: function(result) {
-                if (result == true) {
-                  
+                if (result) {
+                    window.location = result;
+                    console.log(result);
                 }
                 //console.log(result);
             },
