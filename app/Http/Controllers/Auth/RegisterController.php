@@ -78,7 +78,9 @@ class RegisterController extends Controller
             'email.unique' => 'Пользователь уже существует в базе',
             'phone_number.digits' => 'Номер должен быть в формате 8 XXX XXX XX XX (без пробелов)',
             'password.min' => 'Минимальная длина пароля 6 символов',
-            'password.confirmed' => 'Подтверждение пароля не совпадает'
+            'password.confirmed' => 'Подтверждение пароля не совпадает',
+
+            'email.unique' => 'Пользователь с таким email существует'
         ];
     }
 
