@@ -38,3 +38,18 @@ mix.styles(
 );
 
 /** For frontend stop */
+
+/**For client start */
+mix.combine(
+    [
+        "public_html/client/vendor/jquery/jquery.min.js",
+        "public_html/client/vendor/bootstrap/js/bootstrap.bundle.min.js",
+        "public_html/client/vendor/jquery-easing/jquery.easing.min.js",
+        "public_html/client/js/sb-admin-2.min.js",
+        // "public_html/'client/vendor/chart.js/Chart.min.js",
+        "public_html/client/js/demo/chart-area-demo.js",
+        "public_html/client/js/demo/chart-pie-demo.js"
+    ],
+    "public_html/compiled/client/client.js"
+);
+/** For client stop */
