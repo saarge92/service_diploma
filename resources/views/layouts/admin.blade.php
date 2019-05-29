@@ -12,8 +12,8 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="{{URL::asset('admin/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{URL::asset('admin/css/sb-admin.css')}}"> @yield('styles')
+    <link rel="stylesheet" href="{{ URL::asset('compiled/admin/admin.css') }}"> 
+    @yield('styles')
 </head>
 
 <body id="page-top">
@@ -29,9 +29,7 @@
         </div>
     </div>
     @include('admin.partials.logout')
-    <script type="text/javascript" src="{{URL::asset('admin/js/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{URL::asset('admin/js/bootstrap.bundle.min.js')}}"></script>
-    <script type="text/javascript" src="{{URL::asset('admin/js/sb-admin.min.js')}}"></script>
+    <script type="text/javascript" src="{{elixir('compiled/admin/admin.js')}}"></script>
     @yield('scripts')
 </body>
 
