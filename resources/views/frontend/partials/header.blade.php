@@ -70,6 +70,9 @@
                                                 @csrf
                                             </form>
                                         </li>
+                                        @if( in_array('admin',Auth::user()->roles->pluck('name')->toArray()) )
+                                            <li><a href="/admin/index">Админка</a></li>
+                                        @endif
                                     </ul>
                                 </li>
                                 @else
