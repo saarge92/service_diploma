@@ -59,7 +59,7 @@ mix.combine(
 mix.styles(
     [
         "public_html/admin/css/bootstrap.min.css",
-        "public_html/admin/css/sb-admin.css"
+        "public_html/admin/css/sb-admin.css",
     ],
     "public_html/compiled/admin/admin.css"
 );
