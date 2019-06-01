@@ -321,7 +321,7 @@ trait AdminTrait
      */
     private function getRecordsOfContacts(Request $request): array
     {
-        $contactRecords = ContactRequestTable::paginate(6);
+        $contactRecords = ContactRequestTable::orderBy('created_at','desc')->paginate(6);
         return [
             'contactRecords' => $contactRecords
         ];
