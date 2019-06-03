@@ -16,7 +16,6 @@ mix.combine(
         "public_html/frontend/lib/nivo-slider/js/jquery.nivo.slider.js",
         "public_html/frontend/lib/appear/jquery.appear.js",
         "public_html/frontend/lib/isotope/isotope.pkgd.min.js",
-        "public_html/frontend/contactform/contactform.js",
         "public_html/frontend/js/main.js"
     ],
     "public_html/compiled/frontend/frontend.js"
