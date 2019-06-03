@@ -164,12 +164,11 @@ trait HomeTrait
     private function addContactMe(ContactRequest $request): bool
     {
         $result = false;
-        $newRecord = ContactRequestTable::create([
+        $result = ContactRequestTable::create([
             'name' => $request->get('name'),
             'phone' => $request->get('phone'),
             'comments' => $request->get('comments')
-        ]);
-        $result = $newRecord->save();
+        ])->save();        
         return $result;
     }
 }
