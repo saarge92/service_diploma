@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExecutorInOrdersTable extends Migration
+class CreateExecutorInOrder extends Migration
 {
     /**
      * Run the migrations.
@@ -16,10 +16,10 @@ class CreateExecutorInOrdersTable extends Migration
         Schema::create('executor_in_orders', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 
-            $table->integer('order_id')->unsigned();
+            $table->integer('order_id')->unsigned()->nullable();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('set null');
 
             $table->timestamps();
@@ -33,6 +33,6 @@ class CreateExecutorInOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('executor_in_orders');
+        Schema::dropIfExists('executor_in_order');
     }
 }
