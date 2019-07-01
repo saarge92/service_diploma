@@ -37,6 +37,9 @@
             <div class="form-group">
                 <label>Изображение</label>
                 <input type="file" name="path" accept="image/x-png,image/gif,image/jpeg">
+                @if ($errors->has('path'))
+                    <div class="error">{{ $errors->first('path') }}</div>
+                @endif
             </div>
             <button type="submit" class="btn btn-danger">Сохранить</button>
         </form>

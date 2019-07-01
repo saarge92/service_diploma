@@ -23,7 +23,7 @@ class ServiceImpl implements IService
     {
         $result = false;
         $file = $request->file('path');
-        $newFileServiceName = 'unknow.png';
+        $newFileServiceName = 'services/unknow.png';
         if (isset($file)) {
             $filename = 'service' . '_' . date('Y_m_d H_i_s') . '.' . $file->getClientOriginalExtension();
             $destination = public_path() . '/storage/services/';
