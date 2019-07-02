@@ -51,6 +51,10 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <form action="{{route('client.confirmOrder')}}" method="POST">
+                <div class="form-group">
+                    <input type="checkbox" required>
+                    <label>Согласен с условиями</label>
+                </div>
                 {{csrf_field()}}
                 <button id="commit_order" type="submit" class="btn btn-success">Подать заявку</button>
                 </form>
