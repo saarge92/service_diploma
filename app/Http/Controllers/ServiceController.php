@@ -87,6 +87,8 @@ class ServiceController extends Controller
 
     /**
      * POST-запрос на удаление сервиса
+     * @param int $id Id удаляемой услуги
+     * @return string Название маршрута для перенаправления
      */
     public function deleteService(int $id): string
     {

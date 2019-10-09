@@ -154,7 +154,7 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'roles' => ['admin']
         'uses' => 'ServiceController@getEditService',
         'as' => 'admin.service.editService'
     ]);
-    Route::post('/postEditService',[
+    Route::post('/postEditService/{id}',[
         'uses' => 'ServiceController@postEditService',
         'as' => 'admin.service.postEditService'
     ]);
