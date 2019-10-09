@@ -32,9 +32,9 @@ class ServiceController extends Controller
      * с постраничным отображением
      * @param Request $request - Http-запрос
      */
-    public function getServices(Request $request)
+    public function getServices()
     {
-        $services = $this->serviceRepository->getServices($request);
+        $services = $this->serviceRepository->getServices();
         return view('admin.service.index', compact('services'));
     }
 
@@ -54,7 +54,7 @@ class ServiceController extends Controller
     public function postCreateService(CreateServiceRequest $request)
     {
         if ($request->validated()) {
-            $this->serviceRepository->createService($request);
+            $this->serviceRepository->createService($request->all());
             return redirect()->route('admin.services');
         }
         return redirect()->back();
@@ -72,12 +72,13 @@ class ServiceController extends Controller
 
     /**
      * POST-запрос на редактирование сервиса
+     * @param $id Id Редактируемой услуги
      * @param EditServiceRequest $request Post-запрос с параметрами
      */
-    public function postEditService(EditServiceRequest $request)
+    public function postEditService(int $id, EditServiceRequest $request)
     {
         if ($request->validated()) {
-            $resultUpdate = $this->serviceRepository->editService($request);
+            $resultUpdate = $this->serviceRepository->editService($id, $request->all());
             $resultUpdate ? Session::flash('success', 'Успешное обновление сервиса') : Session::flash('error', 'Ошибка обновления');
             return redirect()->route('admin.services');
         }

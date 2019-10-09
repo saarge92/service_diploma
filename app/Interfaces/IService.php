@@ -1,8 +1,8 @@
 <?php
+
 namespace App\Interfaces;
 
 use App\Http\Requests\CreateServiceRequest;
-use Illuminate\Http\Request;
 use App\Http\Requests\EditServiceRequest;
 
 /**
@@ -10,8 +10,8 @@ use App\Http\Requests\EditServiceRequest;
  */
 interface IService
 {
-    public function createService(CreateServiceRequest $request): bool;
-    public function getServices(Request $request);
-    public function editService(EditServiceRequest $request);
-    public function deleteService(int $id):bool;
+    public function createService(array $createParams): Service;
+    public function editService(int $id, array $editParams): Service;
+    public function deleteService(int $id): bool;
+    public function getServices();
 }

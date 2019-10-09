@@ -5,8 +5,6 @@ namespace App\Services;
 use App\Interfaces\IService;
 use App\Http\Requests\CreateServiceRequest;
 use App\Service;
-use Illuminate\Http\Request;
-use App\Http\Requests\EditServiceRequest;
 
 /**
  * Класс, реализующий работу интерфейса Iservice
@@ -16,13 +14,12 @@ class ServiceImpl implements IService
 {
     /**
      * Добавление услуги в БД
-     * @param CreateServiceRequest $request Запрос на создание услуги
-     * @return bool Возвращает булево значение, создана ли услуга в БД
+     * @param array $createParams Список инициализируемых параметров
+     * @return Service Созданный сервис
      */
-    public function createService(CreateServiceRequest $request): bool
+    public function createService(array $createParams): Service
     {
-        $result = false;
-        $file = $request->file('path');
+        $file = $createParams['path'];
         $newFileServiceName = 'services/unknow.png';
         if (isset($file)) {
             $filename = 'service' . '_' . date('Y_m_d H_i_s') . '.' . $file->getClientOriginalExtension();
@@ -31,19 +28,19 @@ class ServiceImpl implements IService
             $newFileServiceName = 'services/' . $filename;
         }
         $newService = Service::create([
-            'title' => $request->get('title'),
-            'content' => $request->get('content'),
-            'price' => $request->get('price'),
+            'title' => $createParams['title'],
+            'content' => $createParams['content'],
+            'price' => $createParams['price'],
             'path' => $newFileServiceName
         ]);
-        $result = $newService->save();
-        return $result;
+        $newService->save();
+        return $newService;
     }
 
     /**
      * Получение списка сервисов в панель-админке
      */
-    public function getServices(Request $request)
+    public function getServices()
     {
         $services = Service::paginate(6);
         return $services;
@@ -54,39 +51,33 @@ class ServiceImpl implements IService
      * @param EditServiceRequest $request Запрос с изменяемыми параметрами для сервиса
      * @return bool Возвращает результат успешного обновления
      */
-    public function editService(EditServiceRequest $request): bool
+    public function editService(int $id, array $editParams): Service
     {
-        $resultOperation = true;
-        try {
-            $id = $request->get('id');
-            $serviceForEdit = Service::find($id);
-            $newFileImage = $request->file('path');
-            if (isset($newFileImage)) {
-                if ($serviceForEdit->path != null) {
-                    $delete_path = public_path() . '/storage/' . $serviceForEdit->path;
-                    if (file_exists($delete_path)) {
-                        unlink($delete_path);
-                    }
+        $serviceForEdit = Service::find($id);
+        $newFileImage = $editParams['path'];
+        if (isset($newFileImage)) {
+            if ($serviceForEdit->path != null) {
+                $delete_path = public_path() . '/storage/' . $serviceForEdit->path;
+                if (file_exists($delete_path)) {
+                    unlink($delete_path);
                 }
-                $filename = $request->get('title') . '_' . date('Y_m_d H_i_s') . '.' . $newFileImage->getClientOriginalExtension();
-                $destination = public_path() . '/storage/services/';
-                $newFileImage->move($destination, $filename);
-                $serviceForEdit->path = 'services/' . $filename;
             }
-            $serviceForEdit->title = $request->get('title');
-            $serviceForEdit->content = $request->get('content');
-            $resultOperation = $serviceForEdit->save();
-        } catch (\Exception $ex) {
-            $resultOperation = false;
+            $filename = $editParams['title'] . '_' . date('Y_m_d H_i_s') . '.' . $newFileImage->getClientOriginalExtension();
+            $destination = public_path() . '/storage/services/';
+            $newFileImage->move($destination, $filename);
+            $serviceForEdit->path = 'services/' . $filename;
         }
-        return $resultOperation;
+        $serviceForEdit->title = $editParams['title'];
+        $serviceForEdit->content = $editParams['content'];
+        $serviceForEdit->save();
+        return $serviceForEdit;
     }
 
     /**
      * Удаление услуг по Id
      * @param int $id Id услуги
      */
-    public function deleteService(int $id):bool
+    public function deleteService(int $id): bool
     {
         $resultDelete = false;
         $service = Service::find($id);
