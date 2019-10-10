@@ -8,7 +8,6 @@ use App\Service;
 use App\Cart;
 use App\Team;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\ContactRequestTable;
 
@@ -44,18 +43,6 @@ trait HomeTrait
             'teams' => $teams
         );
         return $data;
-    }
-
-    /**
-     * Получение списка услуг
-     * @param Request $request - GET-запрос
-     */
-    public function getServices(Request $request): array
-    {
-        $services = Service::paginate(3);
-        return [
-            'services' => $services
-        ];
     }
 
     /**

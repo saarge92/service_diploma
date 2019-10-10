@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\ContactRequestTable;
-use App\Http\Requests\ContactRequest;
-use Illuminate\Http\Request;
 use App\Traits\HomeTrait;
-use Illuminate\View\View;
+use App\Interfaces\IService;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\ContactRequest;
 use Illuminate\Support\Facades\Session;
 
 /**
@@ -22,10 +21,17 @@ class HomeController extends Controller
 {
     use HomeTrait;
 
+    private $serviceImpl;
+
+    public function __construct(IService $serviceImpl)
+    {
+        $this->serviceImpl = $serviceImpl;
+    }
+
     /**
      * Индексная страница
      */
-    public function index(): View
+    public function index()
     {
         $data = $this->getDataForIndexPage();
         return view('frontend.index', $data);
@@ -37,9 +43,9 @@ class HomeController extends Controller
      * @param Request $request - Get-запрос
      * @return View
      */
-    public function getListServices(Request $request): View
+    public function getListServices(Request $request)
     {
-        $services = $this->getServices($request);
+        $services = $this->serviceImpl->getListServices();
         return view('client.services', $services);
     }
 
@@ -62,7 +68,7 @@ class HomeController extends Controller
      *
      * @return View возвращает страницу со списком заказанных услуг
      */
-    public function getShoppingCart(): View
+    public function getShoppingCart()
     {
         if (!Session::has('cart')) {
             return view('frontend.shoppingCartView');
