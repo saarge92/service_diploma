@@ -67,7 +67,7 @@ class ServiceController extends Controller
     public function getEditService(int $id)
     {
         $service = Service::find($id);
-        return view('admin.service.editService', compact('service'));
+        return view('admin.service.editService', ['service' => $service]);
     }
 
     /**
