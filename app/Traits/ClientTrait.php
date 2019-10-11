@@ -48,16 +48,4 @@ trait ClientTrait
             'statuses' => $statuses
         ];
     }
-
-    /**
-     * Изменение профиля клиента
-     */
-    private function changeProfileUser(ChangeProfileRequest $request, $user): bool
-    {
-        $user->name = $request->name;
-        $user->address = $request->address;
-        $user->organization = $request->organization;
-        $user->phone_number = $request->phone_number;
-        return $user->save();
-    }
 }

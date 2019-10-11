@@ -13,6 +13,7 @@ use App\Interfaces\IOrderService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\ChangeProfileRequest;
+use App\Interfaces\IUserProfileService;
 
 /**
  * Контроллер обработки запросов авторизованных клиентов
@@ -28,11 +29,13 @@ class ClientController extends Controller
 
     private $cartService;
     private $orderService;
+    private $userProfileService;
 
-    public function __construct(ICartService $cartService, IOrderService $orderService)
+    public function __construct(ICartService $cartService, IOrderService $orderService, IUserProfileService $userProfileService)
     {
         $this->cartService = $cartService;
         $this->orderService = $orderService;
+        $this->userProfileService = $userProfileService;
     }
 
     /**
@@ -76,12 +79,14 @@ class ClientController extends Controller
 
     /**
      * Запрос на изменение профиля
+     * @param ChangeProfileRequest $request Параметры изменения параметров пользователя
      */
     public function changeProfile(ChangeProfileRequest $request)
     {
         if ($request->validated()) {
-            $user = User::find($request->user()->id);
-            $result = $this->changeProfileUser($request, $user);
+            $currentUserId = $request->user()->id();
+            $editParams = $request->all();
+            $result = $this->userProfileService->changeUserInfo($currentUserId, $editParams);
             $result ? Session::flash('success-client', 'Ваш профиль успешно обновлен')
                 : Session::flash('error-client', 'Профиль обновить не удалось');
             return redirect()->route('client.profile');
