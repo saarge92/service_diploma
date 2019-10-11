@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
+use App\User;
 use App\Traits\HomeTrait;
+use Illuminate\View\View;
 use App\Traits\ClientTrait;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Session;
-use App\Cart;
+use App\Interfaces\ICartService;
+use App\Interfaces\IOrderService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\ChangeProfileRequest;
-use App\User;
 
 /**
  * Контроллер обработки запросов авторизованных клиентов
@@ -22,8 +24,16 @@ use App\User;
  */
 class ClientController extends Controller
 {
-    use HomeTrait;
     use ClientTrait;
+
+    private $cartService;
+    private $orderService;
+
+    public function __construct(ICartService $cartService, IOrderService $orderService)
+    {
+        $this->cartService = $cartService;
+        $this->orderService = $orderService;
+    }
 
     /**
      * Получение данных корзины
@@ -35,7 +45,7 @@ class ClientController extends Controller
         if (!Session::has('cart')) {
             return \redirect('/#services');
         }
-        $cartInfo = $this->getCartInfo();
+        $cartInfo = $this->cartService->getCartInfo();
         return view('client.shoppingCartView', $cartInfo);
     }
 
@@ -59,7 +69,8 @@ class ClientController extends Controller
      */
     public function profile(Request $request): View
     {
-        $profile = $this->getProfileInfo($request);
+        $user = $request->user();
+        $profile = ['user' => $user];
         return view('client.profile', $profile);
     }
 
@@ -89,7 +100,8 @@ class ClientController extends Controller
             return redirect()->route('frontend.getShoppingCart');
         }
         $cart = new Cart(Session::get('cart'));
-        $result = $this->confirmOrderCheck($cart, $request);
+        $currentUserId = $request->user()->id;
+        $result = $this->orderService->confirmOrderCheck($cart, $currentUserId);
         Session::remove('cart');
         $result ? Session::flash('success-client', 'Заказ успешно зарегистрирован')
             : Session::flash('error-client', 'Что-то пошло не так. Обратитесь к администратору');
@@ -104,7 +116,7 @@ class ClientController extends Controller
      */
     public function getOrder(Request $request, int $id)
     {
-        $order = $this->getOrderById($id);
+        $order = $this->orderService->getOrderById($id);
         return view('client.order', ['order' => $order]);
     }
 }
