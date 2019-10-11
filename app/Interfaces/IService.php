@@ -2,11 +2,13 @@
 
 namespace App\Interfaces;
 
-use App\Http\Requests\CreateServiceRequest;
-use App\Http\Requests\EditServiceRequest;
+use App\Service;
 
 /**
  * Базовый интерфейс для работы с таблицей "Услуги"
+ * 
+ * @author Inara Durdyeva <inara97_97@mail.ru>
+ * @copyright Copyright (c) Inara Durdyeva
  */
 interface IService
 {
