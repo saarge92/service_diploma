@@ -50,7 +50,8 @@ class ServiceImpl implements IService
 
     /**
      * Редактировние сервиса
-     * @param EditServiceRequest $request Запрос с изменяемыми параметрами для сервиса
+     * @param $id Id услуги
+     * @param array $editParams Параметры редактирования
      * @return bool Возвращает результат успешного обновления
      */
     public function editService(int $id, array $editParams): Service
@@ -78,6 +79,7 @@ class ServiceImpl implements IService
     /**
      * Удаление услуг по Id
      * @param int $id Id услуги
+     * @return bool Удалена ли услуга
      */
     public function deleteService(int $id): bool
     {
