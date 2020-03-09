@@ -18,8 +18,7 @@ class OrderService implements IOrderService
      * Подтверждение заявки
      *
      * @param Cart $cart - Карта с заказами
-     * @param Request $request - Post-запрос
-     *
+     * @param int $userId - Id текущего пользователя, выполняющего заказ
      * @return bool - Булево значение, сохранен ли заказ
      */
     public function confirmOrderCheck(Cart $cart, int $userId): bool

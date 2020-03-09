@@ -18,9 +18,9 @@ class Cart
     /**
      * Класс-конструктор для создания экземпляра объекта
      *
-     * @return object
+     * @param $oldcart
      */
-    public function __construct($oldcart)
+    public function __construct(Cart $oldcart)
     {
         if ($oldcart) {
             $this->items = $oldcart->items;
