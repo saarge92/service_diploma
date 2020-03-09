@@ -4,7 +4,7 @@ namespace App;
 
 /**
  * Класс для работы с корзиной заказов
- * 
+ *
  * Содержит базовые методы для работы с корзиной
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
@@ -17,7 +17,7 @@ class Cart
 
     /**
      * Класс-конструктор для создания экземпляра объекта
-     * 
+     *
      * @return object
      */
     public function __construct($oldcart)
@@ -32,11 +32,11 @@ class Cart
 
     /**
      * Добавляет элемент в корзину
-     * 
+     *
      * @param $item - услуга
-     * @param $id - id-номер услуги 
+     * @param $id - id-номер услуги
      */
-    public function add($item, $id) : void
+    public function add($item, $id): void
     {
         $storedItem = [
             'qty' => 0,
@@ -57,7 +57,7 @@ class Cart
 
     /**
      * Уменьшает корзину на 1 пункт
-     * 
+     *
      * @param $id - id услуги
      */
     public function reduceByOne($id)
@@ -73,7 +73,7 @@ class Cart
 
     /**
      * Увеличивает корзину на 1 услугу
-     * 
+     *
      * @param $id - id услуги
      */
     public function increaseByOne($id)
@@ -86,7 +86,7 @@ class Cart
 
     /**
      * Убирает полностью услугу с корзины
-     * 
+     *
      * @param $id - id услуги
      */
     public function reduceItem($id)

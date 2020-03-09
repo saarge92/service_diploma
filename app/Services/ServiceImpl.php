@@ -8,7 +8,7 @@ use App\Service;
 /**
  * Класс, реализующий работу интерфейса Iservice
  * Содержит бизнес-логику по работу с таблицей сервисы
- * 
+ *
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */

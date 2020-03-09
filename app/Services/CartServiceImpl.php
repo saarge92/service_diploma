@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 /**
  * Сервис, определяющий бизнес-логику с картой заказа
- * 
+ *
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */

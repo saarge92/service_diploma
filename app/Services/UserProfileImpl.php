@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Сервис, содержащий бизнес-логику по работе с профилем пользователя
- * 
+ *
  */
 class UserProfileImpl implements IUserProfileService
 {
@@ -16,6 +16,7 @@ class UserProfileImpl implements IUserProfileService
      * Изменение информации о пользователе
      * @param int $userId Id пользователя
      * @param array $userParams Параметры инициализации пользователя
+     * @return bool Создан ли пользователь
      */
     public function changeUserInfo(int $userId, array $userParams)
     {
@@ -30,8 +31,8 @@ class UserProfileImpl implements IUserProfileService
     /**
      * Поиск пользователя по Id
      * @param int $userId Id пользователя
-     * @throws HttpException Исключение в случае не найденного пользователя
      * @return User Найденный пользователь
+     * @throws HttpException Исключение в случае не найденного пользователя
      */
     public function findUserById(int $userId): User
     {
