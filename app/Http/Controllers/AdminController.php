@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\IRoleService;
+use App\Interfaces\IUserService;
 use Illuminate\Http\Request;
 use App\Traits\AdminTrait;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\CreateUserRequest;
 use Illuminate\Support\Facades\Session;
 use App\Role;
+use Illuminate\View\View;
 
 /**
  * Контроллер Администратора
- * 
+ *
  * Содержит методы для генерации страниц в админке
- * 
+ *
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */
@@ -21,21 +24,35 @@ class AdminController extends Controller
 {
     use AdminTrait;
 
+    private IUserService $userService;
+    private IRoleService $roleService;
+
+    public function __construct(IUserService $userService, IRoleService $roleService)
+    {
+        $this->userService = $userService;
+        $this->roleService = $roleService;
+    }
+
     /**
      * Генерация индексной страницы пользователя
-     * 
+     *
      * @param Request $request - Get-запрос
-     * @return View Отображает страницу со списком всех пользоватлей
+     * @return \Illuminate\Contracts\View\Factory|View
      */
     public function index(Request $request)
     {
-        $data = $this->getAllUsers($request);
-        return view('admin.index', $data);
+        $request->has('roleId') ? $users = $this->userService->getUsersByRoleId($request->get('roleId')) :
+            $users = $this->userService->getAllUsers();
+        $roles = $this->roleService->getAll();
+        return view('admin.index', [
+            'users' => $users,
+            'roles' => $roles
+        ]);
     }
 
     /**
      * Отображение списка всех заявок
-     * 
+     *
      * @param Request $request Get Запрос
      * @return View Отображает страницу со списком всех заказов
      */
@@ -57,7 +74,7 @@ class AdminController extends Controller
 
     /**
      * Назначение исполнителя
-     * 
+     *
      * @param int $orderId Номер заявки
      * @param int $userId Исполнитель
      * @return JsonResponse назначен ли исполнитель
@@ -70,7 +87,7 @@ class AdminController extends Controller
 
     /**
      * Убрать исполнителя из заявки
-     * 
+     *
      * @param int $orderId Номер заказа
      * @param int $userId Id юзера
      * @return JsonResponse Json-ответ, удалена ли запись
@@ -92,7 +109,7 @@ class AdminController extends Controller
 
     /**
      * POST-запрос на создание пользователя
-     * 
+     *
      * @param CreateUserRequest $request Запрос на создание пользователя
      */
     public function postUserRequest(CreateUserRequest $request)
@@ -107,7 +124,7 @@ class AdminController extends Controller
 
     /**
      * Удаление пользователя
-     * 
+     *
      * @param int $id Номер пользователя
      */
     public function deleteUserRequest(int $id): JsonResponse
@@ -118,7 +135,7 @@ class AdminController extends Controller
 
     /**
      * Post-запрос на удаление комментария
-     * 
+     *
      * @param int $commentId Номер комментария
      */
     public function deleteCommentRequest(int $commentId): JsonResponse
@@ -129,7 +146,7 @@ class AdminController extends Controller
 
     /**
      * Получение информации и пользователе
-     * 
+     *
      * @param $userId Id пользователя
      */
     public function getUserInfoRequest(int $userId)
