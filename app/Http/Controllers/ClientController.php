@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
-use App\User;
-use App\Traits\HomeTrait;
 use Illuminate\View\View;
 use App\Traits\ClientTrait;
 use Illuminate\Http\Request;
@@ -27,9 +25,9 @@ class ClientController extends Controller
 {
     use ClientTrait;
 
-    private $cartService;
-    private $orderService;
-    private $userProfileService;
+    private ICartService $cartService;
+    private IOrderService $orderService;
+    private IUserProfileService $userProfileService;
 
     public function __construct(ICartService $cartService, IOrderService $orderService, IUserProfileService $userProfileService)
     {

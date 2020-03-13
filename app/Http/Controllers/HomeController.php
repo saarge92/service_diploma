@@ -22,8 +22,8 @@ class HomeController extends Controller
 {
     use HomeTrait;
 
-    private $serviceImpl;
-    private $cartService;
+    private IService $serviceImpl;
+    private ICartService $cartService;
 
     public function __construct(IService $serviceImpl, ICartService $cartService)
     {
@@ -116,7 +116,7 @@ class HomeController extends Controller
     }
 
     /**
-     * @param ContactRequest $request Запрос с параметрами для связи 
+     * @param ContactRequest $request Запрос с параметрами для связи
      * @return JsonResponse Добавлена ли запись или нет
      */
     public function contactRequest(ContactRequest $request): JsonResponse

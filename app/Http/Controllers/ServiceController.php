@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Session;
  */
 class ServiceController extends Controller
 {
-    private $serviceRepository;
+    private IService $serviceRepository;
 
     /**
      * Внедрение зависимостей
