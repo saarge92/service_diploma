@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
 use Illuminate\Http\Request;
@@ -26,11 +27,15 @@ class AdminController extends Controller
 
     private IUserService $userService;
     private IRoleService $roleService;
+    private IRequestOrderService $requestOrderService;
 
-    public function __construct(IUserService $userService, IRoleService $roleService)
+    public function __construct(IUserService $userService, IRoleService $roleService,
+                                IRequestOrderService $requestOrderService
+    )
     {
         $this->userService = $userService;
         $this->roleService = $roleService;
+        $this->requestOrderService = $requestOrderService;
     }
 
     /**
@@ -58,13 +63,14 @@ class AdminController extends Controller
      */
     public function viewRequests(Request $request)
     {
-        $data = $this->getAllRequests($request);
+        $data = $this->requestOrderService->getAllRequests($request->all());
         return view('admin.allOrders', $data);
     }
 
     /**
      * Генерация конкретного заказа
      * @param int $id Номер услуги
+     * @return \Illuminate\Contracts\View\Factory|View
      */
     public function viewOrder(int $id)
     {
