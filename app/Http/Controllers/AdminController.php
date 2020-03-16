@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\IExecutorService;
 use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
@@ -26,10 +27,12 @@ class AdminController extends Controller
     use AdminTrait;
 
     private IRoleService $roleService;
+    private IExecutorService $executorService;
 
-    public function __construct(IRoleService $roleService)
+    public function __construct(IRoleService $roleService, IExecutorService $executorService)
     {
         $this->roleService = $roleService;
+        $this->executorService = $executorService;
     }
 
     /**
@@ -86,7 +89,7 @@ class AdminController extends Controller
      */
     public function setExecutorRequest(int $orderId, int $userId): JsonResponse
     {
-        $result = $this->assignExecutorToOrder($orderId, $userId);
+        $result = $this->executorService->assignExecutorToOrder($orderId, $userId);
         return response()->json($result);
     }
 
@@ -99,7 +102,7 @@ class AdminController extends Controller
      */
     public function revokeExecutorOrderRequest(int $orderId, int $userId): JsonResponse
     {
-        $result = $this->revokeUserFromOrder($orderId, $userId);
+        $result = $this->executorService->revokeUserFromOrder($orderId, $userId);
         return response()->json($result);
     }
 
