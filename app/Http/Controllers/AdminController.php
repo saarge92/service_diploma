@@ -6,7 +6,6 @@ use App\Interfaces\IExecutorService;
 use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
-use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Traits\AdminTrait;
 use Illuminate\Http\JsonResponse;
@@ -120,10 +119,9 @@ class AdminController extends Controller
      * POST-запрос на создание пользователя
      *
      * @param CreateUserRequest $request Запрос на создание пользователя
-     * @param UserService $userService Внедрение зависимости функционала по работе с пользователями
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postUserRequest(CreateUserRequest $request, UserService $userService)
+    public function postUserRequest(CreateUserRequest $request, IUserService $userService)
     {
         if ($request->validated()) {
             $result = $userService->postCreateUser($request->all());
@@ -137,10 +135,10 @@ class AdminController extends Controller
      * Удаление пользователя
      *
      * @param int $id Номер пользователя
-     * @param UserService $userService Сервис по работе с пользователями
+     * @param IUserService $userService Сервис по работе с пользователями
      * @return JsonResponse Ответ в формате json об удаленном пользователе
      */
-    public function deleteUserRequest(int $id, UserService $userService): JsonResponse
+    public function deleteUserRequest(int $id, IUserService $userService): JsonResponse
     {
         $deleteResult = $userService->deleteUser($id);
         return response()->json($deleteResult);
