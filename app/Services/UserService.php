@@ -97,4 +97,20 @@ class UserService implements IUserService
         }
         return $deleteResult;
     }
+
+    /**
+     * Получение информации о пользователе
+     *
+     * @param int $userId Id пользователя
+     * @return array Пользователь со списком ролей в базе
+     */
+    public function getUserInfo(int $userId): array
+    {
+        $user = User::find($userId);
+        $roles = Role::all();
+        return [
+            'user' => $user,
+            'roles' => $roles
+        ];
+    }
 }

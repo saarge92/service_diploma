@@ -161,11 +161,12 @@ class AdminController extends Controller
      * Получение информации и пользователе
      *
      * @param int $userId Id пользователя
+     * @param IUserService $userService Сервис по работе с пользователями
      * @return \Illuminate\Contracts\View\Factory|View
      */
-    public function getUserInfoRequest(int $userId)
+    public function getUserInfoRequest(int $userId, IUserService $userService)
     {
-        $data = $this->getUserInfo($userId);
+        $data = $userService->getUserInfo($userId);
         return view('admin.userInfo', $data);
     }
 
@@ -195,10 +196,13 @@ class AdminController extends Controller
 
     /**
      * Удаление заявки по его id
+     * @param int $id
+     * @param IRequestOrderService $requestOrderService Зависимость по работе с заказами
+     * @return JsonResponse
      */
-    public function deleteRequest(int $id): JsonResponse
+    public function deleteRequest(int $id, IRequestOrderService $requestOrderService): JsonResponse
     {
-        $result = $this->deleteRequestById($id);
+        $result = $requestOrderService->deleteRequestById($id);
         return response()->json($result);
     }
 

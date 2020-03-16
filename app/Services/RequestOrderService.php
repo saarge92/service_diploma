@@ -104,4 +104,19 @@ class RequestOrderService implements IRequestOrderService
             'statuses' => $statuses
         ];
     }
+
+    /**
+     * Удаление заявки по Id
+     * @param int $id Id заявки
+     * @return bool Булевое значение удалена ли заявка или нет
+     */
+    public function deleteRequestById(int $id): bool
+    {
+        $resultOperation = false;
+        $order = Order::find($id);
+        if ($order) {
+            $resultOperation = $order->delete();
+        }
+        return $resultOperation;
+    }
 }

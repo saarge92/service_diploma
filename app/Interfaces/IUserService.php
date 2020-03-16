@@ -21,4 +21,6 @@ interface IUserService
     function postCreateUser(array $createParams): bool;
 
     function deleteUser(int $id): bool;
+
+    function getUserInfo(int $userId): array;
 }
