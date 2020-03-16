@@ -15,4 +15,6 @@ interface IUserService
     function getAllUsers();
 
     function getExecutors(): ?Collection;
+
+    function postCreateUser(array $createParams): bool;
 }

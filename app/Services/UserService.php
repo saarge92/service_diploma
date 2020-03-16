@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
 use App\Role;
 use App\User;
 use App\UserInRole;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class UserService, содержащий бизнес-логику по работе с пользователями
@@ -54,5 +56,29 @@ class UserService implements IUserService
         }
 
         return $availableExecutors;
+    }
+
+    /**
+     * Создание пользователя в системе
+     * @param array $createParams Параметры создания
+     * @return bool
+     */
+    public function postCreateUser(array $createParams): bool
+    {
+        $resultCreation = false;
+        $user = User::create([
+            'name' => $createParams['name'],
+            'email' => $createParams['email'],
+            'address' => $createParams['address'],
+            'organization' => $createParams['organization'],
+            'phone_number' => $createParams['phone_number'],
+            'password' => Hash::make($createParams['password'])
+        ]);
+        if (isset($createParams['roleId'])) {
+            $roleService = resolve(IRoleService::class);
+            $roleService->grantRoleToUser($user->id, $createParams['roleId']);
+        }
+        $resultCreation = $user->save();
+        return $resultCreation;
     }
 }

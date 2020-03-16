@@ -6,6 +6,7 @@ use App\Interfaces\IExecutorService;
 use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Traits\AdminTrait;
 use Illuminate\Http\JsonResponse;
@@ -119,12 +120,13 @@ class AdminController extends Controller
      * POST-запрос на создание пользователя
      *
      * @param CreateUserRequest $request Запрос на создание пользователя
+     * @param UserService $userService Внедрение зависимости функционала по работе с пользователями
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postUserRequest(CreateUserRequest $request)
+    public function postUserRequest(CreateUserRequest $request, UserService $userService)
     {
         if ($request->validated()) {
-            $result = $this->postUser($request);
+            $result = $userService->postCreateUser($request->all());
             $result ? Session::flash('success', 'Пользователь успешно добавлен') : Session::flash('error', 'Добавить пользователя не удалось');
             return redirect()->route('admin.index');
         }
