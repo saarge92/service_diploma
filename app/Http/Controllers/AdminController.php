@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\IExecutorService;
 use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
@@ -25,25 +26,26 @@ class AdminController extends Controller
 {
     use AdminTrait;
 
-    private IUserService $userService;
     private IRoleService $roleService;
+    private IExecutorService $executorService;
 
-    public function __construct(IUserService $userService, IRoleService $roleService)
+    public function __construct(IRoleService $roleService, IExecutorService $executorService)
     {
-        $this->userService = $userService;
         $this->roleService = $roleService;
+        $this->executorService = $executorService;
     }
 
     /**
      * Генерация индексной страницы пользователя
      *
      * @param Request $request - Get-запрос
+     * @param IUserService $userService Внедрение зависимостей
      * @return \Illuminate\Contracts\View\Factory|View
      */
-    public function index(Request $request)
+    public function index(Request $request, IUserService $userService)
     {
-        $request->has('roleId') ? $users = $this->userService->getUsersByRoleId($request->get('roleId')) :
-            $users = $this->userService->getAllUsers();
+        $request->has('roleId') ? $users = $userService->getUsersByRoleId($request->get('roleId')) :
+            $users = $userService->getAllUsers();
         $roles = $this->roleService->getAll();
         return view('admin.index', [
             'users' => $users,
@@ -87,7 +89,7 @@ class AdminController extends Controller
      */
     public function setExecutorRequest(int $orderId, int $userId): JsonResponse
     {
-        $result = $this->assignExecutorToOrder($orderId, $userId);
+        $result = $this->executorService->assignExecutorToOrder($orderId, $userId);
         return response()->json($result);
     }
 
@@ -100,7 +102,7 @@ class AdminController extends Controller
      */
     public function revokeExecutorOrderRequest(int $orderId, int $userId): JsonResponse
     {
-        $result = $this->revokeUserFromOrder($orderId, $userId);
+        $result = $this->executorService->revokeUserFromOrder($orderId, $userId);
         return response()->json($result);
     }
 
@@ -173,7 +175,7 @@ class AdminController extends Controller
      */
     public function grantRoleToUserRequest(int $userId, int $roleId): JsonResponse
     {
-        $resultCreation = $this->grantRoleToUser($userId, $roleId);
+        $resultCreation = $this->roleService->grantRoleToUser($userId, $roleId);
         return response()->json($resultCreation);
     }
 
@@ -185,7 +187,7 @@ class AdminController extends Controller
      */
     public function revokeRoleRequest(int $userId, int $roleId): JsonResponse
     {
-        $result = $this->revokeRole($userId, $roleId);
+        $result = $this->roleService->revokeRole($userId, $roleId);
         return response()->json($result);
     }
 
