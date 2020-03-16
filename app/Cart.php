@@ -11,21 +11,21 @@ namespace App;
  */
 class Cart
 {
-    public $items;
-    public $totalQty = 0;
-    public $totalPrice = 0;
+    public array $items = [];
+    public int $totalQty = 0;
+    public float $totalPrice = 0;
 
     /**
      * Класс-конструктор для создания экземпляра объекта
      *
-     * @param $oldcart
+     * @param Cart $oldCart Старая карта заказа, хранящаяся в
      */
-    public function __construct(Cart $oldcart)
+    public function __construct(?Cart $oldCart)
     {
-        if ($oldcart) {
-            $this->items = $oldcart->items;
-            $this->totalQty = $oldcart->totalQty;
-            $this->totalPrice = $oldcart->totalPrice;
+        if ($oldCart) {
+            $this->items = $oldCart->items;
+            $this->totalQty = $oldCart->totalQty;
+            $this->totalPrice = $oldCart->totalPrice;
         }
 
     }
@@ -36,7 +36,7 @@ class Cart
      * @param $item - услуга
      * @param $id - id-номер услуги
      */
-    public function add($item, $id): void
+    public function add($item, int $id): void
     {
         $storedItem = [
             'qty' => 0,

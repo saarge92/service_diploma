@@ -27,15 +27,11 @@ class AdminController extends Controller
 
     private IUserService $userService;
     private IRoleService $roleService;
-    private IRequestOrderService $requestOrderService;
 
-    public function __construct(IUserService $userService, IRoleService $roleService,
-                                IRequestOrderService $requestOrderService
-    )
+    public function __construct(IUserService $userService, IRoleService $roleService)
     {
         $this->userService = $userService;
         $this->roleService = $roleService;
-        $this->requestOrderService = $requestOrderService;
     }
 
     /**
@@ -59,22 +55,26 @@ class AdminController extends Controller
      * Отображение списка всех заявок
      *
      * @param Request $request Get Запрос
+     * @param IRequestOrderService $requestOrderService Внедрение зависимости функционала
+     * по работе с заявками пользователей
      * @return View Отображает страницу со списком всех заказов
      */
-    public function viewRequests(Request $request)
+    public function viewRequests(Request $request, IRequestOrderService $requestOrderService)
     {
-        $data = $this->requestOrderService->getAllRequests($request->all());
+        $data = $requestOrderService->getAllRequests($request->all());
         return view('admin.allOrders', $data);
     }
 
     /**
      * Генерация конкретного заказа
      * @param int $id Номер услуги
+     * @param IRequestOrderService $requestOrderService Внедрение зависимости функционала
+     * по работе с заявками пользователей
      * @return \Illuminate\Contracts\View\Factory|View
      */
-    public function viewOrder(int $id)
+    public function viewOrder(int $id, IRequestOrderService $requestOrderService)
     {
-        $data = $this->getOrderById($id);
+        $data = $requestOrderService->getOrderById($id);
         return view('admin.viewOrder', $data);
     }
 
@@ -117,6 +117,7 @@ class AdminController extends Controller
      * POST-запрос на создание пользователя
      *
      * @param CreateUserRequest $request Запрос на создание пользователя
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postUserRequest(CreateUserRequest $request)
     {
@@ -132,6 +133,7 @@ class AdminController extends Controller
      * Удаление пользователя
      *
      * @param int $id Номер пользователя
+     * @return JsonResponse Ответ в формате json об удаленном пользователе
      */
     public function deleteUserRequest(int $id): JsonResponse
     {
@@ -143,6 +145,7 @@ class AdminController extends Controller
      * Post-запрос на удаление комментария
      *
      * @param int $commentId Номер комментария
+     * @return JsonResponse Json ответ об успешном удалении комментария
      */
     public function deleteCommentRequest(int $commentId): JsonResponse
     {
@@ -153,7 +156,8 @@ class AdminController extends Controller
     /**
      * Получение информации и пользователе
      *
-     * @param $userId Id пользователя
+     * @param int $userId Id пользователя
+     * @return \Illuminate\Contracts\View\Factory|View
      */
     public function getUserInfoRequest(int $userId)
     {

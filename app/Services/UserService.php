@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Interfaces\IUserService;
+use App\Role;
 use App\User;
 use App\UserInRole;
+use Illuminate\Support\Collection;
 
 /**
  * Class UserService, содержащий бизнес-логику по работе с пользователями
@@ -32,5 +34,25 @@ class UserService implements IUserService
     public function getAllUsers()
     {
         return User::paginate(12);;
+    }
+
+    /**
+     * Получение пользователей - исполнителей
+     * @return Collection |null Коллекция доступных исполнителей заявок
+     */
+    public function getExecutors(): ?Collection
+    {
+        $roleExecutor = Role::where(['name' => 'executor'])->first();
+        $availableExecutors = null;
+
+        if ($roleExecutor != null) {
+            $user_in_roles = UserInRole::where(['role_id' => $roleExecutor->id])->get();
+            if (!$user_in_roles->isEmpty()) {
+                $usersId = $user_in_roles->pluck('user_id')->toArray();
+                $availableExecutors = User::whereIn('id', $usersId)->get();
+            }
+        }
+
+        return $availableExecutors;
     }
 }

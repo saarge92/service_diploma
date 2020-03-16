@@ -43,7 +43,6 @@ class HomeController extends Controller
     /**
      * Получает список услуг
      *
-     * @param Request $request - Get-запрос
      * @return View
      */
     public function getListServices()
@@ -83,6 +82,7 @@ class HomeController extends Controller
     /**
      * Уменьшение на 1 позицию в корзине
      * @param Request $request Запрос с параметром заказа
+     * @return JsonResponse Ответ в формате json об успешном исполнении запроса
      */
     public function reduceItemRequest(Request $request): JsonResponse
     {
@@ -93,7 +93,8 @@ class HomeController extends Controller
 
     /**
      * Увеличение на 1 позицию в корзине
-     * @param $request Запрос с параметром заказа
+     * @param Request $request Запрос с параметром заказа
+     * @return JsonResponse
      */
     public function increaseItemRequest(Request $request): JsonResponse
     {
