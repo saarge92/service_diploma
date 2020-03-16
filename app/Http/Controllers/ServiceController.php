@@ -16,11 +16,12 @@ use Illuminate\Support\Facades\Session;
  */
 class ServiceController extends Controller
 {
-    private $serviceRepository;
+    private IService $serviceRepository;
 
     /**
      * Внедрение зависимостей
      * Внедрение функционала класса ServiceImpl
+     * @param IService $serviceRepository Сервис по работе с услугами компании
      */
     public function __construct(IService $serviceRepository)
     {
@@ -30,7 +31,7 @@ class ServiceController extends Controller
     /**
      * Get-запрос на получение списка услуг
      * с постраничным отображением
-     * @param Request $request - Http-запрос
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getServices()
     {
@@ -50,6 +51,7 @@ class ServiceController extends Controller
     /**
      * Post-запрос на создание услуги в базе
      * @param CreateServiceRequest $request Post-запрос с параметрами
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postCreateService(CreateServiceRequest $request)
     {
@@ -63,6 +65,7 @@ class ServiceController extends Controller
     /**
      * Get-запрос на редактирование сервиса
      * @param int $id Номер сервиса
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getEditService(int $id)
     {
@@ -72,8 +75,9 @@ class ServiceController extends Controller
 
     /**
      * POST-запрос на редактирование сервиса
-     * @param $id Id Редактируемой услуги
+     * @param int $id Id Редактируемой услуги
      * @param EditServiceRequest $request Post-запрос с параметрами
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postEditService(int $id, EditServiceRequest $request)
     {

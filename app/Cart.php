@@ -4,39 +4,39 @@ namespace App;
 
 /**
  * Класс для работы с корзиной заказов
- * 
+ *
  * Содержит базовые методы для работы с корзиной
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */
 class Cart
 {
-    public $items;
-    public $totalQty = 0;
-    public $totalPrice = 0;
+    public array $items = [];
+    public int $totalQty = 0;
+    public float $totalPrice = 0;
 
     /**
      * Класс-конструктор для создания экземпляра объекта
-     * 
-     * @return object
+     *
+     * @param Cart $oldCart Старая карта заказа, хранящаяся в
      */
-    public function __construct($oldcart)
+    public function __construct(?Cart $oldCart)
     {
-        if ($oldcart) {
-            $this->items = $oldcart->items;
-            $this->totalQty = $oldcart->totalQty;
-            $this->totalPrice = $oldcart->totalPrice;
+        if ($oldCart) {
+            $this->items = $oldCart->items;
+            $this->totalQty = $oldCart->totalQty;
+            $this->totalPrice = $oldCart->totalPrice;
         }
 
     }
 
     /**
      * Добавляет элемент в корзину
-     * 
+     *
      * @param $item - услуга
-     * @param $id - id-номер услуги 
+     * @param $id - id-номер услуги
      */
-    public function add($item, $id) : void
+    public function add($item, int $id): void
     {
         $storedItem = [
             'qty' => 0,
@@ -57,7 +57,7 @@ class Cart
 
     /**
      * Уменьшает корзину на 1 пункт
-     * 
+     *
      * @param $id - id услуги
      */
     public function reduceByOne($id)
@@ -73,7 +73,7 @@ class Cart
 
     /**
      * Увеличивает корзину на 1 услугу
-     * 
+     *
      * @param $id - id услуги
      */
     public function increaseByOne($id)
@@ -86,7 +86,7 @@ class Cart
 
     /**
      * Убирает полностью услугу с корзины
-     * 
+     *
      * @param $id - id услуги
      */
     public function reduceItem($id)

@@ -16,19 +16,19 @@ use App\ContactRequestTable;
 
 /**
  * Трэйт, содержащий методы для работы администраторской части
- * 
+ *
  * Содержит методы, возвращающие необходимые данные для работы страниц администраторской части
- * 
+ *
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */
 trait AdminTrait
 {
-
     use ClientTrait;
+
     /**
      * Получение списка пользователей в системе
-     * 
+     *
      * @param Request $request - Get Запрос
      * @return array - массив параметров для отображения
      */
@@ -51,7 +51,7 @@ trait AdminTrait
 
     /**
      * Получение списка заявок для администора
-     * 
+     *
      * @param Request $request Get запрос
      * @return array Список заказов
      */
@@ -72,7 +72,7 @@ trait AdminTrait
         if ($statusId == 'new') {
             $orders = Order::where(['status_id' => null]);
         } else {
-            $statusId == null ?  $orders = Order::where('id', '!=', null)
+            $statusId == null ? $orders = Order::where('id', '!=', null)
                 : $orders = Order::where(['status_id' => $statusId]);
         }
 
@@ -146,7 +146,7 @@ trait AdminTrait
 
     /**
      * Назначение исполнителя на заявку
-     * 
+     *
      * @param int $orderId Номер заявки
      * @param int $userId Исполнитель
      * @return bool Назначен ли исполнитель
@@ -180,13 +180,13 @@ trait AdminTrait
 
     /**
      * Убрать исполнителя из заявки
-     * 
+     *
      * @param int $orderId Номер заказа
      * @param int $userId Id пользователя
      */
     private function revokeUserFromOrder(int $orderId, int $userId): bool
     {
-        $result =  ExecutorInOrder::where([
+        $result = ExecutorInOrder::where([
             'order_id' => $orderId,
             'user_id' => $userId
         ])->delete();
@@ -195,7 +195,7 @@ trait AdminTrait
 
     /**
      * Создание пользователя в систем администратором
-     * 
+     *
      * @param $request POST-запрос с параметрами пользователя
      * @return bool Результат создания пользователя
      */
@@ -232,7 +232,7 @@ trait AdminTrait
 
     /**
      * Удаления комментария
-     * 
+     *
      * @param int $commentId Номер комментария
      * @return bool Удален ли комментарий
      */
@@ -248,7 +248,7 @@ trait AdminTrait
 
     /**
      * Получение информации о пользователе
-     * 
+     *
      * @param int $userId Id пользователя
      * @return array Пользователь со списком ролей в базе
      */
@@ -264,7 +264,7 @@ trait AdminTrait
 
     /**
      * Реализация добавления роли для пользователя
-     * 
+     *
      * @param int $userId Id пользователя
      * @param int $roleId Номер роли
      * @return string Результат добавления
@@ -300,7 +300,7 @@ trait AdminTrait
 
     /**
      * Удаление заявки
-     * 
+     *
      * @param int $id Номер заявки
      * @return bool Результат удаления
      */
@@ -321,7 +321,7 @@ trait AdminTrait
      */
     private function getRecordsOfContacts(Request $request): array
     {
-        $contactRecords = ContactRequestTable::orderBy('created_at','desc')->paginate(6);
+        $contactRecords = ContactRequestTable::orderBy('created_at', 'desc')->paginate(6);
         return [
             'contactRecords' => $contactRecords
         ];

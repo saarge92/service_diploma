@@ -3,6 +3,12 @@
 namespace App\Providers;
 
 use App\Interfaces\IOrderService;
+use App\Interfaces\IRequestOrderService;
+use App\Interfaces\IRoleService;
+use App\Interfaces\IUserService;
+use App\Services\RequestOrderService;
+use App\Services\RoleService;
+use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Services\ServiceImpl;
@@ -38,6 +44,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ICartService::class, CartServiceImpl::class);
         $this->app->singleton(IOrderService::class, OrderService::class);
         $this->app->singleton(IUserProfileService::class, UserProfileImpl::class);
+        $this->app->singleton(IUserService::class, UserService::class);
+        $this->app->singleton(IRoleService::class, RoleService::class);
+        $this->app->singleton(IRequestOrderService::class, RequestOrderService::class);
         $this->app->bind('path.public', function () {
             return base_path() . '/public_html';
         });

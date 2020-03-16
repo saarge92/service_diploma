@@ -22,8 +22,8 @@ class HomeController extends Controller
 {
     use HomeTrait;
 
-    private $serviceImpl;
-    private $cartService;
+    private IService $serviceImpl;
+    private ICartService $cartService;
 
     public function __construct(IService $serviceImpl, ICartService $cartService)
     {
@@ -43,7 +43,6 @@ class HomeController extends Controller
     /**
      * Получает список услуг
      *
-     * @param Request $request - Get-запрос
      * @return View
      */
     public function getListServices()
@@ -83,6 +82,7 @@ class HomeController extends Controller
     /**
      * Уменьшение на 1 позицию в корзине
      * @param Request $request Запрос с параметром заказа
+     * @return JsonResponse Ответ в формате json об успешном исполнении запроса
      */
     public function reduceItemRequest(Request $request): JsonResponse
     {
@@ -93,7 +93,8 @@ class HomeController extends Controller
 
     /**
      * Увеличение на 1 позицию в корзине
-     * @param $request Запрос с параметром заказа
+     * @param Request $request Запрос с параметром заказа
+     * @return JsonResponse
      */
     public function increaseItemRequest(Request $request): JsonResponse
     {
@@ -116,7 +117,7 @@ class HomeController extends Controller
     }
 
     /**
-     * @param ContactRequest $request Запрос с параметрами для связи 
+     * @param ContactRequest $request Запрос с параметрами для связи
      * @return JsonResponse Добавлена ли запись или нет
      */
     public function contactRequest(ContactRequest $request): JsonResponse
