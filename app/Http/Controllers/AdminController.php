@@ -175,7 +175,7 @@ class AdminController extends Controller
      */
     public function grantRoleToUserRequest(int $userId, int $roleId): JsonResponse
     {
-        $resultCreation = $this->grantRoleToUser($userId, $roleId);
+        $resultCreation = $this->roleService->grantRoleToUser($userId, $roleId);
         return response()->json($resultCreation);
     }
 
@@ -187,7 +187,7 @@ class AdminController extends Controller
      */
     public function revokeRoleRequest(int $userId, int $roleId): JsonResponse
     {
-        $result = $this->revokeRole($userId, $roleId);
+        $result = $this->roleService->revokeRole($userId, $roleId);
         return response()->json($result);
     }
 

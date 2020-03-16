@@ -12,4 +12,8 @@ namespace App\Interfaces;
 interface IRoleService
 {
     function getAll();
+
+    function revokeRole(int $userId, int $roleId): bool;
+
+    function grantRoleToUser(int $userId, int $roleId): string;
 }
