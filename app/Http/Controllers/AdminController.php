@@ -25,12 +25,10 @@ class AdminController extends Controller
 {
     use AdminTrait;
 
-    private IUserService $userService;
     private IRoleService $roleService;
 
-    public function __construct(IUserService $userService, IRoleService $roleService)
+    public function __construct(IRoleService $roleService)
     {
-        $this->userService = $userService;
         $this->roleService = $roleService;
     }
 
@@ -38,12 +36,13 @@ class AdminController extends Controller
      * Генерация индексной страницы пользователя
      *
      * @param Request $request - Get-запрос
+     * @param IUserService $userService Внедрение зависимостей
      * @return \Illuminate\Contracts\View\Factory|View
      */
-    public function index(Request $request)
+    public function index(Request $request, IUserService $userService)
     {
-        $request->has('roleId') ? $users = $this->userService->getUsersByRoleId($request->get('roleId')) :
-            $users = $this->userService->getAllUsers();
+        $request->has('roleId') ? $users = $userService->getUsersByRoleId($request->get('roleId')) :
+            $users = $userService->getAllUsers();
         $roles = $this->roleService->getAll();
         return view('admin.index', [
             'users' => $users,
