@@ -137,11 +137,12 @@ class AdminController extends Controller
      * Удаление пользователя
      *
      * @param int $id Номер пользователя
+     * @param UserService $userService Сервис по работе с пользователями
      * @return JsonResponse Ответ в формате json об удаленном пользователе
      */
-    public function deleteUserRequest(int $id): JsonResponse
+    public function deleteUserRequest(int $id, UserService $userService): JsonResponse
     {
-        $deleteResult = $this->deleteUser($id);
+        $deleteResult = $userService->deleteUser($id);
         return response()->json($deleteResult);
     }
 

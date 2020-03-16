@@ -81,4 +81,20 @@ class UserService implements IUserService
         $resultCreation = $user->save();
         return $resultCreation;
     }
+
+
+    /**
+     * Удаление пользователя
+     * @param int $id Id удаляемого пользователя
+     * @return bool Результат удаления
+     */
+    public function deleteUser(int $id): bool
+    {
+        $deleteResult = false;
+        $deleteUser = User::find($id);
+        if ($deleteUser) {
+            $deleteResult = $deleteUser->delete();
+        }
+        return $deleteResult;
+    }
 }
