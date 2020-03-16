@@ -119,6 +119,7 @@ class AdminController extends Controller
      * POST-запрос на создание пользователя
      *
      * @param CreateUserRequest $request Запрос на создание пользователя
+     * @param IUserService $userService Сервис по работе с пользователями
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postUserRequest(CreateUserRequest $request, IUserService $userService)
