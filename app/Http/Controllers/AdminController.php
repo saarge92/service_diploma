@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\ICommentService;
 use App\Interfaces\IContactService;
 use App\Interfaces\IExecutorService;
 use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
 use Illuminate\Http\Request;
-use App\Traits\AdminTrait;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\CreateUserRequest;
 use Illuminate\Support\Facades\Session;
@@ -25,8 +25,6 @@ use Illuminate\View\View;
  */
 class AdminController extends Controller
 {
-    use AdminTrait;
-
     private IRoleService $roleService;
     private IExecutorService $executorService;
 
@@ -150,11 +148,12 @@ class AdminController extends Controller
      * Post-запрос на удаление комментария
      *
      * @param int $commentId Номер комментария
+     * @param ICommentService $commentService Сервис по работе с комментариями
      * @return JsonResponse Json ответ об успешном удалении комментария
      */
-    public function deleteCommentRequest(int $commentId): JsonResponse
+    public function deleteCommentRequest(int $commentId, ICommentService $commentService): JsonResponse
     {
-        $result = $this->deleteComment($commentId);
+        $result = $commentService->deleteComment($commentId);
         return response()->json($result);
     }
 
