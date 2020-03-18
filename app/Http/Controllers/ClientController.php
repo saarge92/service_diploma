@@ -78,6 +78,7 @@ class ClientController extends Controller
     /**
      * Запрос на изменение профиля
      * @param ChangeProfileRequest $request Параметры изменения параметров пользователя
+     * @return RedirectResponse Перенаправление на страницу клиентского профиля
      */
     public function changeProfile(ChangeProfileRequest $request)
     {
@@ -96,6 +97,7 @@ class ClientController extends Controller
      * Подтверждение заказа
      *
      * @param Request $request - Post-запрос
+     * @return RedirectResponse Перенаправление в случае успеха на страницу клиента
      */
     public function confirmOrder(Request $request): RedirectResponse
     {
@@ -116,6 +118,7 @@ class ClientController extends Controller
      *
      * @param Request $request - Get-запрос
      * @param int $id - номер заказа
+     * @return \Illuminate\Contracts\View\Factory|View
      */
     public function getOrder(Request $request, int $id)
     {
