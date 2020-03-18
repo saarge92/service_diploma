@@ -45,19 +45,4 @@ trait HomeTrait
         return $data;
     }
 
-    /**
-     * Добавление заявки "Связаться со мной"
-     * @param ContactRequest $request - POST-запрос с просьбой связаться
-     * @return bool Добавлена ли заявка о регистрации
-     */
-    private function addContactMe(ContactRequest $request): bool
-    {
-        $result = false;
-        $result = ContactRequestTable::create([
-            'name' => $request->get('name'),
-            'phone' => $request->get('phone'),
-            'comments' => $request->get('comments')
-        ])->save();
-        return $result;
-    }
 }

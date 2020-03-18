@@ -21,9 +21,9 @@ class ServiceImpl implements IService
      */
     public function createService(array $createParams): Service
     {
-        $file = $createParams['path'];
         $newFileServiceName = 'services/unknow.png';
-        if (isset($file)) {
+        if (isset($createParams['path'])) {
+            $file = $createParams['path'];
             $filename = 'service' . '_' . date('Y_m_d H_i_s') . '.' . $file->getClientOriginalExtension();
             $destination = public_path() . '/storage/services/';
             $file->move($destination, $filename);
@@ -44,21 +44,20 @@ class ServiceImpl implements IService
      */
     public function getServices()
     {
-        $services = Service::paginate(6);
-        return $services;
+        return Service::paginate(6);
     }
 
     /**
      * Редактировние сервиса
-     * @param $id Id услуги
+     * @param int $id Id услуги
      * @param array $editParams Параметры редактирования
-     * @return bool Возвращает результат успешного обновления
+     * @return Service Возвращает результат успешного обновления
      */
     public function editService(int $id, array $editParams): Service
     {
         $serviceForEdit = Service::find($id);
-        $newFileImage = $editParams['path'];
-        if (isset($newFileImage)) {
+        if (isset($editParams['path'])) {
+            $newFileImage = $editParams['path'];
             if ($serviceForEdit->path != null) {
                 $delete_path = public_path() . '/storage/' . $serviceForEdit->path;
                 if (file_exists($delete_path)) {

@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
+use App\Interfaces\ICommentService;
+use App\Interfaces\IContactService;
 use App\Interfaces\IExecutorService;
 use App\Interfaces\IOrderService;
 use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
+use App\Services\CommentService;
+use App\Services\ContactService;
 use App\Services\ExecutorService;
 use App\Services\RequestOrderService;
 use App\Services\RoleService;
@@ -50,6 +54,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(IRoleService::class, RoleService::class);
         $this->app->singleton(IRequestOrderService::class, RequestOrderService::class);
         $this->app->singleton(IExecutorService::class, ExecutorService::class);
+        $this->app->singleton(IContactService::class, ContactService::class);
+        $this->app->singleton(ICommentService::class, CommentService::class);
         $this->app->bind('path.public', function () {
             return base_path() . '/public_html';
         });

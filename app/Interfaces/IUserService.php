@@ -7,6 +7,8 @@ use Illuminate\Support\Collection;
 /**
  * Интерфейс, определяющий логику
  * @package App\Interfaces
+ * @author Inara Durdyeva <inara97_97@mail.ru>
+ * @copyright Copyright (c) Inara Durdyeva
  */
 interface IUserService
 {
@@ -15,4 +17,10 @@ interface IUserService
     function getAllUsers();
 
     function getExecutors(): ?Collection;
+
+    function postCreateUser(array $createParams): bool;
+
+    function deleteUser(int $id): bool;
+
+    function getUserInfo(int $userId): array;
 }

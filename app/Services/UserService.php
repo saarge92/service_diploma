@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
 use App\Role;
 use App\User;
 use App\UserInRole;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class UserService, содержащий бизнес-логику по работе с пользователями
@@ -54,5 +56,61 @@ class UserService implements IUserService
         }
 
         return $availableExecutors;
+    }
+
+    /**
+     * Создание пользователя в системе
+     * @param array $createParams Параметры создания
+     * @return bool
+     */
+    public function postCreateUser(array $createParams): bool
+    {
+        $resultCreation = false;
+        $user = User::create([
+            'name' => $createParams['name'],
+            'email' => $createParams['email'],
+            'address' => $createParams['address'],
+            'organization' => $createParams['organization'],
+            'phone_number' => $createParams['phone_number'],
+            'password' => Hash::make($createParams['password'])
+        ]);
+        if (isset($createParams['roleId'])) {
+            $roleService = resolve(IRoleService::class);
+            $roleService->grantRoleToUser($user->id, $createParams['roleId']);
+        }
+        $resultCreation = $user->save();
+        return $resultCreation;
+    }
+
+
+    /**
+     * Удаление пользователя
+     * @param int $id Id удаляемого пользователя
+     * @return bool Результат удаления
+     */
+    public function deleteUser(int $id): bool
+    {
+        $deleteResult = false;
+        $deleteUser = User::find($id);
+        if ($deleteUser) {
+            $deleteResult = $deleteUser->delete();
+        }
+        return $deleteResult;
+    }
+
+    /**
+     * Получение информации о пользователе
+     *
+     * @param int $userId Id пользователя
+     * @return array Пользователь со списком ролей в базе
+     */
+    public function getUserInfo(int $userId): array
+    {
+        $user = User::find($userId);
+        $roles = Role::all();
+        return [
+            'user' => $user,
+            'roles' => $roles
+        ];
     }
 }
