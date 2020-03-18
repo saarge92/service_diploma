@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\IContactService;
 use App\Traits\HomeTrait;
 use App\Interfaces\IService;
 use Illuminate\Http\Request;
@@ -24,11 +25,13 @@ class HomeController extends Controller
 
     private IService $serviceImpl;
     private ICartService $cartService;
+    private IContactService $contactService;
 
-    public function __construct(IService $serviceImpl, ICartService $cartService)
+    public function __construct(IService $serviceImpl, ICartService $cartService, IContactService $contactService)
     {
         $this->serviceImpl = $serviceImpl;
         $this->cartService = $cartService;
+        $this->contactService = $contactService;
     }
 
     /**
@@ -124,7 +127,7 @@ class HomeController extends Controller
     {
         $result = false;
         if ($request->validated()) {
-            $result = $this->addContactMe($request);
+            $result = $this->contactService->addContactMe($request->all());
         }
         return response()->json($result);
     }
