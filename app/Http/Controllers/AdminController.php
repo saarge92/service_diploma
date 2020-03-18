@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\IContactService;
 use App\Interfaces\IExecutorService;
 use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IRoleService;
@@ -208,23 +209,24 @@ class AdminController extends Controller
 
     /**
      * GET-запрос на отоборажение списка
-     * @param Request $request - GET-запрос
+     * @param IContactService $contactService Сервис по работе с заявками на
+     * обратную связь
      * @return View - Страница со списком
      */
-    public function displayContacts(Request $request)
+    public function displayContacts(IContactService $contactService)
     {
-        $contactRecords = $this->getRecordsOfContacts($request);
+        $contactRecords = $contactService->getRecordsOfContacts();
         return view('admin.contacts', $contactRecords);
     }
 
     /**
      * POST-запрос на удаление записи об обратном звонке
      * @param int $id Id записи
-     * @return bool Удалена ли запись
+     * @return JsonResponse Удалена ли запись
      */
-    public function deleteContactInfo(int $id): JsonResponse
+    public function deleteContactInfo(int $id, IContactService $contactService): JsonResponse
     {
-        $resultOperation = $this->deleteRecordContactInfo($id);
+        $resultOperation = $contactService->deleteRecordContactInfo($id);
         return response()->json($resultOperation);
     }
 }
