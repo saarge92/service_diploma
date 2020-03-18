@@ -120,6 +120,7 @@ class HomeController extends Controller
     }
 
     /**
+     * Добавление заявки на обратный звонок в базу
      * @param ContactRequest $request Запрос с параметрами для связи
      * @return JsonResponse Добавлена ли запись или нет
      */
