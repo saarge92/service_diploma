@@ -18,4 +18,6 @@ interface IOrderService
     function getOrderById(int $id): object;
 
     function parseOrder(Order $order): object;
+
+    function setStatusOrder(array $statusInfo): bool;
 }

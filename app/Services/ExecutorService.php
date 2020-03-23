@@ -2,9 +2,14 @@
 
 namespace App\Services;
 
+use App\Comment;
 use App\ExecutorInOrder;
 use App\Interfaces\IExecutorService;
+use App\Interfaces\IOrderService;
+use App\Order;
 use App\Role;
+use App\Status;
+use App\User;
 use App\UserInRole;
 
 /**
@@ -16,6 +21,12 @@ use App\UserInRole;
  */
 class ExecutorService implements IExecutorService
 {
+    private IOrderService $orderService;
+
+    public function __construct(IOrderService $orderService)
+    {
+        $this->orderService = $orderService;
+    }
 
     /**
      * Назначение исполнителя на заявку
@@ -60,10 +71,66 @@ class ExecutorService implements IExecutorService
      */
     public function revokeUserFromOrder(int $orderId, int $userId): bool
     {
-        $result = ExecutorInOrder::where([
+        return ExecutorInOrder::where([
             'order_id' => $orderId,
             'user_id' => $userId
         ])->delete();
-        return $result;
+    }
+
+    /**
+     * Получение полной информации о заявках для исполнителя
+     * @param array $userParams Параметры запроса для исполнителя заявок
+     * @return array Массив, содержащий информации о перечнях заявок исполнителя
+     */
+    public function getExecutorOrders(array $userParams): array
+    {
+        $userId = $userParams['user']['id'];
+        $statusId = isset($userParams['statusId']) ? $userParams['statusId'] : null;
+        $clientId = isset($userParams['clientId']) ? $userParams['clientId'] : null;
+        $clientsId = Order::distinct('user_id')->pluck('user_id')->toArray();
+        $allClients = User::whereIn('id', $clientsId)->get();
+        $executorOrders = ExecutorInOrder::where(['user_id' => $userId])->pluck('order_id')->toArray();
+        $orders = null;
+        if ($statusId == 'new') {
+            $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => null]);
+        } else {
+            $statusId == null ? $orders = Order::whereIn('id', $executorOrders) : $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => $statusId]);
+        }
+        if ($clientId != null) {
+            $orders = $orders->where(['user_id' => $clientId]);
+        }
+        $orders = $orders->paginate(12);
+        $parsedOrders = [];
+        foreach ($orders as $order) {
+            $parsedOrders[] = $this->orderService->parseOrder($order);
+        }
+        $statuses = Status::all();
+        return [
+            'orders' => $parsedOrders,
+            'statuses' => $statuses,
+            'orderPaginate' => $orders,
+            'allClients' => $allClients
+        ];
+    }
+
+    /**
+     * Получение информации о заказе
+     *
+     * @param int $id Номер заказа
+     * @return array Параметры заказа
+     */
+    public function getOrderById(int $id): array
+    {
+        $order = Order::find($id);
+        $parsedOrder = $this->orderService->parseOrder($order);
+        $statuses = Status::whereNotIn('name', ['Закрыта'])->get();
+        $comments = Comment::where([
+            'order_id' => $order != null ? $order->id : null
+        ])->paginate(12);
+        return [
+            'order' => $parsedOrder,
+            'comments' => $comments,
+            'statuses' => $statuses
+        ];
     }
 }

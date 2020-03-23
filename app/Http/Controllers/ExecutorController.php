@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\ICommentService;
+use App\Interfaces\IExecutorService;
+use App\Interfaces\IOrderService;
 use Illuminate\Http\Request;
-use App\Traits\ExecutorTrait;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\PostCommentRequest;
 use App\Http\Requests\SetOrderStatusExecutor;
@@ -17,7 +19,14 @@ use Illuminate\View\View;
  */
 class ExecutorController extends Controller
 {
-    use ExecutorTrait;
+    private IExecutorService $executorService;
+    private ICommentService $commentService;
+
+    public function __construct(IExecutorService $executorService, ICommentService $commentService)
+    {
+        $this->executorService = $executorService;
+        $this->commentService = $commentService;
+    }
 
     /**
      * Генерация индексной страницы исполнителя
@@ -27,7 +36,9 @@ class ExecutorController extends Controller
      */
     public function index(Request $request): View
     {
-        $data = $this->getExecutorOrders($request);
+        $requestParams = $request->all();
+        $requestParams['user'] = $request->user();
+        $data = $this->executorService->getExecutorOrders($requestParams);
         return view('executor.index', $data);
     }
 
@@ -39,7 +50,7 @@ class ExecutorController extends Controller
      */
     public function getOrder(int $id): View
     {
-        $data = $this->getOrderById($id);
+        $data = $this->executorService->getOrderById($id);
         return view('executor.viewOrder', $data);
     }
 
@@ -51,7 +62,9 @@ class ExecutorController extends Controller
      */
     public function submitComment(PostCommentRequest $request): JsonResponse
     {
-        $resultCreation = $this->postComment($request);
+        $commentParams = $request->all();
+        $commentParams['user'] = $request->user();
+        $resultCreation = $this->commentService->postComment($commentParams);
         return \response()->json([
             $resultCreation
         ]);
@@ -61,13 +74,14 @@ class ExecutorController extends Controller
      * Установка статуса исполнителем
      *
      * @param SetOrderStatusExecutor $request Post-запрос
+     * @param IOrderService $orderService Зависимость по работе с
      * @return JsonResponse Ответ в формате JSON с результатами операции
      */
-    public function setStatusOrderRequest(SetOrderStatusExecutor $request): JsonResponse
+    public function setStatusOrderRequest(SetOrderStatusExecutor $request, IOrderService $orderService): JsonResponse
     {
         $resultCreation = false;
         if ($request->validated()) {
-            $resultCreation = $this->setStatusOrder($request);
+            $resultCreation = $orderService->setStatusOrder($request->all());
         }
         return response()->json($resultCreation);
     }

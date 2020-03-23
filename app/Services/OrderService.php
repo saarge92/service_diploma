@@ -73,4 +73,17 @@ class OrderService implements IOrderService
         $row->status_id = $order->status_id;
         return $row;
     }
+
+    public function setStatusOrder(array $statusInfo): bool
+    {
+        $resultOperation = false;
+        $orderId = $statusInfo['orderId'];
+        $statusId = $statusInfo['statusId'];
+        $order = Order::find($orderId);
+        if ($order) {
+            $order->status_id = $statusId;
+            $resultOperation = $order->save();
+        }
+        return $resultOperation;
+    }
 }
