@@ -1,10 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Session;
-use App\Cart;
 
 /**
  * Класс для unit-тестирования HomeController

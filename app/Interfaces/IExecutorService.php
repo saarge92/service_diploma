@@ -12,4 +12,8 @@ interface IExecutorService
     function assignExecutorToOrder(int $orderId, int $userId): bool;
 
     function revokeUserFromOrder(int $orderId, int $userId): bool;
+
+    function getExecutorOrders(array $userParams): array;
+
+    function getOrderById(int $id): array;
 }

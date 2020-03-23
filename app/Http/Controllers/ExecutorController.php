@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\IExecutorService;
 use Illuminate\Http\Request;
-use App\Traits\ExecutorTrait;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\PostCommentRequest;
 use App\Http\Requests\SetOrderStatusExecutor;
@@ -17,7 +17,12 @@ use Illuminate\View\View;
  */
 class ExecutorController extends Controller
 {
-    use ExecutorTrait;
+    private IExecutorService $executorService;
+
+    public function __construct(IExecutorService $executorService)
+    {
+        $this->executorService = $executorService;
+    }
 
     /**
      * Генерация индексной страницы исполнителя
@@ -27,7 +32,9 @@ class ExecutorController extends Controller
      */
     public function index(Request $request): View
     {
-        $data = $this->getExecutorOrders($request);
+        $requestParams = $request->all();
+        $requestParams['user'] = $request->user();
+        $data = $this->executorService->getExecutorOrders($requestParams);
         return view('executor.index', $data);
     }
 
@@ -39,7 +46,7 @@ class ExecutorController extends Controller
      */
     public function getOrder(int $id): View
     {
-        $data = $this->getOrderById($id);
+        $data = $this->executorService->getOrderById($id);
         return view('executor.viewOrder', $data);
     }
 
