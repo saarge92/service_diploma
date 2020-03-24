@@ -44,4 +44,19 @@ class CartServiceTest extends TestCase
     {
         return resolve(ICartService::class);
     }
+
+    /**
+     * Тестирование функционала получения информации о карте заказа
+     * Должен вернуть ассоциативный массив данных о заказе
+     */
+    public function testGetCartInfo()
+    {
+        $cartService = $this->getCartServiceDependency();
+
+        $result = $cartService->getCartInfo();
+
+        $this->assertIsArray($result);
+        $this->assertArrayHasKey('orders', $result);
+        $this->assertArrayHasKey('totalPrice', $result);
+    }
 }
