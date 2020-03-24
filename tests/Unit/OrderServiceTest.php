@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Cart;
 use App\Interfaces\IOrderService;
+use App\Order;
 use App\Service;
 use App\User;
 use Tests\TestCase;
@@ -37,6 +38,20 @@ class OrderServiceTest extends TestCase
         $this->assertEquals($resultConfirm, true);
     }
 
+    /**
+     * Тестирование получения заказа по Id
+     * Тестирование метода getOrderById
+     * Должен вернуть объект в ответе
+     */
+    public function testGetOrderById()
+    {
+        $orderService = $this->getOrderServiceDependency();
+        $randomOrder = Order::orderByRaw("RAND()")->first();
+
+        $orderResult = $orderService->getOrderById($randomOrder['id']);
+
+        $this->assertEquals(is_object($orderResult), true);
+    }
 
     /**
      * Получение зависимости функционала OrderService из контейнера зависимостей
