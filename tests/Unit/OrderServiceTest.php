@@ -6,6 +6,7 @@ use App\Cart;
 use App\Interfaces\IOrderService;
 use App\Order;
 use App\Service;
+use App\Status;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -67,6 +68,26 @@ class OrderServiceTest extends TestCase
         $this->assertEquals(is_object($parsedOrderResult), true);
         $this->assertObjectHasAttribute('previewText', $parsedOrderResult);
         $this->assertObjectHasAttribute('totalQty', $parsedOrderResult);
+    }
+
+    /**
+     * Тестирование установки нового статуса для заказа
+     * Тестирование метода setStatusOrder
+     * Должен вернуть  true в случае успешной установки статуса
+     */
+    public function testSetStatusOrder()
+    {
+        $orderService = $this->getOrderServiceDependency();
+        $randomOrder = Order::orderByRaw("RAND()")->first();
+        $randomStatus = Status::orderByRaw("RAND()")->first();
+
+        $statusInfo = [
+            'orderId' => $randomOrder['id'],
+            'statusId' => $randomStatus['id']
+        ];
+        $result = $orderService->setStatusOrder($statusInfo);
+
+        $this->assertEquals($result, true);
     }
 
     /**
