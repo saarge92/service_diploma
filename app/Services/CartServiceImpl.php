@@ -68,6 +68,7 @@ class CartServiceImpl implements ICartService
     /**
      * Увеличение корзины на 1 позицию
      * @param int $id - номер услуги в корзине
+     * @return array
      */
     public function increaseItem(int $id): array
     {
@@ -75,8 +76,7 @@ class CartServiceImpl implements ICartService
         $cart = new Cart($oldcart);
         $cart->increaseByOne($id);
         Session::put('cart', $cart);
-        $updated_results = $this->getUpdatedResult($cart, $id);
-        return $updated_results;
+        return $this->getUpdatedResult($cart, $id);
     }
 
     /**

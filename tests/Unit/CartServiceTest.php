@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Cart;
 use App\Interfaces\ICartService;
 use App\Service;
+use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -57,6 +58,27 @@ class CartServiceTest extends TestCase
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('orders', $result);
+        $this->assertArrayHasKey('totalPrice', $result);
+    }
+
+    /**
+     * Тестирование добавления в корзину услуги
+     * Должен вернуть обновленную корзину заказов
+     */
+    public function testIncreaseItem()
+    {
+        $cartService = $this->getCartServiceDependency();
+        $randomService = Service::orderByRaw("RAND()")->first();
+
+        $cart = new Cart(null);
+        $cart->add($randomService, $randomService['id']);
+        Session::put('cart', $cart);
+        $result = $cartService->increaseItem($randomService['id']);
+
+        $this->assertIsArray($result);
+        $this->assertArrayHasKey('count_of_element', $result);
+        $this->assertArrayHasKey('price', $result);
+        $this->assertArrayHasKey('totalQty', $result);
         $this->assertArrayHasKey('totalPrice', $result);
     }
 }
