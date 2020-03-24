@@ -74,6 +74,11 @@ class OrderService implements IOrderService
         return $row;
     }
 
+    /**
+     * Установка статуса для заявки
+     * @param array $statusInfo Ассоциативный массив с параметрами
+     * @return bool Установлен ли заказ
+     */
     public function setStatusOrder(array $statusInfo): bool
     {
         $resultOperation = false;
