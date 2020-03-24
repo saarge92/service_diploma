@@ -81,4 +81,21 @@ class CartServiceTest extends TestCase
         $this->assertArrayHasKey('totalQty', $result);
         $this->assertArrayHasKey('totalPrice', $result);
     }
+
+    /**
+     * Тестирование уменьшения корзины на 1 позизию
+     * Должен вернуть массив данных о новой корзине
+     */
+    public function testReduceItem()
+    {
+        $cartService = $this->getCartServiceDependency();
+        $randomService = Service::orderByRaw("RAND()")->first();
+
+        $cart = new Cart(null);
+        $cart->add($randomService, $randomService['id']);
+        Session::put('cart', $cart);
+        $result = $cartService->reduceItem($randomService['id']);
+
+        $this->assertIsArray($result);
+    }
 }
