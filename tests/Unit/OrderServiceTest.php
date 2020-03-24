@@ -54,6 +54,22 @@ class OrderServiceTest extends TestCase
     }
 
     /**
+     * Тестирование функционала для парсинга заказов
+     * Тестирование метода parseOrder
+     */
+    public function testParseOrder()
+    {
+        $orderService = $this->getOrderServiceDependency();
+        $randomOrder = Order::orderByRaw("RAND()")->first();
+
+        $parsedOrderResult = $orderService->parseOrder($randomOrder);
+
+        $this->assertEquals(is_object($parsedOrderResult), true);
+        $this->assertObjectHasAttribute('previewText', $parsedOrderResult);
+        $this->assertObjectHasAttribute('totalQty', $parsedOrderResult);
+    }
+
+    /**
      * Получение зависимости функционала OrderService из контейнера зависимостей
      * @return IOrderService Возвращает зависимость с необходимым функционалом
      * класс OrderService
