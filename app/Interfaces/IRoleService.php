@@ -2,6 +2,9 @@
 
 namespace App\Interfaces;
 
+use App\Role;
+use Illuminate\Database\Eloquent\Collection;
+
 /**
  * Интерфейс IRoleService, определяющий бизнес-логику по работе
  * с ролями в системе
@@ -11,9 +14,11 @@ namespace App\Interfaces;
  */
 interface IRoleService
 {
-    function getAll();
+    public function getAll(): Collection;
 
-    function revokeRole(int $userId, int $roleId): bool;
+    public function revokeRole(int $userId, int $roleId): bool;
 
-    function grantRoleToUser(int $userId, int $roleId): string;
+    public function grantRoleToUser(int $userId, int $roleId): string;
+
+    public function findByName(string $name): ?Role;
 }

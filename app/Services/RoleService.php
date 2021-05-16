@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Interfaces\IRoleService;
 use App\Role;
 use App\UserInRole;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class RoleService, определяющий бизнес-логику
@@ -20,7 +21,7 @@ class RoleService implements IRoleService
      * Получение спипска ролей
      * @return Role[]|\Illuminate\Database\Eloquent\Collection Коллекция ролей
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return Role::all();
     }
@@ -59,5 +60,10 @@ class RoleService implements IRoleService
             $newUserInRole == true ? $resultGrant = 'created' : $result = 'error';
         }
         return $resultGrant;
+    }
+
+    public function findByName(string $name): ?Role
+    {
+        return Role::where(['name' => $name])->first();
     }
 }
