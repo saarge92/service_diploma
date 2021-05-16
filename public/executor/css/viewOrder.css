@@ -1,0 +1,12 @@
+.comment
+{
+    border: 1px solid rgba(218,210,210,.39);
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+}
+.comment:not(:first-child)
+{
+    margin-top: 1rem;
+}
+.comment-text{
+    margin-bottom: .6rem;
+}

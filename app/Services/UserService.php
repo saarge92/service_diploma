@@ -65,7 +65,6 @@ class UserService implements IUserService
      */
     public function postCreateUser(array $createParams): bool
     {
-        $resultCreation = false;
         $user = User::create([
             'name' => $createParams['name'],
             'email' => $createParams['email'],
@@ -78,8 +77,7 @@ class UserService implements IUserService
             $roleService = resolve(IRoleService::class);
             $roleService->grantRoleToUser($user->id, $createParams['roleId']);
         }
-        $resultCreation = $user->save();
-        return $resultCreation;
+        return $user->save();
     }
 
 
