@@ -56,8 +56,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(IExecutorService::class, ExecutorService::class);
         $this->app->singleton(IContactService::class, ContactService::class);
         $this->app->singleton(ICommentService::class, CommentService::class);
-        $this->app->bind('path.public', function () {
-            return base_path() . '/public_html';
-        });
     }
 }
