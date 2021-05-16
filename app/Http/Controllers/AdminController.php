@@ -121,7 +121,7 @@ class AdminController extends Controller
      * @param IUserService $userService Сервис по работе с пользователями
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postUserRequest(CreateUserRequest $request, IUserService $userService)
+    public function postUserRequest(CreateUserRequest $request, IUserService $userService): \Illuminate\Http\RedirectResponse
     {
         if ($request->validated()) {
             $result = $userService->postCreateUser($request->all());

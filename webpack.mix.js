@@ -5,35 +5,35 @@ const mix = require("laravel-mix");
  */
 mix.combine(
     [
-        "public_html/frontend/lib/jquery/jquery.min.js",
-        "public_html/frontend/lib/bootstrap/js/bootstrap.min.js",
-        "public_html/frontend/lib/owlcarousel/owl.carousel.min.js",
-        "public_html/frontend/lib/venobox/venobox.min.js",
-        "public_html/frontend/lib/knob/jquery.knob.js",
-        "public_html/frontend/lib/wow/wow.min.js",
-        "public_html/frontend/lib/parallax/parallax.js",
-        "public_html/frontend/lib/easing/easing.min.js",
-        "public_html/frontend/lib/nivo-slider/js/jquery.nivo.slider.js",
-        "public_html/frontend/lib/appear/jquery.appear.js",
-        "public_html/frontend/lib/isotope/isotope.pkgd.min.js",
-        "public_html/frontend/js/main.js"
+        "public/frontend/lib/jquery/jquery.min.js",
+        "public/frontend/lib/bootstrap/js/bootstrap.min.js",
+        "public/frontend/lib/owlcarousel/owl.carousel.min.js",
+        "public/frontend/lib/venobox/venobox.min.js",
+        "public/frontend/lib/knob/jquery.knob.js",
+        "public/frontend/lib/wow/wow.min.js",
+        "public/frontend/lib/parallax/parallax.js",
+        "public/frontend/lib/easing/easing.min.js",
+        "public/frontend/lib/nivo-slider/js/jquery.nivo.slider.js",
+        "public/frontend/lib/appear/jquery.appear.js",
+        "public/frontend/lib/isotope/isotope.pkgd.min.js",
+        "public/frontend/js/main.js"
     ],
-    "public_html/compiled/frontend/frontend.js"
+    "public/compiled/frontend/frontend.js"
 );
 
 mix.styles(
     [
-        "public_html/frontend/lib/bootstrap/css/bootstrap.min.css",
-        "public_html/frontend/lib/nivo-slider/css/nivo-slider.css",
-        "public_html/frontend/lib/owlcarousel/owl.carousel.css",
-        "public_html/frontend/lib/owlcarousel/owl.transitions.css",
-        "public_html/frontend/lib/animate/animate.min.css",
-        "public_html/frontend/lib/venobox/venobox.css",
-        "public_html/frontend/css/nivo-slider-theme.css",
-        "public_html/frontend/css/style.css",
-        "public_html/frontend/css/responsive.css"
+        "public/frontend/lib/bootstrap/css/bootstrap.min.css",
+        "public/frontend/lib/nivo-slider/css/nivo-slider.css",
+        "public/frontend/lib/owlcarousel/owl.carousel.css",
+        "public/frontend/lib/owlcarousel/owl.transitions.css",
+        "public/frontend/lib/animate/animate.min.css",
+        "public/frontend/lib/venobox/venobox.css",
+        "public/frontend/css/nivo-slider-theme.css",
+        "public/frontend/css/style.css",
+        "public/frontend/css/responsive.css"
     ],
-    "public_html/compiled/frontend/frontend.css"
+    "public/compiled/frontend/frontend.css"
 );
 
 /** For frontend stop */
@@ -41,14 +41,14 @@ mix.styles(
 /**For client start */
 mix.combine(
     [
-        "public_html/client/vendor/jquery/jquery.min.js",
-        "public_html/client/vendor/bootstrap/js/bootstrap.bundle.min.js",
-        "public_html/client/vendor/jquery-easing/jquery.easing.min.js",
-        "public_html/client/js/sb-admin-2.min.js",
-        "public_html/client/js/demo/chart-area-demo.js",
-        "public_html/client/js/demo/chart-pie-demo.js"
+        "public/client/vendor/jquery/jquery.min.js",
+        "public/client/vendor/bootstrap/js/bootstrap.bundle.min.js",
+        "public/client/vendor/jquery-easing/jquery.easing.min.js",
+        "public/client/js/sb-admin-2.min.js",
+        "public/client/js/demo/chart-area-demo.js",
+        "public/client/js/demo/chart-pie-demo.js"
     ],
-    "public_html/compiled/client/client.js"
+    "public/compiled/client/client.js"
 );
 /** For client stop */
 
@@ -57,14 +57,14 @@ mix.combine(
  */
 mix.styles(
     [
-        "public_html/admin/css/bootstrap.min.css",
-        "public_html/admin/css/sb-admin.css",
+        "public/admin/css/bootstrap.min.css",
+        "public/admin/css/sb-admin.css",
     ],
-    "public_html/compiled/admin/admin.css"
+    "public/compiled/admin/admin.css"
 );
 mix.combine([
-    "public_html/admin/js/jquery.min.js",
-    "public_html/admin/js/bootstrap.bundle.min.js",
-    "public_html/'admin/js/sb-admin.min.js'"
-], "public_html/compiled/admin/admin.js");
+    "public/admin/js/jquery.min.js",
+    "public/admin/js/bootstrap.bundle.min.js",
+    "public/'admin/js/sb-admin.min.js'"
+], "public/compiled/admin/admin.js");
  /**For admin stop */
