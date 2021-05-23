@@ -83,20 +83,20 @@ class OrderService implements OrderServiceInterface
         $row = new \stdClass();
 
         $row->id = $order->id;
-        $cart = new Cart(unserialize($order->cart));
+        $services = $order->services->toArray();
         $previewText = [];
-        foreach ($cart->items as $item) {
-            $previewText[] = $item["item"]->title;
+        foreach ($services as $item) {
+            $previewText[] = $item["title"];
         }
         $row->previewText = $previewText;
         $row->created_at = $order->created_at;
         $row->updated_at = $order->updated_at;
-        $row->totalQty = $cart->totalQty;
-        $row->totalSum = $cart->totalPrice;
+        $row->totalQty = $order->total_qty;
+        $row->totalSum = $order->total_price;
         $status = Status::find($order->status_id);
         $row->status = $status ? $status->name : 'Новая';
         $row->executors = $order->executors->pluck('name')->toArray();
-        $row->cart = $cart;
+        $row->cart = $order;
         $row->client = $order->user;
         $row->status_id = $order->status_id;
         return $row;
