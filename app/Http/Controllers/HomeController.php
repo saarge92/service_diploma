@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Interfaces\IContactService;
@@ -10,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ContactRequest;
 use App\Interfaces\ICartService;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 /**
  * Контроллер для работы с главной страницей
@@ -48,7 +51,7 @@ class HomeController extends Controller
      *
      * @return View
      */
-    public function getListServices()
+    public function getListServices(): View
     {
         $services = $this->serviceImpl->getServices();
         return view('client.services', ['services' => $services]);
@@ -63,7 +66,7 @@ class HomeController extends Controller
     public function addToCart(Request $request): JsonResponse
     {
         $id = $request['serviceId'];
-        $cart = $this->cartService->addCartToItem($id);
+        $cart = $this->cartService->addCartToItem((int)$id);
         $request->session()->put('cart', $cart);
         return response()->json(['count' => $cart->totalQty]);
     }
@@ -73,7 +76,7 @@ class HomeController extends Controller
      *
      * @return View возвращает страницу со списком заказанных услуг
      */
-    public function getShoppingCart()
+    public function getShoppingCart(): View
     {
         if (!Session::has('cart')) {
             return view('frontend.shoppingCartView');

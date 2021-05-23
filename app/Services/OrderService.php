@@ -1,32 +1,60 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Cart;
+use App\Dto\Orders\OrderCreateDto;
+use App\Interfaces\ServiceInOrdersServiceInterface;
 use App\Order;
+use App\Repository\Declarations\OrderRepositoryInterface;
+use App\Service;
 use App\Status;
 use App\Interfaces\OrderServiceInterface;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 /**
- * Класс бизнес-логики, определяющий
+ * Класс бизнес-логики, определяющий логику по работе с заказами
+ *
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */
 class OrderService implements OrderServiceInterface
 {
+    private OrderRepositoryInterface $orderRepository;
+    private ServiceInOrdersServiceInterface $serviceInOrdersService;
+
+    public function __construct(
+        OrderRepositoryInterface $orderRepository,
+        ServiceInOrdersServiceInterface $serviceInOrdersService
+    ) {
+        $this->orderRepository = $orderRepository;
+        $this->serviceInOrdersService = $serviceInOrdersService;
+    }
+
     /**
      * Подтверждение заявки
      *
      * @param Cart $cart - Карта с заказами
      * @param int $userId - Id текущего пользователя, выполняющего заказ
      * @return bool - Булево значение, сохранен ли заказ
+     * @throws \Exception
      */
     public function confirmOrderCheck(Cart $cart, int $userId): bool
     {
-        $order = new Order();
-        $order->cart = serialize($cart);
-        $order->user_id = $userId;
-        return $order->save();
+        DB::beginTransaction();
+        try {
+            $orderCreateDto = new OrderCreateDto(null, $userId, $cart->totalQty, $cart->totalPrice);
+            $order = $this->orderRepository->createOrder($orderCreateDto);
+            $this->serviceInOrdersService->saveOrderServicesInformation($cart, $order);
+            DB::commit();
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            throw new ConflictHttpException($exception->getMessage());
+        }
     }
 
     /**

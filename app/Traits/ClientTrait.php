@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Interfaces\OrderServiceInterface;
 use App\Order;
 use App\Services\OrderService;
 use App\Status;
@@ -33,7 +34,7 @@ trait ClientTrait
             ->orderby('created_at', $request->get('orderDate'))
             ->paginate(6);
         $parsedOrders = [];
-        $orderService = new OrderService();
+        $orderService = resolve(OrderServiceInterface::class);
         foreach ($orders as $order) {
             $parsedOrders[] = $orderService->parseOrder($order);
         }

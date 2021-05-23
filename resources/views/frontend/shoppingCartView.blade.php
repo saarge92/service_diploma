@@ -1,7 +1,7 @@
-@extends('layouts.frontend') 
+@extends('layouts.frontend')
 @section('title') Список услуг
 @endsection
- 
+
 @section('styles')
 <style>
     .ajax-loader {
@@ -18,7 +18,7 @@
     }
 </style>
 @endsection
- 
+
 @section('content')
 <div id="shopInfo">
     @if(Session::has('cart') && Session::get('cart')->totalQty>0)
@@ -73,7 +73,7 @@
     @endif
 </div>
 @endsection
- 
+
 @section('scripts')
 <script src="{{URL::asset('frontend/js/basket.js')}}"></script>
 @endsection

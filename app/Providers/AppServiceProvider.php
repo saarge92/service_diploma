@@ -9,12 +9,16 @@ use App\Interfaces\OrderServiceInterface;
 use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
+use App\Interfaces\ServiceInOrdersServiceInterface;
+use App\Repository\Declarations\OrderRepositoryInterface;
+use App\Repository\Implementations\OrderRepository;
 use App\Services\CommentService;
 use App\Services\ContactService;
 use App\Services\ExecutorService;
 use App\Services\OrderService;
 use App\Services\RequestOrderService;
 use App\Services\RoleService;
+use App\Services\ServiceInOrdersService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -56,5 +60,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(IExecutorService::class, ExecutorService::class);
         $this->app->singleton(IContactService::class, ContactService::class);
         $this->app->singleton(ICommentService::class, CommentService::class);
+
+        $this->app->singleton(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->singleton(ServiceInOrdersServiceInterface::class, ServiceInOrdersService::class);
     }
 }
