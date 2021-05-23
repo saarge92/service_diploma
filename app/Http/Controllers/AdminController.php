@@ -60,7 +60,7 @@ class AdminController extends Controller
      * по работе с заявками пользователей
      * @return View Отображает страницу со списком всех заказов
      */
-    public function viewRequests(Request $request, IRequestOrderService $requestOrderService)
+    public function viewRequests(Request $request, IRequestOrderService $requestOrderService): View
     {
         $data = $requestOrderService->getAllRequests($request->all());
         return view('admin.allOrders', $data);

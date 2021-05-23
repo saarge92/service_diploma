@@ -1,11 +1,11 @@
-@extends('layouts.admin') 
+@extends('layouts.admin')
 @section('title')
 @endsection
- 
+
 @section('styles')
 <link rel="stylesheet" href="{{URL::asset('executor/css/viewOrder.css')}}">
 @endsection
- 
+
 @section('content')
     @include('executor.partials.info_modal')
 <div id="shopInfo">
@@ -27,10 +27,10 @@
         <div class="row mt-2">
             <div class="col col-md-12 col-sm-12 col-xs-12">
                 <ul class="list-group">
-                    @foreach($order->cart->items as $item)
+                    @foreach($order->cart->services as $item)
                     <li class="list-group-item">
-                        <span class="badge float-right order_qty">{{$item['qty']}}</span>
-                        <strong>{{$item['item']['title']}}</strong>
+                        <span class="badge float-right order_qty">{{$item['quantity']}}</span>
+                        <strong>{{$item['title']}}</strong>
                         <span class="label label-success current_price">{{$item['price']}} р</span>
                     </li>
                     @endforeach
@@ -116,7 +116,7 @@
     </div>
 </div>
 @endsection
- 
+
 @section('scripts')
 <script type="text/javascript" src="{{URL::asset('admin/js/viewOrder.js')}}"></script>
 <script src="{{URL::asset('executor/js/viewOrder.js')}}"></script>

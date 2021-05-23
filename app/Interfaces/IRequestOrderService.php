@@ -9,9 +9,9 @@ namespace App\Interfaces;
  */
 interface IRequestOrderService
 {
-    function getAllRequests(array $filterParams): array;
+    public function getAllRequests(array $filterParams): array;
 
-    function getOrderById(int $id): array;
+    public function getOrderById(int $id): array;
 
-    function deleteRequestById(int $id): bool;
+    public function deleteRequestById(int $id): bool;
 }
