@@ -93,7 +93,7 @@ class HomeController extends Controller
     public function reduceItemRequest(Request $request): JsonResponse
     {
         $id = $request['orderId'];
-        $results = $this->cartService->reduceItem($id);
+        $results = $this->cartService->reduceItem((int)$id);
         return response()->json(['updated_results' => $results], 200);
     }
 
@@ -105,7 +105,7 @@ class HomeController extends Controller
     public function increaseItemRequest(Request $request): JsonResponse
     {
         $id = $request['orderId'];
-        $updated_results = $this->cartService->increaseItem($id);
+        $updated_results = $this->cartService->increaseItem((int)$id);
         return response()->json(['updated_results' => $updated_results], 200);
     }
 
