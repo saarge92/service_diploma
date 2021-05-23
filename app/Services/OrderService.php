@@ -9,7 +9,6 @@ use App\Dto\Orders\OrderCreateDto;
 use App\Interfaces\ServiceInOrdersServiceInterface;
 use App\Order;
 use App\Repository\Declarations\OrderRepositoryInterface;
-use App\Service;
 use App\Status;
 use App\Interfaces\OrderServiceInterface;
 use Illuminate\Support\Facades\DB;
