@@ -15,7 +15,7 @@ use App\Order;
  */
 interface OrderServiceInterface
 {
-    public function confirmOrderCheck(Cart $cart, int $userId): bool;
+    public function confirmOrderCheck(Cart $cart, int $userId): void;
 
     public function getOrderById(int $id): object;
 

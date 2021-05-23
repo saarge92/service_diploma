@@ -38,10 +38,9 @@ class OrderService implements OrderServiceInterface
      *
      * @param Cart $cart - Карта с заказами
      * @param int $userId - Id текущего пользователя, выполняющего заказ
-     * @return bool - Булево значение, сохранен ли заказ
      * @throws \Exception
      */
-    public function confirmOrderCheck(Cart $cart, int $userId): bool
+    public function confirmOrderCheck(Cart $cart, int $userId): void
     {
         DB::beginTransaction();
         try {
@@ -49,7 +48,6 @@ class OrderService implements OrderServiceInterface
             $order = $this->orderRepository->createOrder($orderCreateDto);
             $this->serviceInOrdersService->saveOrderServicesInformation($cart, $order);
             DB::commit();
-            return true;
         } catch (\Exception $exception) {
             DB::rollBack();
             throw new ConflictHttpException($exception->getMessage());
@@ -66,8 +64,7 @@ class OrderService implements OrderServiceInterface
     public function getOrderById(int $id): object
     {
         $order = Order::find($id);
-        $order = $this->parseOrder($order);
-        return $order;
+        return $this->parseOrder($order);
     }
 
     /**

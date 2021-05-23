@@ -111,10 +111,9 @@ class ClientController extends Controller
         }
         $cart = new Cart(Session::get('cart'));
         $currentUserId = $request->user()->id;
-        $result = $this->orderService->confirmOrderCheck($cart, $currentUserId);
+        $this->orderService->confirmOrderCheck($cart, $currentUserId);
         Session::remove('cart');
-        $result ? Session::flash('success-client', 'Заказ успешно зарегистрирован')
-            : Session::flash('error-client', 'Что-то пошло не так. Обратитесь к администратору');
+        Session::flash('success-client', 'Заказ успешно зарегистрирован');
         return redirect()->route('client.index');
     }
 
