@@ -11,13 +11,13 @@ use App\Order;
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */
-interface IOrderService
+interface OrderServiceInterface
 {
-    function confirmOrderCheck(Cart $cart, int $userId): bool;
+    public function confirmOrderCheck(Cart $cart, int $userId): bool;
 
-    function getOrderById(int $id): object;
+    public function getOrderById(int $id): object;
 
-    function parseOrder(Order $order): object;
+    public function parseOrder(Order $order): object;
 
-    function setStatusOrder(array $statusInfo): bool;
+    public function setStatusOrder(array $statusInfo): bool;
 }

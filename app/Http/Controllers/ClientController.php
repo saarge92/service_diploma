@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Cart;
@@ -7,7 +9,7 @@ use Illuminate\View\View;
 use App\Traits\ClientTrait;
 use Illuminate\Http\Request;
 use App\Interfaces\ICartService;
-use App\Interfaces\IOrderService;
+use App\Interfaces\OrderServiceInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\ChangeProfileRequest;
@@ -26,11 +28,14 @@ class ClientController extends Controller
     use ClientTrait;
 
     private ICartService $cartService;
-    private IOrderService $orderService;
+    private OrderServiceInterface $orderService;
     private IUserProfileService $userProfileService;
 
-    public function __construct(ICartService $cartService, IOrderService $orderService, IUserProfileService $userProfileService)
-    {
+    public function __construct(
+        ICartService $cartService,
+        OrderServiceInterface $orderService,
+        IUserProfileService $userProfileService
+    ) {
         $this->cartService = $cartService;
         $this->orderService = $orderService;
         $this->userProfileService = $userProfileService;
@@ -39,9 +44,9 @@ class ClientController extends Controller
     /**
      * Получение данных корзины
      *
-     * @return View - возвращает страницу с данными корзины
+     * @return \Illuminate\Foundation\Application|RedirectResponse|\Illuminate\Routing\Redirector|View
      */
-    public function getCartInfoClient(): View
+    public function getCartInfoClient()
     {
         if (!Session::has('cart')) {
             return \redirect('/#services');
@@ -80,7 +85,7 @@ class ClientController extends Controller
      * @param ChangeProfileRequest $request Параметры изменения параметров пользователя
      * @return RedirectResponse Перенаправление на страницу клиентского профиля
      */
-    public function changeProfile(ChangeProfileRequest $request)
+    public function changeProfile(ChangeProfileRequest $request): RedirectResponse
     {
         if ($request->validated()) {
             $currentUserId = $request->user()->id();
@@ -118,9 +123,8 @@ class ClientController extends Controller
      *
      * @param Request $request - Get-запрос
      * @param int $id - номер заказа
-     * @return \Illuminate\Contracts\View\Factory|View
      */
-    public function getOrder(Request $request, int $id)
+    public function getOrder(Request $request, int $id): View
     {
         $order = $this->orderService->getOrderById($id);
         return view('client.order', ['order' => $order]);

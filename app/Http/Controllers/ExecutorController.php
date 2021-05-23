@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\ICommentService;
 use App\Interfaces\IExecutorService;
-use App\Interfaces\IOrderService;
+use App\Interfaces\OrderServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\PostCommentRequest;
@@ -74,10 +74,10 @@ class ExecutorController extends Controller
      * Установка статуса исполнителем
      *
      * @param SetOrderStatusExecutor $request Post-запрос
-     * @param IOrderService $orderService Зависимость по работе с
+     * @param OrderServiceInterface $orderService Зависимость по работе с
      * @return JsonResponse Ответ в формате JSON с результатами операции
      */
-    public function setStatusOrderRequest(SetOrderStatusExecutor $request, IOrderService $orderService): JsonResponse
+    public function setStatusOrderRequest(SetOrderStatusExecutor $request, OrderServiceInterface $orderService): JsonResponse
     {
         $resultCreation = false;
         if ($request->validated()) {

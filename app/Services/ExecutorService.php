@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Comment;
 use App\ExecutorInOrder;
 use App\Interfaces\IExecutorService;
-use App\Interfaces\IOrderService;
+use App\Interfaces\OrderServiceInterface;
 use App\Order;
 use App\Role;
 use App\Status;
@@ -21,9 +21,9 @@ use App\UserInRole;
  */
 class ExecutorService implements IExecutorService
 {
-    private IOrderService $orderService;
+    private OrderServiceInterface $orderService;
 
-    public function __construct(IOrderService $orderService)
+    public function __construct(OrderServiceInterface $orderService)
     {
         $this->orderService = $orderService;
     }

@@ -5,14 +5,14 @@ namespace App\Services;
 use App\Cart;
 use App\Order;
 use App\Status;
-use App\Interfaces\IOrderService;
+use App\Interfaces\OrderServiceInterface;
 
 /**
  * Класс бизнес-логики, определяющий
  * @author Inara Durdyeva <inara97_97@mail.ru>
  * @copyright Copyright (c) Inara Durdyeva
  */
-class OrderService implements IOrderService
+class OrderService implements OrderServiceInterface
 {
     /**
      * Подтверждение заявки

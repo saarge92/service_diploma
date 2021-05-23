@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Cart;
-use App\Interfaces\IOrderService;
+use App\Interfaces\OrderServiceInterface;
 use App\Order;
 use App\Service;
 use App\Status;
@@ -92,11 +92,11 @@ class OrderServiceTest extends TestCase
 
     /**
      * Получение зависимости функционала OrderService из контейнера зависимостей
-     * @return IOrderService Возвращает зависимость с необходимым функционалом
+     * @return OrderServiceInterface Возвращает зависимость с необходимым функционалом
      * класс OrderService
      */
-    private function getOrderServiceDependency(): IOrderService
+    private function getOrderServiceDependency(): OrderServiceInterface
     {
-        return resolve(IOrderService::class);
+        return resolve(OrderServiceInterface::class);
     }
 }

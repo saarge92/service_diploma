@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Comment;
 use App\ExecutorInOrder;
-use App\Interfaces\IOrderService;
+use App\Interfaces\OrderServiceInterface;
 use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IUserService;
 use App\Order;
@@ -22,9 +22,9 @@ class RequestOrderService implements IRequestOrderService
 {
 
     private IUserService $userService;
-    private IOrderService $orderService;
+    private OrderServiceInterface $orderService;
 
-    public function __construct(IUserService $userService, IOrderService $orderService)
+    public function __construct(IUserService $userService, OrderServiceInterface $orderService)
     {
         $this->userService = $userService;
         $this->orderService = $orderService;
