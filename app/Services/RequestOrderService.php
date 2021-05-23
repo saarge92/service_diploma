@@ -47,9 +47,14 @@ class RequestOrderService implements IRequestOrderService
 
         $orders = null;
         if (isset($filterParams['statusId'])) {
-            if ($filterParams['statusId'] == 'new') $orders = Order::where(['status_id' => null]);
-            else $orders = Order::where(['status_id' => $filterParams['statusId']]);
-        } else $orders = Order::where('id', '!=', null);
+            if ($filterParams['statusId'] == 'new') {
+                $orders = Order::where(['status_id' => null]);
+            } else {
+                $orders = Order::where(['status_id' => $filterParams['statusId']]);
+            }
+        } else {
+            $orders = Order::where('id', '!=', null);
+        }
 
         if (isset($filterParams['clientId'])) {
             $orders = $orders->where(['user_id' => $filterParams['clientId']]);
@@ -85,9 +90,11 @@ class RequestOrderService implements IRequestOrderService
         $order = Order::find($id);
         $parsedOrders = $this->orderService->parseOrder($order);
         $executors = $order->executors;
-        $comments = Comment::where([
-            'order_id' => $order != null ? $order->id : null
-        ])->paginate(12);
+        $comments = Comment::where(
+            [
+                'order_id' => $order != null ? $order->id : null
+            ]
+        )->paginate(12);
         $availableExecutors = $this->userService->getExecutors();
         if ($availableExecutors) {
             $availableExecutors = $availableExecutors->whereNotIn(
