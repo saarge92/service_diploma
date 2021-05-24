@@ -44,7 +44,8 @@ class OrderService implements OrderServiceInterface
     {
         DB::beginTransaction();
         try {
-            $orderCreateDto = new OrderCreateDto(null, $userId, $cart->totalQty, $cart->totalPrice);
+            $statusIdNew = 1;
+            $orderCreateDto = new OrderCreateDto($statusIdNew, $userId, $cart->totalQty, $cart->totalPrice);
             $order = $this->orderRepository->createOrder($orderCreateDto);
             $this->serviceInOrdersService->saveOrderServicesInformation($cart, $order);
             DB::commit();

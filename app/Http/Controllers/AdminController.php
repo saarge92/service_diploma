@@ -212,7 +212,7 @@ class AdminController extends Controller
      * обратную связь
      * @return View - Страница со списком
      */
-    public function displayContacts(IContactService $contactService)
+    public function displayContacts(IContactService $contactService): View
     {
         $contactRecords = $contactService->getRecordsOfContacts();
         return view('admin.contacts', $contactRecords);
