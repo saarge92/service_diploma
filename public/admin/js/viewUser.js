@@ -40,7 +40,7 @@ $("#grantRole").on("click", function (event) {
                 case 'error':{
                     var headerText = 'Ошибка';
                     var messageBody = 'Произошла ошибка! Обратитесь к администратору!';
-                    showMessage(headerText,messageBody);                   
+                    showMessage(headerText,messageBody);
                     break;
                 }
             }
@@ -49,8 +49,7 @@ $("#grantRole").on("click", function (event) {
         error: function (error) {
             var headerText = 'Ошибка';
             var messageBody = 'Произошла ошибка!Обратитесь к администратору';
-            showMessage(headerText,messageBody);                   
-            break;
+            showMessage(headerText,messageBody);
         }
     });
 });
@@ -84,7 +83,7 @@ $("#rolesTable").on("click", ".revokeRole", function (event) {
             {
                 var headerText = 'Ошибка';
                 var messageBody = 'Произошла ошибка!Обратитесь к администратору';
-                showMessage(headerText,messageBody);         
+                showMessage(headerText,messageBody);
             }
         },
         error: function (error) {
