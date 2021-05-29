@@ -41,23 +41,29 @@ class ExecutorService implements IExecutorService
         $response = false;
 
         //Назначен ли уже такой исполнитель на заявку
-        $recordCount = ExecutorInOrder::where([
-            'user_id' => $userId,
-            'order_id' => $orderId
-        ])->count();
+        $recordCount = ExecutorInOrder::where(
+            [
+                'user_id' => $userId,
+                'order_id' => $orderId
+            ]
+        )->count();
 
         //Является ли назначаемый пользователь исполнителем
         $roleExecutor = Role::where(['name' => 'executor'])->first();
-        $userInRole = UserInRole::where([
-            'user_id' => $userId,
-            'role_id' => $roleExecutor->id
-        ])->count();
+        $userInRole = UserInRole::where(
+            [
+                'user_id' => $userId,
+                'role_id' => $roleExecutor->id
+            ]
+        )->count();
 
         if ($recordCount == 0 && $userInRole > 0) {
-            $response = ExecutorInOrder::create([
-                'order_id' => $orderId,
-                'user_id' => $userId
-            ])->save();
+            $response = ExecutorInOrder::create(
+                [
+                    'order_id' => $orderId,
+                    'user_id' => $userId
+                ]
+            )->save();
         }
         return $response;
     }
@@ -71,10 +77,12 @@ class ExecutorService implements IExecutorService
      */
     public function revokeUserFromOrder(int $orderId, int $userId): bool
     {
-        return ExecutorInOrder::where([
-            'order_id' => $orderId,
-            'user_id' => $userId
-        ])->delete();
+        return ExecutorInOrder::where(
+            [
+                'order_id' => $orderId,
+                'user_id' => $userId
+            ]
+        )->delete();
     }
 
     /**
@@ -90,12 +98,10 @@ class ExecutorService implements IExecutorService
         $clientsId = Order::distinct('user_id')->pluck('user_id')->toArray();
         $allClients = User::whereIn('id', $clientsId)->get();
         $executorOrders = ExecutorInOrder::where(['user_id' => $userId])->pluck('order_id')->toArray();
-        $orders = null;
-        if ($statusId == 'new') {
-            $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => null]);
-        } else {
-            $statusId == null ? $orders = Order::whereIn('id', $executorOrders) : $orders = Order::whereIn('id', $executorOrders)->where(['status_id' => $statusId]);
-        }
+        $statusId == null ? $orders = Order::whereIn('id', $executorOrders) : $orders = Order::whereIn(
+            'id',
+            $executorOrders
+        )->where(['status_id' => $statusId]);
         if ($clientId != null) {
             $orders = $orders->where(['user_id' => $clientId]);
         }
@@ -124,9 +130,11 @@ class ExecutorService implements IExecutorService
         $order = Order::find($id);
         $parsedOrder = $this->orderService->parseOrder($order);
         $statuses = Status::whereNotIn('name', ['Закрыта'])->get();
-        $comments = Comment::where([
-            'order_id' => $order != null ? $order->id : null
-        ])->paginate(12);
+        $comments = Comment::where(
+            [
+                'order_id' => $order != null ? $order->id : null
+            ]
+        )->paginate(12);
         return [
             'order' => $parsedOrder,
             'comments' => $comments,

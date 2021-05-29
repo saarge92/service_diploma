@@ -1,7 +1,7 @@
-@extends('layouts.executor') 
+@extends('layouts.executor')
 @section('title') Мои заявки
 @endsection
- 
+
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -13,13 +13,11 @@
                 <div class="form-group">
                     <select name="statusId" id="orderSelect" class="form-control">
                             @foreach ($statuses as $status)
-                                <option value="{{$status->id}}" 
+                                <option value="{{$status->id}}"
                                     {{isset($_GET['statusId']) ?  ($_GET['statusId'] == $status->id ? 'selected' : '') : ''}}>
                                     {{$status->name}}
                                 </option>
                             @endforeach
-                            <option value="" 
-                                {{ isset($_GET['statusId']) ? ($_GET['statusId'] == 'new' ? 'selected' : '') : ''}} >Новая</option>
                             <option value="" {{ isset($_GET['statusId']) ? ($_GET['statusId'] == null ? 'selected' : '') : 'selected'}} >
                                 Все
                             </option>
@@ -35,7 +33,7 @@
                                 {{ $client->name }}
                                 </option>
                             @endforeach
-                            <option value="" 
+                            <option value=""
                             {{ isset($_GET['clientId']) ? ($_GET['clientId'] == null ? 'selected' : '') : 'selected'}}>
                                 Все
                             </option>
