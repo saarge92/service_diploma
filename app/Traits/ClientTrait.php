@@ -4,7 +4,6 @@ namespace App\Traits;
 
 use App\Interfaces\OrderServiceInterface;
 use App\Order;
-use App\Services\OrderService;
 use App\Status;
 use Illuminate\Http\Request;
 
@@ -28,7 +27,7 @@ trait ClientTrait
     {
         $currentUserId = $request->user()->id;
         $statusId = $request->get('statusId');
-        $statusId == 'all' ?
+        $statusId == null ?
             $orders = Order::where(['user_id' => $currentUserId])->orderby('created_at', $request->get('orderDate'))
                 ->paginate(6) : $orders = Order::where(['status_id' => $statusId, 'user_id' => $currentUserId])
             ->orderby('created_at', $request->get('orderDate'))
