@@ -47,11 +47,7 @@ class RequestOrderService implements IRequestOrderService
 
         $orders = null;
         if (isset($filterParams['statusId'])) {
-            if ($filterParams['statusId'] == 'new') {
-                $orders = Order::where(['status_id' => null]);
-            } else {
-                $orders = Order::where(['status_id' => $filterParams['statusId']]);
-            }
+            $orders = Order::where(['status_id' => $filterParams['statusId']]);
         } else {
             $orders = Order::where('id', '!=', null);
         }

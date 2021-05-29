@@ -23,9 +23,6 @@
                                     {{$status->name}}
                                 </option>
                             @endforeach
-                            <option value="new" {{ isset($_GET['statusId']) ? ($_GET['statusId'] == 'new' ? 'selected' : '') : ''}}>
-                                Новая
-                            </option>
                             <option value="" {{ isset($_GET['statusId']) ? ($_GET['statusId'] == null ? 'selected' : '') : 'selected'}}>
                                 Все
                             </option>
