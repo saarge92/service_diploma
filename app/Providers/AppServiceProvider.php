@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Interfaces\FileServiceInterface;
 use App\Interfaces\ICommentService;
 use App\Interfaces\IContactService;
 use App\Interfaces\IExecutorService;
@@ -10,15 +11,18 @@ use App\Interfaces\IRequestOrderService;
 use App\Interfaces\IRoleService;
 use App\Interfaces\IUserService;
 use App\Interfaces\ServiceInOrdersServiceInterface;
+use App\Interfaces\TeamServiceInterface;
 use App\Repository\Declarations\OrderRepositoryInterface;
 use App\Repository\Implementations\OrderRepository;
 use App\Services\CommentService;
 use App\Services\ContactService;
 use App\Services\ExecutorService;
+use App\Services\FileService;
 use App\Services\OrderService;
 use App\Services\RequestOrderService;
 use App\Services\RoleService;
 use App\Services\ServiceInOrdersService;
+use App\Services\TeamService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -63,5 +67,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->singleton(ServiceInOrdersServiceInterface::class, ServiceInOrdersService::class);
+        $this->app->singleton(FileServiceInterface::class, FileService::class);
+        $this->app->singleton(TeamServiceInterface::class, TeamService::class);
     }
 }
