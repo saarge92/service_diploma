@@ -26,7 +26,7 @@ class TeamMemberCreateRequest extends FormRequest
         return [
             'name' => 'required|string|max:1024',
             'position' => 'required|string|max:1024',
-            'photo' => 'required|image|size:10MB',
+            'photo' => 'required|mimes:jpeg,png,jpg,gif,svg|max:15000',
             'vk_url' => 'nullable|url',
             'instagram_url' => 'nullable|url'
         ];

@@ -23,7 +23,7 @@ class TeamService implements TeamServiceInterface
     public function createMember(TeamMemberDto $teamMemberDto): Team
     {
         $team = new Team();
-        $photoPath = $this->fileService->saveFile($teamMemberDto->getPhoto(), 'teams');
+        $photoPath = $this->fileService->saveFile($teamMemberDto->getPhoto(), 'teams', $teamMemberDto->getName());
         $team['photo'] = $photoPath;
         $team['name'] = $teamMemberDto->getName();
         $team['position'] = $teamMemberDto->getPosition();
@@ -46,7 +46,7 @@ class TeamService implements TeamServiceInterface
             throw new ConflictHttpException("Такой член команды не найден");
         }
         if ($teamMemberDto->getPhoto()) {
-            $photoPath = $this->fileService->saveFile($teamMemberDto->getPhoto(), 'teams');
+            $photoPath = $this->fileService->saveFile($teamMemberDto->getPhoto(), 'teams', $teamMemberDto->getName());
             $team['photo'] = $photoPath;
         }
         $team['name'] = $teamMemberDto->getName();

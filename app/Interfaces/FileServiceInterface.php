@@ -8,5 +8,5 @@ use Illuminate\Http\UploadedFile;
 
 interface FileServiceInterface
 {
-    public function saveFile(UploadedFile $file, string $destination): string;
+    public function saveFile(UploadedFile $file, string $destination, ?string $name = null): string;
 }

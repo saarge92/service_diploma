@@ -22,7 +22,7 @@ class TeamMemberDto
     public static function initFromRequest(TeamMemberCreateRequest $request): self
     {
         return new static(
-            $request->get("name"), $request->get("photo"), $request->get("position"),
+            $request->get("name"), $request->file("photo"), $request->get("position"),
             $request->get("vk_url"), $request->get("instagram_url")
         );
     }
