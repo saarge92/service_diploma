@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row mt-2 ml-2">
-        <a href="{{ route('admin.getCreateService') }}" class="btn btn-primary"> <i class="fas fa-plus"></i> Добавить услугу</a>
+        <a href="{{ route('admin.getCreateService') }}" class="btn btn-primary"> <i class="fas fa-plus"></i> Добавить члена команды</a>
     </div>
     <div class="row mt-2">
         <div class="col-md-12">

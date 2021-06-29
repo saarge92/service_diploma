@@ -27,6 +27,8 @@ class TeamMemberCreateRequest extends FormRequest
             'name' => 'required|string|max:1024',
             'position' => 'required|string|max:1024',
             'photo' => 'required|image|size:10MB',
+            'vk_url' => 'nullable|url',
+            'instagram_url' => 'nullable|url'
         ];
     }
 }
