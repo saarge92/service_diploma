@@ -6,7 +6,7 @@
                     <div class="footer-content">
                         <div class="footer-head">
                             <div class="footer-logo">
-                                <h2>DosLab</h2>
+                                <h2>Адептик</h2>
                             </div>
 
                             <p>Предлагаем лучшие автоматизированные решения в сфере бизнеса</p>
